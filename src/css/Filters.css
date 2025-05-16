@@ -1,0 +1,112 @@
+
+.content-filters{
+    margin-top: 1%;
+  
+    /* background-color: bisque; */
+    width: 300px;
+}
+.content-filters p{
+    margin: 20px 0 15px 5px;
+    display: flex;
+    justify-content: left;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.name{
+    margin: 5px 0 10px 0;
+    height: 40px;
+    width: 98%;
+    display: flex;
+    align-items: center;
+    border: 0.1px solid rgb(140, 181, 201);
+    border-radius: 1em;
+}
+.name input{
+    height: 100px;
+    width: 85%;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    margin-left: 2px;
+    color: rgb(134, 33, 33);
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: medium;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 24;
+  color: rgb(134, 33, 33);
+  margin-left: 5px;
+}
+
+.specialty{
+    margin: 2px 2px 15px 2px;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+}
+.specialty div{
+    display: flex;
+    justify-content: left;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.specialty input[type="checkbox"]{
+    accent-color: rgb(134, 33, 33);;
+}
+
+.value{
+    margin: 2px;
+    height: 50px;
+    width: 98%;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+.min, .max{
+    height: 100%;
+    width: 40%;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.min label, .max label{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: small;
+
+}
+
+.min input, .max input{
+    margin: 2px 0 0 0 ;
+    padding: 0;
+    width: 90%;
+    height: 40%;
+    outline: none;
+    border: 0.1px solid rgb(140, 181, 201);
+    border-radius: 0.2em ;
+    color: rgb(134, 33, 33);
+}
+
+@media (max-width:1250px){
+    .content-filters{
+        margin-left: 15px;
+    }
+}

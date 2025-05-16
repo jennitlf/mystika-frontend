@@ -1,0 +1,120 @@
+.header{ 
+    height: 72px;
+    width: 100vw;
+    background-color: #f9f9f9;
+    border-bottom: solid 1px #E1E5EE;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.logo{
+    width: 8%;
+    height: 80%;
+    margin:0 8% 0 15%;
+}
+
+.logo img{
+    height: 100%;
+}
+.content-button-enter{
+    width: 7%;
+    height: 50%;
+    margin:0 10px 0 20%;
+}
+.menu-user{
+    width: 180px;
+    height: 100%; 
+    display:flex;
+    flex-direction:row;
+    align-items: center; 
+    text-decoration: none;  
+}
+.menu-user button{
+    width: 70%;
+    height: 100%;
+    background-color: rgb(206, 132, 103);
+    border: 0.1px solid rgb(206, 132, 103);
+    border-radius: 1em;
+    font-family: "Abril Fatface", serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-right: 8px;
+}
+.logout{
+    font-size:xx-large;
+    cursor: pointer;
+}
+.div-menu-nav{
+    width: 25%;
+    height: 50%;
+    display: flex;
+    padding: 0;
+    flex-direction: row;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.menu-nav{
+    list-style: none;
+    margin:0 10px 0 10px;
+    font-family: "Changa", serif;
+    font-optical-sizing: auto;
+    font-size: larger;
+    color: black;
+    text-decoration: none;
+}
+
+
+@media (max-width: 1250px) { 
+    .logo{
+        margin-left: 10%;
+    }
+    .div-menu-nav{
+        width: 600px;
+        margin: 0;
+        justify-content: space-around;
+        
+    }
+    .menu-nav{
+        margin: 0 0 0 0;
+    }
+    .menu-user{
+        margin-left: 10%;
+    }
+
+ }
+@media (max-width: 1170px) {
+    .logo{
+        width: 8%;
+        height: 80%;
+        margin:0 8% 0 10%;
+    }
+    .menu-user{
+        margin-right: 10%;
+    }
+}
+
+@media (max-width: 1322px) {
+   
+    .menu-user button{
+        width: 90px;
+    }
+}
+
+/* mobile */
+
+/* @media(max-width: 700px) {
+    .div-menu-nav, .menu-user{
+        display:none;
+    }
+    
+
+} */

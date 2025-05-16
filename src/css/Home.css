@@ -1,0 +1,273 @@
+.loading{
+    height: 200px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.consultants{
+    height: 1600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+  }
+
+  #title-consultant-page{
+    margin: 130px auto 40px auto;
+    color: rgb(134, 33, 33);
+  }
+  .consultants-e-filtes{
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:flex-start; 
+  }
+  
+  .Content-consultants{
+    width: 850px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    justify-items: center;
+    margin: 0;
+  }
+  
+  .consultant-card{
+    background-color: rgb(140, 181, 201);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    width: 260px;
+    height: 415px;
+    margin: 5% 0 5% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .container-img{
+    height: 195px;
+    width: 200px;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1em;
+}  
+.container-img img{
+  height: 100%;
+  width: auto;
+  border-radius: 10%;
+}
+.consultant-card h3{
+  width: 100%;
+  height: 35px;
+  margin: 9px auto 5px auto;
+  font-family: "DM Serif Display", serif;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: 1.5px;
+  
+}
+.box-specialty{
+  padding: 0;
+  width: 90%;
+  height: 50px;
+  color: rgb(25, 55, 63);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  font-family: "Bona Nova SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:smaller;
+  margin:2% 0 2% 10%;
+
+}
+.box-specialty p {
+  width: 80%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+
+}
+.specialty-label{
+  margin-bottom: 0;
+}
+.value-minimum b{
+  margin-left: 4px;
+}
+
+.div-button{
+  width: 75%;
+  height: 45px;
+  padding: 0;
+  background-color: inherit;
+  margin: 5px auto 5px auto;
+}
+
+.div-button button{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0.1px solid rgb(140, 181, 201);
+  border-radius: 1em;
+  cursor: pointer;
+  font-family: "Bona Nova SC", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.div-button button:hover{
+  color: white;
+  background-color: brown;
+}
+
+
+
+/* filters and list */
+@media (max-width: 1250px){
+  .consultants-e-filtes{
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+    
+}
+
+
+@media(max-width: 905px){
+  .Content-consultants{
+    width: 550px;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    justify-items: center;
+  }
+  .consultant-card{
+    background-color: rgb(140, 181, 201);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+    height: 380px;
+    margin: 5% 0 5% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .consultants-e-filtes{
+    width: 100vw;
+    align-items: center;
+  }
+  
+}
+
+.loading-consultant-list-filter{
+ 
+    width: 100vw;
+    height: 100vh;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+@media (max-width: 800px){
+  #title-consultant-page{
+    margin: 130px auto 40px auto;
+    font-size: larger;
+    color: rgb(134, 33, 33);
+  }
+}
+
+/* mobile */
+
+@media(max-width: 670px) {
+  #title-consultant-page{
+    margin: 130px 0 40px 0;
+    width: 300px;
+  }
+}
+
+@media(max-width: 600px) {
+  .Content-consultants{
+    width: 550px;
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
+    justify-items: center;
+  }
+  .consultants-e-filtes{
+    width: 100vw;
+    align-items: center;
+  }
+}
+
+
+@media(max-width: 700px){
+  .consultants-e-filtes{
+    width: 100vw;
+    align-items: center;
+  }
+  .Content-consultants{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(90%, 1fr));
+    justify-items: center;
+    margin: 0;
+   
+  }
+  .consultant-card{
+    background-color: rgb(140, 181, 201);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+    height: 550px;
+    margin: 5% 0 5% 0;
+  }
+  .loading{
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-img{
+  
+    height: 290px;
+    width: 350px;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1em;
+}  
+}
+
+@media(max-width: 545px){
+  .container-img{
+    height: 280px;
+    width: 75%;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1em;
+}  
+}
+
+  

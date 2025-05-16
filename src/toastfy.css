@@ -1,0 +1,39 @@
+.Toastify__toast {
+    border-radius: 10px; /* Bordas arredondadas */
+    font-size: 16px; /* Fonte maior */
+    text-align: center; /* Centralizar texto */
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .Toastify__toast--success {
+    background: rgb(140, 181, 201); /* Cor de sucesso */
+    color: #fff; /* Texto branco */
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .Toastify__toast--error {
+    background: #dc3545; /* Cor de erro */
+    color: #fff; /* Texto branco */
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .Toastify__toast--info {
+    background: #17a2b8; /* Cor de informação */
+    color: #fff; /* Texto branco */
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .Toastify__progress-bar {
+    background: #fff; /* Cor da barra de progresso */
+    font-family: "Tsukimi Rounded", serif;
+    font-weight: 400;
+    font-style: normal;
+  }

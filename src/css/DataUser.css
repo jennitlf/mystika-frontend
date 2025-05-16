@@ -1,0 +1,33 @@
+.container-dataUser{
+    width: 90%;
+    height: 90%;
+    padding: 50px 0 0 50px;
+}
+.container-dataUser h3{
+    margin: 0 0 30px 0;
+    font-size: x-large;
+    font-family: "Comfortaa", serif;
+    font-optical-sizing: auto;
+}
+.box-dataUser{
+    height: 50px;
+    margin-left: 20px;
+
+}
+.box-dataUser label{
+    font-size:medium;
+    font-family: "Comfortaa", serif;
+    font-optical-sizing: auto;
+    margin: 0 10px 0 0;
+}
+.box-dataUser input{
+    height: 25px;
+    width: 250px;
+    border-radius: 0.4em;
+    border: #fff solid 0.1px;
+    outline: none;
+}
+.box-dataUser input:focus{
+    border-color: #007bff;
+    box-shadow: 0 0 4px #007bff;
+}
