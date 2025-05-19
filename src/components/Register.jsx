@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import file from '../image/file.png';
 import '../css/Register.css';
-import { API } from "../config";
+// import { API } from "../config";
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,7 +32,7 @@ const Register = () => {
     const onSubmit = async (data) => {
         data.status = "ativo";
         try {
-          const response = await fetch(`${API}/auth/customer/register`, {
+          const response = await fetch(`http://localhost:3001/auth/customer/register`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data),

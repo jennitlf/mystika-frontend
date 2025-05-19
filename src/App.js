@@ -10,8 +10,10 @@ import Consultant from './components/Consultant.jsx';
 import MyData from './components/MyData.jsx';
 import HeaderMobile from './components/HeaderMobile.jsx';
 import Home from './components/Home.jsx';
+import Support from './components/Support.jsx';
+import SupportDetails from './components/SupportDetails.jsx'; // Importe o novo componente
 import { ToastContainer } from 'react-toastify';
-import './toastfy.css'
+import './toastfy.css';
 
 export default function AppWrapper() {
   return (
@@ -40,7 +42,23 @@ function App() {
           path="/meus-dados"
           element={
             <PrivateRoute>
-              <MyData/>
+              <MyData />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/ajuda"
+          element={
+            <PrivateRoute>
+              <Support />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/customer-support/record/:id"
+          element={
+            <PrivateRoute>
+              <SupportDetails /> {/* Renderiza o SupportDetails */}
             </PrivateRoute>
           }
         />
@@ -48,12 +66,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-      <ToastContainer 
-      position='bottom-right'
-      autoClose='1000'
-      hideProgressBar='false'
-      newestOnTop={true}
-      closeOnClick={true}
+      <ToastContainer
+        position="bottom-right"
+        autoClose="1000"
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={true}
       />
     </div>
   );

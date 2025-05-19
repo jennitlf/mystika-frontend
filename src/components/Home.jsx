@@ -3,11 +3,11 @@ import Consultants from "./Consultants"
 import "../css/Home.css"
 import Filters from "./Filters";
 import Page from "./Page";
-import { API } from "../config";
+// import { API } from "../config";
 
 
 const Home = () => {
-
+  // console.log(API)
   const [consultants, setConsultants] = useState([]);
   const [totalConsultants, setTotalConsultants] = useState("");
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const Home = () => {
     
     const fetchConsultants = async () => {
       try {
-        const response = await fetch(`${API}/general-find?page=${page}&${queryString}`);
+        const response = await fetch(`http://localhost:3001/general-find?page=${page}&${queryString}`);
         ///                                 
         const data = await response.json();
         setConsultants(data.data);

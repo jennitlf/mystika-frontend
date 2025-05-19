@@ -15,12 +15,11 @@ const Header = () => {
             <ul className="div-menu-nav">
                 <Link className="menu-nav" to={'/consultores'}>Consultores</Link>
                 <Link className="menu-nav" to={'/meus-dados'}>Meus dados</Link>
-                <Link className="menu-nav">ajuda</Link>
+                <Link className="menu-nav" to={'/ajuda'}>ajuda</Link>
             </ul>
             <div className="content-button-enter">
             {user ? <div className="menu-user"> <button >{user.name}</button> <span className="material-symbols-outlined logout" onClick={()=> logout()}>logout</span></div>: <Link className="menu-user" to={'/login'}> <button>Entrar</button></Link>}
             </div>
-            {/* <Link className="menu-user" to={'/login'}> <button>Entrar</button></Link> */}
         </div>
     ) 
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../css/Consultant.css";
-import { API } from "../config";
+// import { API } from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
@@ -49,7 +49,7 @@ const Consultant = () => {
     const fetchConsultant = async () => {
       try {
         const response = await fetch(
-          `${API}/consultant-specialty?idConsultant=${id}&page=1&limit=9`
+          `http://localhost:3001/consultant-specialty?idConsultant=${id}&page=1&limit=9`
         );
         const data = await response.json();
         setConsultant(data.data);
@@ -69,7 +69,7 @@ const Consultant = () => {
       setAvailableTimes([]);
       setSelectedDateTime(null);
       const response = await fetch(
-        `${API}/schedule-consultant/${idConsultantSpecialty}/timeslots`
+        `http://localhost:3001/schedule-consultant/${idConsultantSpecialty}/timeslots`
       );
       const data = await response.json();
       // Agrupar os horários por data e ordenar as datas em ordem crescente
@@ -118,7 +118,7 @@ const Consultant = () => {
       appoinment_date: selectedDateTime.date, 
     };
     try {
-      const response = await fetch(`${API}/consultation`, {
+      const response = await fetch(`http://localhost:3001/consultation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import file from '../image/file.png';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../context/AuthContext";
-import { API } from "../config";
+// import { API } from "../config";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -25,11 +25,9 @@ const Login = () => {
   })
   const { login } = useContext(AuthContext);
  
-
   const onSubmit = async (data) => {
-    data.status = "ativo";
     try {
-      const response = await fetch(`${API}/auth/customer/login`, {
+      const response = await fetch(`http://localhost:3001/auth/customer/login`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(data),

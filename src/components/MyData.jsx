@@ -6,12 +6,12 @@ import ScheduledAppointments from "./ScheduledAppointments.jsx";
 
 const MyData = () => {
 
-    const [ element, setElemnt ] = useState("DataUser")
+    const [ element, setElement ] = useState("DataUser")
     const colorSelect = {backgroundColor: 'rgb(208, 225, 233)'}
     
 
     const onClick = (e) => {
-        setElemnt(e.target.name)
+        setElement(e.target.name)
     }
 
     const renderContent = () => {
