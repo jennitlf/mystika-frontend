@@ -25,8 +25,8 @@ const SupportDetail = () => {
         e.preventDefault();
         setLoading(true);
         try {
-          const response = await fetch(`http://localhost:3001/customer-support`, {
-            method: "POST",
+          const response = await fetch(`http://localhost:3001/customer-support/record/${id}`, {
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const SupportDetail = () => {
         const fetchSupportDetail = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/customer-support/record/${id}`, {
-                    method: "GET",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ const SupportDetail = () => {
 
     return (
         <div className="container-support-details">
-            <form action="" className="form-support-details-edit">
+            <form onSubmit={handleSubmit} className="form-support-details-edit">
 
                 {/* <h2>Detalhes do Suporte</h2>
                 <p><strong>Título:</strong> {support.title}</p>
@@ -103,7 +103,7 @@ const SupportDetail = () => {
                         required
                     >
                         <option value="">Selecione o status</option>
-                        <option value="pending">Pending</option>
+                        <option value="pending">Pendente</option>
                         <option value="concluído">Concluído</option>
                     </select>
                 </div>
