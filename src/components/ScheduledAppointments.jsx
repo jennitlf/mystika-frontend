@@ -47,6 +47,9 @@ const ScheduledAppointments = () => {
     if(loading) {
         return <p>Carregando consultas</p>
     }
+    if(consultations.length < 1){
+      return <p>Nenhum registro</p>
+    }
     return(
         <div className="container-scheduledAppointments">
             <h3 className="title-scheduledAppointments">Lista de consultas agendadas</h3>
