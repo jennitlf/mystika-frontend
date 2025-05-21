@@ -10,7 +10,6 @@ const Consultant = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [consultant, setConsultant] = useState(null);
-  const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -77,7 +76,6 @@ const Consultant = () => {
       const groupedSchedule = Object.values(grouped);
       groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date)); // Ordena as datas
       setSchedule(groupedSchedule);
-      setSelectedSpecialty(idConsultantSpecialty);
       setShowModal(true);
     } catch (error) {
       console.error("Error fetching schedule:", error);
@@ -102,7 +100,7 @@ const Consultant = () => {
       navigate('/login');
       return;
     }
-    if (!selectedSpecialty || !selectedDateTime?.date || !selectedDateTime?.time) {
+    if ( !selectedDateTime?.date || !selectedDateTime?.time) {
       toast.error("Por favor, selecione uma especialidade, data e horário.");
       return;
     }
@@ -112,11 +110,11 @@ const Consultant = () => {
       return;
     }
     const data = {
-      id_consultant_specialty: selectedSpecialty,
       id_schedule_consultant: selectedSchedule.schedule_id, 
       appoinment_time: selectedDateTime.time, 
       appoinment_date: selectedDateTime.date, 
     };
+    console.log(data)
     try {
       const response = await fetch(`http://localhost:3001/consultation`, {
         method: 'POST',
