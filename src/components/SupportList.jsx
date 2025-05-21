@@ -52,14 +52,6 @@ const SupportList = () => {
     
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
-    const translateStatus = (status) => {
-    const statusMap = {
-        pending: "Pendente",
-        completed: "Concluída",
-    };
-    return statusMap[status] || "Desconhecido";
-    };
-    console.log(supports)
     return (
         <div className="container-support-list">
             <div className="header-supportList">
@@ -74,7 +66,7 @@ const SupportList = () => {
                     <Link to={`/customer-support/record/${support.id}`} key={support.id} className="support-items" >
                         <p className="support-item">{support.title}</p>
                         <p className="support-item">{formatDateTime(support.createdAt)}</p>
-                        <p className="support-item">{translateStatus(support.status)}</p>
+                        <p className="support-item">{support.status}</p>
                     </Link>
                     ))}
                 </div>
