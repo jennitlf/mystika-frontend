@@ -36,5 +36,8 @@
     margin-top: 75px;
     width: 80vw;
     height: 91vh;
-    background-color: rgb(208, 225, 233);
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
