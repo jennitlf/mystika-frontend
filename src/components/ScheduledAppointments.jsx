@@ -12,7 +12,7 @@ const ScheduledAppointments = () => {
     useEffect(()=>{
         const schedules = async () =>{
             try {
-                const response = await fetch(`http://localhost:3001/consultation?idCustomer=${user.id}`, {
+                const response = await fetch(`http://localhost:3001/consultation/byUserId`, {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const ScheduledAppointments = () => {
                   throw new Error("Erro ao acessar consultas.");
                 }
                 const data = await response.json()
-                setConsultations(data.data)
+                setConsultations(data)
                 setLoading(false)
               } catch (error) {
                 console.error("Erro ao acessar consultas:", error);
@@ -47,6 +47,7 @@ const ScheduledAppointments = () => {
     if(loading) {
         return <p>Carregando consultas</p>
     }
+    console.log(consultations)
     if(consultations.length < 1){
       return <p>Nenhum registro</p>
     }
@@ -63,11 +64,11 @@ const ScheduledAppointments = () => {
             </div>
             {consultations.map((consultation)=>
         <div key={consultation.id} className="content-scheduledAppointments">
-            <p>{consultation.consultantSpecialty.specialty.name_specialty}</p>
+            <p>{consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}</p>
             <p>{formatDate(consultation.appoinment_date)}</p>
             <p>{consultation.appoinment_time}</p>
-            <p>{consultation.consultantSpecialty.duration} min</p>
-            <p>R${consultation.consultantSpecialty.value_per_duration},00</p>
+            <p>{consultation.schedule_consultant.consultant_specialty.duration} min</p>
+            <p>R${consultation.schedule_consultant.consultant_specialty.value_per_duration},00</p>
             <p>{translateStatus(consultation.status)}</p>
         </div>    
         )}
