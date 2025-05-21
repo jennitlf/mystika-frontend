@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/DataUser.css";
 // import { API } from "../config.js";
 import { AuthContext } from '../context/AuthContext.js';
@@ -16,7 +15,6 @@ const schema = yup.object().shape({
   });
 
   const DataUser = () => {
-    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
