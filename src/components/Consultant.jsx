@@ -114,7 +114,6 @@ const Consultant = () => {
       appoinment_time: selectedDateTime.time, 
       appoinment_date: selectedDateTime.date, 
     };
-    console.log(data)
     try {
       const response = await fetch(`http://localhost:3001/consultation`, {
         method: 'POST',
