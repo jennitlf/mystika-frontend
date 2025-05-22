@@ -43,12 +43,12 @@ const schema = yup.object().shape({
                 }
                 const data = await response.json();
                 setDataUser(data);
-                setName(data.name); // Inicializa o estado "name" com o valor do usuário
-                setPhone(data.phone); // Inicializa o estado "phone" com o valor do usuário
+                setName(data.name); 
+                setPhone(data.phone); 
                 setLoading(false);
             } catch (error) {
                 console.error("Erro:", error);
-                setLoading(false); // Atualiza o estado de carregamento mesmo em caso de erro
+                setLoading(false); 
             }
         };
         dataUserFetch();
@@ -77,44 +77,46 @@ const schema = yup.object().shape({
         }
     };
 
-    // Retorno condicional para o estado de carregamento
+    
     if (loading) {
         return <p>Carregando...</p>;
     }
 
     return (
         <form className="container-dataUser" onSubmit={handleSubmit(onSubmit)}>
-            <h3>Dados do usuário</h3>
-            <div className="box-dataUser">
-                <label htmlFor="name">Nome:</label>
-                <input
-                    type="text"
-                    {...register("name")}
-                    value={name} // Usa o estado "name" como valor do campo
-                    onChange={(e) => setName(e.target.value)} // Atualiza dinamicamente o estado "name"
-                />
-                {errors.name && <p className="error-message">{errors.name.message}</p>}
-            </div>
-            <div className="box-dataUser">
-                <label htmlFor="phone">Telefone:</label>
-                <input
-                    type="text"
-                    {...register("phone")}
-                    value={phone} // Usa o estado "phone" como valor do campo
-                    onChange={(e) => setPhone(e.target.value)} // Atualiza dinamicamente o estado "phone"
-                />
-                {errors.phone && <p className="error-message">{errors.phone.message}</p>}
-            </div>
-            <div className="box-dataUser">
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="text"
-                    value={dataUser.email || ""}
-                    disabled={true}
-                />
-            </div>
-            <div className="container-button-submit">
-                <button type="submit">Salvar</button>
+            <div className="subcontainer-dataUser">
+                <h3>Dados do usuário</h3>
+                <div className="box-dataUser">
+                    <label htmlFor="name">Nome:</label>
+                    <input
+                        type="text"
+                        {...register("name")}
+                        value={name} 
+                        onChange={(e) => setName(e.target.value)} 
+                    />
+                    {errors.name && <p className="error-message">{errors.name.message}</p>}
+                </div>
+                <div className="box-dataUser">
+                    <label htmlFor="phone">Telefone:</label>
+                    <input
+                        type="text"
+                        {...register("phone")}
+                        value={phone} 
+                        onChange={(e) => setPhone(e.target.value)} 
+                    />
+                    {errors.phone && <p className="error-message">{errors.phone.message}</p>}
+                </div>
+                <div className="box-dataUser">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="text"
+                        value={dataUser.email || ""}
+                        disabled={true}
+                    />
+                </div>
+                <div className="container-button-submit-dataUser">
+                    <button type="submit">Salvar</button>
+                </div>
             </div>
         </form>
     );

@@ -43,7 +43,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Erro no login", error);
-      toast.error("Erro ao conectar ao servidor.");
+      toast.error(error);
     }
   };
 
