@@ -3,19 +3,23 @@
     height: 100vh;
     display: flex;
     flex-direction: row;
-    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-my-data{
-    margin-top: 100px;
     width: 20vw;
-    height: 88vh;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: top;
     align-items: center;
     list-style: none;
     background-color: aliceblue;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+
 }
 .nav-my-data button{
     padding: 0 0 0 8% ;
@@ -30,13 +34,13 @@
     font-weight: 400;
     cursor: pointer;
     font-size: large;
+    border-top-left-radius: 1em;
 }
 
 .content-main-my-data{
     margin-top: 75px;
     width: 80vw;
     height: 91vh;
-    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;

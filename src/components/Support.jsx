@@ -23,11 +23,11 @@ const Support = () => {
     };
     return (
         <div className="container-ajuda">
+            <div className="content-main-support">
             <nav className="nav-ajuda">
-                <button name="SupportList" onClick={onClick} style={element === "SupportList" ? colorSelect : {backgroundColor: 'inherit'}}>Lista de chamados</button>
+                <button className="button-support-list" name="SupportList" onClick={onClick} style={element === "SupportList" ? colorSelect : {backgroundColor: 'inherit'}}>Lista de chamados</button>
                 <button name="SupportForm" onClick={onClick} style={element === "SupportForm" ? colorSelect : {backgroundColor: 'inherit'}}>Abra um chamado</button>
             </nav>
-            <div className="content-main-support">
                 {renderContent()}
             </div>
             

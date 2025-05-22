@@ -54,25 +54,27 @@ const SupportList = () => {
     }
     return (
         <div className="container-support-list">
-            <div className="header-supportList">
-                <h4 className="box-header">Titulo</h4>
-                <h4 className="box-header">Data de registro</h4>
-                <h4 className="box-header">Status</h4>
-            </div>
-            {loading && <p>Carregando...</p>}
-            {!loading && supports && supports.length > 0 ? (
-                <div>
-                    {supports.map((support) => (
-                    <Link to={`/customer-support/record/${support.id}`} key={support.id} className="support-items" >
-                        <p className="support-item">{support.title}</p>
-                        <p className="support-item">{formatDateTime(support.createdAt)}</p>
-                        <p className="support-item">{support.status}</p>
-                    </Link>
-                    ))}
+            <div className="subcontainer-support-list">
+                <div className="header-supportList">
+                    <h4 className="box-header">Titulo</h4>
+                    <h4 className="box-header">Data de registro</h4>
+                    <h4 className="box-header">Status</h4>
                 </div>
-            ) : (
-                !loading && <p>Não há suportes registrados.</p>
-            )}
+                {loading && <p>Carregando...</p>}
+                {!loading && supports && supports.length > 0 ? (
+                    <div>
+                        {supports.map((support) => (
+                        <Link to={`/customer-support/record/${support.id}`} key={support.id} className="support-items" >
+                            <p className="support-item">{support.title}</p>
+                            <p className="support-item">{formatDateTime(support.createdAt)}</p>
+                            <p className="support-item">{support.status}</p>
+                        </Link>
+                        ))}
+                    </div>
+                ) : (
+                    !loading && <p>Não há suportes registrados.</p>
+                )}
+            </div>
         </div>
     );
 };

@@ -2,20 +2,22 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
-    background-color: aliceblue;
 }
 
 .nav-ajuda{
-    margin-top: 100px;
     width: 20vw;
-    height: 88vh;
+    height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: top;
     align-items: center;
     list-style: none;
     background-color: aliceblue;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
 }
 .nav-ajuda button{
     padding: 0 0 0 8% ;
@@ -30,6 +32,9 @@
     font-weight: 400;
     cursor: pointer;
     font-size: large;
+}
+.button-support-list{
+    border-top-left-radius: 1em;
 }
 
 .content-main-support{

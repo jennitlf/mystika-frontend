@@ -23,7 +23,7 @@ const ScheduledAppointments = () => {
                   throw new Error("Erro ao acessar consultas.");
                 }
                 const data = await response.json()
-                setConsultations(data)
+                setConsultations(data.data)
                 setLoading(false)
               } catch (error) {
                 console.error("Erro ao acessar consultas:", error);
@@ -45,11 +45,21 @@ const ScheduledAppointments = () => {
         return statusMap[status] || "Desconhecido";
       };
     if(loading) {
-        return <p>Carregando consultas</p>
+        
+        return (
+          <div className="container-scheduledAppointments-noItmes">
+            <p>Carregando consultas...</p>
+          </div>
+        )
+        
     }
     console.log(consultations)
     if(consultations.length < 1){
-      return <p>Nenhum registro</p>
+      return (
+        <div className="container-scheduledAppointments-noItmes">
+            <p>Nenhum registro</p>
+        </div>
+      )
     }
     return(
         <div className="container-scheduledAppointments">
@@ -62,16 +72,18 @@ const ScheduledAppointments = () => {
                 <h4>Valor</h4>
                 <h4>status</h4>
             </div>
-            {consultations.map((consultation)=>
-        <div key={consultation.id} className="content-scheduledAppointments">
-            <p>{consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}</p>
-            <p>{formatDate(consultation.appoinment_date)}</p>
-            <p>{consultation.appoinment_time}</p>
-            <p>{consultation.schedule_consultant.consultant_specialty.duration} min</p>
-            <p>R${consultation.schedule_consultant.consultant_specialty.value_per_duration},00</p>
-            <p>{translateStatus(consultation.status)}</p>
-        </div>    
-        )}
+            <div className="subcontainer-scheduledAppointments" >
+              {consultations.map((consultation)=>
+              <div key={consultation.id} className="content-scheduledAppointments">
+                  <p>{consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}</p>
+                  <p>{formatDate(consultation.appoinment_date)}</p>
+                  <p>{consultation.appoinment_time}</p>
+                  <p>{consultation.schedule_consultant.consultant_specialty.duration} min</p>
+                  <p>R${consultation.schedule_consultant.consultant_specialty.value_per_duration},00</p>
+                  <p>{translateStatus(consultation.status)}</p>
+              </div>    
+              )}
+            </div>
         </div>
     )
 };

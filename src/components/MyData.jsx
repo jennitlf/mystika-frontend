@@ -26,11 +26,11 @@ const MyData = () => {
     };
     return(
         <div className="container-my-data">
-            <nav className="nav-my-data">
-                <button name="DataUser" onClick={onClick} style={element === "DataUser" ? colorSelect : {backgroundColor: 'inherit'}}>Meus dados</button>
-                <button name="scheduledAppointments" onClick={onClick} style={element === "scheduledAppointments" ? colorSelect : {backgroundColor: 'inherit'}}>Consultas agendadas</button>
-            </nav>
             <div className="content-main-my-data">
+                <nav className="nav-my-data">
+                    <button name="DataUser" onClick={onClick} style={element === "DataUser" ? colorSelect : {backgroundColor: 'inherit'}}>Meus dados</button>
+                    <button name="scheduledAppointments" onClick={onClick} style={element === "scheduledAppointments" ? colorSelect : {backgroundColor: 'inherit'}}>Consultas agendadas</button>
+                </nav>
                 {renderContent()}
             </div>
             

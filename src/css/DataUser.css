@@ -1,37 +1,85 @@
 .container-dataUser{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    border-radius: 1em;
+    /* border-radius: 1em; */
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
     height: 700px;
-    width: 700px;
+    width: 900px;
     background-color: rgb(208, 225, 233);
 }
+.subcontainer-dataUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 500px;
+}
 .container-dataUser h3{
+    display: flex;
+    justify-content: center;
+    width: 90%;
     margin: 0 0 30px 0;
     font-size: x-large;
-    font-family: "Comfortaa", serif;
+    font-family: "Changa", serif;
     font-optical-sizing: auto;
+    font-weight: 200;
 }
 .box-dataUser{
-    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: start;
+    height: 70px;
     margin-left: 20px;
+    margin-bottom: 15px;
 
 }
 .box-dataUser label{
-    font-size:medium;
-    font-family: "Comfortaa", serif;
+    font-family: "Changa", serif;
     font-optical-sizing: auto;
-    margin: 0 10px 0 0;
+    margin: 0 10px 10px 0;
 }
 .box-dataUser input{
-    height: 25px;
-    width: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 30px;
+    width:410px;
     border-radius: 0.4em;
     border: #fff solid 0.1px;
     outline: none;
+    background-color: #fff;
 }
 .box-dataUser input:focus{
     border-color: #007bff;
     box-shadow: 0 0 4px #007bff;
+}
+.container-button-submit-dataUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 450px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.container-button-submit-dataUser button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em;
+    border: solid 0.1px #929090;
+    width: 100%;
+    height: 35px;
+    cursor: pointer;
+    background-color: #575555;
+    color: #fff;
+    font-family: "Changa", serif;
+    font-weight: 300;
+    font-size: larger;
 }
