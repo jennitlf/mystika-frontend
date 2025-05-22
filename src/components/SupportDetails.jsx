@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
 import "../css/supportDetails.css"
@@ -152,9 +152,11 @@ const SupportDetail = () => {
                     </button>
                 </div>
                 <div className="content-button-return">
-                <button>
-                    voltar
-                </button>
+                <Link to="/ajuda">
+                    <button>
+                        voltar
+                    </button>
+                </Link>
                 </div>
             </form>
         </div>

@@ -64,7 +64,7 @@ const SupportList = () => {
                 {!loading && supports && supports.length > 0 ? (
                     <div>
                         {supports.map((support) => (
-                        <Link to={`/customer-support/record/${support.id}`} key={support.id} className="support-items" >
+                        <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="support-items" >
                             <p className="support-item">{support.title}</p>
                             <p className="support-item">{formatDateTime(support.createdAt)}</p>
                             <p className="support-item">{support.status}</p>

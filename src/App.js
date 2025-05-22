@@ -55,10 +55,10 @@ function App() {
           }
         />
         <Route
-          path="/customer-support/record/:id"
+          path="/ajuda/detalhes/:id"
           element={
             <PrivateRoute>
-              <SupportDetails /> {/* Renderiza o SupportDetails */}
+              <SupportDetails />
             </PrivateRoute>
           }
         />

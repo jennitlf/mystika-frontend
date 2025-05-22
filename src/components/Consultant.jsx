@@ -129,7 +129,9 @@ const Consultant = () => {
       }
   
       toast.success("Consulta marcada com sucesso!");
-      navigate(`/consultor/${id}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
     } catch (error) {
       console.error("Erro ao marcar consulta:", error);
       toast.error("Erro ao marcar consulta.");
