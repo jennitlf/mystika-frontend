@@ -59,16 +59,27 @@ const SupportList = () => {
                     <h4 className="box-header">Titulo</h4>
                     <h4 className="box-header">Data de registro</h4>
                     <h4 className="box-header">Status</h4>
+                    <h4 className="box-header">ações</h4>
                 </div>
-                {loading && <p>Carregando...</p>}
+                {loading && <div className='loading-dataUser'><p>Carregando...</p></div>}
                 {!loading && supports && supports.length > 0 ? (
-                    <div>
+                    <div className="body-support">
                         {supports.map((support) => (
-                        <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="support-items" >
-                            <p className="support-item">{support.title}</p>
-                            <p className="support-item">{formatDateTime(support.createdAt)}</p>
-                            <p className="support-item">{support.status}</p>
-                        </Link>
+                            <div className="support-items">
+                                <p className="support-item">{support.title}</p>
+                                <p className="support-item">{formatDateTime(support.createdAt)}</p>
+                                <p className="support-item">{support.status}</p>
+                                <div className="support-item">
+                                    <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="link-container-button-action-supportList" >
+                                        <button className="button-action-supportList">
+                                            <span className="material-symbols-outlined">edit</span>
+                                        </button>
+                                    </Link>
+                                    <button className="button-action-supportList">
+                                        <span className="material-symbols-outlined">delete</span>
+                                    </button>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 ) : (

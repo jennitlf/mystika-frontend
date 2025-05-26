@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import '../css/ScheduledAppointments.css';
 import { AuthContext } from '../context/AuthContext.js';
+import { toast } from "react-toastify";
 // import { API } from "../config.js";
 
 const ScheduledAppointments = () => {
 
-    const { user, token } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
     const [ consultations, setConsultations ] = useState("")
     const [ loading, setLoading ] = useState(true)
 
@@ -19,6 +20,11 @@ const ScheduledAppointments = () => {
                     Authorization: `Bearer ${token}`,
                   },
                 });
+                if (response.status === 404) {
+                  toast.info("Não há consultas agendadas.");
+                  setLoading(false);
+                  throw new Error("Não há consultas agendadas.");
+              }
                 if (!response.ok) {
                   throw new Error("Erro ao acessar consultas.");
                 }
@@ -45,7 +51,6 @@ const ScheduledAppointments = () => {
         return statusMap[status] || "Desconhecido";
       };
     if(loading) {
-        
         return (
           <div className="container-scheduledAppointments-noItmes">
             <p>Carregando consultas...</p>

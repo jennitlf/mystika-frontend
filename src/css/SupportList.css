@@ -36,21 +36,51 @@
     width: 240px;
     
 }
+.body-support{
+    height: 550px;
+    width: 750px;
+}
 .support-items{
     color: inherit; 
     text-decoration: none;
     margin-top: 30px;
-    height: 50px;
+    height: 60px;
     display: flex;
     flex-direction: row;
+}
+.support-items div{
+    display: flex;
+    justify-content:space-around;
 }
 
 .support-item{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 230px;
+    width: 180px;
     margin: 0 10px 0 10px;
     padding-left: 10px;
     cursor: pointer;
+}
+.link-container-button-action-supportList{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+.button-action-supportList{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.button-action-supportList span{
+    margin: 0;
+    color: black;
 }

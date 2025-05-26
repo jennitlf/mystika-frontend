@@ -79,9 +79,8 @@ const schema = yup.object().shape({
 
     
     if (loading) {
-        return <p>Carregando...</p>;
+        return <div className='loading-dataUser'><p>Carregando...</p></div>;
     }
-
     return (
         <form className="container-dataUser" onSubmit={handleSubmit(onSubmit)}>
             <div className="subcontainer-dataUser">

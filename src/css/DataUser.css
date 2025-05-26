@@ -1,3 +1,15 @@
+.loading-dataUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border-radius: 1em; */
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    height: 700px;
+    width: 900px;
+    background-color: rgb(208, 225, 233);
+}
 .container-dataUser{
     display: flex;
     flex-direction: column;
