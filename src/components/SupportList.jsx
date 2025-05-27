@@ -65,7 +65,7 @@ const SupportList = () => {
                 {!loading && supports && supports.length > 0 ? (
                     <div className="body-support">
                         {supports.map((support) => (
-                            <div className="support-items">
+                            <div className="support-items" key={support.id}>
                                 <p className="support-item">{support.title}</p>
                                 <p className="support-item">{formatDateTime(support.createdAt)}</p>
                                 <p className="support-item">{support.status}</p>

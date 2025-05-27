@@ -58,7 +58,6 @@ const ScheduledAppointments = () => {
         )
         
     }
-    console.log(consultations)
     if(consultations.length < 1){
       return (
         <div className="container-scheduledAppointments-noItmes">

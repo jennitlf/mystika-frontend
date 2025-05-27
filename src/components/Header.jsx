@@ -8,7 +8,7 @@ import { AuthContext } from '../context/AuthContext.js';
 const Header = () => {
 
     const { user, logout } = useContext(AuthContext);
-    
+    console.log(user)
     return (
         <div className="header">
             <div className="logo"><img src={file} alt="logo do site" /></div>
