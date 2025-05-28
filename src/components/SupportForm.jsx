@@ -9,6 +9,7 @@ const SupportForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     email: "",
+    phone: "",
     content: "",
   });
 
@@ -31,14 +32,15 @@ const SupportForm = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData), // Corrigido de FormData para formData
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setFormData({
           title: "",
           email: "",
-          content: "", // Corrigido de 'message' para 'content'
+          phone: "",
+          content: "",
         });
         toast.success("Registro enviado com sucesso");
       } else {
@@ -67,18 +69,33 @@ const SupportForm = () => {
           required
         />
       </div>
-      <div className="field-form-support">
-        <label className="label-form-support label-form-support-email" htmlFor="email">
-          Digite seu email:
-        </label>
-        <input
-          className="input-form-support"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+      <div className="field-form-support field-form-support-phone-email">
+        <div>
+          <label className="label-form-support label-form-support-email" htmlFor="email">
+            Digite seu email:
+          </label>
+          <input
+            className="input-form-support"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label className="label-form-support label-form-support-phone" htmlFor="email">
+            Digite seu Telefone:
+          </label>
+          <input
+            className="input-form-support"
+            name="phone"
+            type="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
       </div>
       <div className="field-form-support">
         <label className="label-form-support label-form-support-text" htmlFor="content">
