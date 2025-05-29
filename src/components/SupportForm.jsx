@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { API } from "../config.js";
 import "../css/SupportForm.css";
 import { AuthContext } from "../context/AuthContext";
 
@@ -26,7 +27,7 @@ const SupportForm = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:3001/customer-support`, {
+      const response = await fetch(`${API}customer-support`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

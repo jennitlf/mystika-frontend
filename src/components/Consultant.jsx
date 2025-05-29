@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../css/Consultant.css";
-// import { API } from "../config";
+import { API } from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
@@ -16,13 +16,11 @@ const Consultant = () => {
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const { token, user } = useContext(AuthContext);
  
-  // Função para converter a string de data para um objeto Date local
   const parseLocalDate = (dateStr) => {
     const [year, month, day] = dateStr.split('-').map(Number);
     return new Date(year, month - 1, day);
   };
 
-  // Função para agrupar os horários disponíveis por data
   const groupScheduleByDate = (schedule) => {
     return schedule.reduce((acc, slot) => {
       const dateKey = slot.date;
@@ -33,12 +31,10 @@ const Consultant = () => {
           available_times: [...slot.available_times] 
         };
       } else {
-        // Apenas agrupa os horários, sem alterar o schedule_id já definido
         acc[dateKey].available_times = Array.from(
           new Set([...acc[dateKey].available_times, ...slot.available_times])
         );
       }
-      // Ordena os horários em ordem crescente
       acc[dateKey].available_times.sort((a, b) => a.localeCompare(b));
       return acc;
     }, {});
@@ -48,7 +44,7 @@ const Consultant = () => {
     const fetchConsultant = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/consultant-specialty?idConsultant=${id}&page=1&limit=9`
+          `${API}consultant-specialty?idConsultant=${id}&page=1&limit=9`
         );
         const data = await response.json();
         setConsultant(data.data);
@@ -68,7 +64,7 @@ const Consultant = () => {
       setAvailableTimes([]);
       setSelectedDateTime(null);
       const response = await fetch(
-        `http://localhost:3001/schedule-consultant/${idConsultantSpecialty}/timeslots`
+        `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
       );
       const data = await response.json();
       // Agrupar os horários por data e ordenar as datas em ordem crescente
@@ -115,7 +111,7 @@ const Consultant = () => {
       appoinment_date: selectedDateTime.date, 
     };
     try {
-      const response = await fetch(`http://localhost:3001/consultation`, {
+      const response = await fetch(`${API}consultation`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

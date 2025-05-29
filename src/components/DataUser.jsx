@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import "../css/DataUser.css";
-// import { API } from "../config.js";
+import { API } from "../config.js";
 import { AuthContext } from '../context/AuthContext.js';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ const schema = yup.object().shape({
     useEffect(() => {
         const dataUserFetch = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/user/id/${user.id}`, {
+                const response = await fetch(`${API}user/id/${user.id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const schema = yup.object().shape({
     const onSubmit = async (data) => {
         const updatedData = { ...data, name, phone, status: "ativo" };
         try {
-            const response = await fetch(`http://localhost:3001/user/id/${user.id}`, {
+            const response = await fetch(`${API}user/id/${user.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

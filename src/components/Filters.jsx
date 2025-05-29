@@ -1,17 +1,17 @@
 import React, { useEffect, useState} from "react";
 import '../css/Filters.css'
+import { API } from "../config";
 
 const Filters = ({setParams, params}) => {
 
   const [specialties, setSpecialties] = useState([]);
   const [loading, setLoading] = useState(true);
   
-
   useEffect(() => {
     
     const fetchSpecialties = async () => {
       try {
-        const response = await fetch("http://localhost:3001/specialty");
+        const response = await fetch(`${API}specialty`);
         const data = await response.json();
         setSpecialties(data); 
       } catch (error) {
@@ -29,7 +29,7 @@ const Filters = ({setParams, params}) => {
   }
 
   if (specialties.length === 0) {
-    return <p>Nenhum especialidade encontrada encontrado.</p>;
+    return <p></p>;
   }
 
   const handleInputChange = (event) => {

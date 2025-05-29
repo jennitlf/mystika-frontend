@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import '../css/ScheduledAppointments.css';
 import { AuthContext } from '../context/AuthContext.js';
 import { toast } from "react-toastify";
-// import { API } from "../config.js";
+import { API } from "../config.js";
 
 const ScheduledAppointments = () => {
 
@@ -13,7 +13,7 @@ const ScheduledAppointments = () => {
     useEffect(()=>{
         const schedules = async () =>{
             try {
-                const response = await fetch(`http://localhost:3001/consultation/byUserId`, {
+                const response = await fetch(`${API}consultation/byUserId`, {
                   method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
+import { API } from "../config.js";
 import "../css/supportDetails.css"
 
 const SupportDetail = () => {
@@ -25,7 +26,7 @@ const SupportDetail = () => {
         e.preventDefault();
         setLoading(true);
         try {
-          const response = await fetch(`http://localhost:3001/customer-support/record/${id}`, {
+          const response = await fetch(`${API}customer-support/record/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -48,7 +49,7 @@ const SupportDetail = () => {
     useEffect(() => {
         const fetchSupportDetail = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/customer-support/record/${id}`, {
+                const response = await fetch(`${API}customer-support/record/${id}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",

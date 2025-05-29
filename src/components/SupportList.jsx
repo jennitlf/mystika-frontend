@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { API } from "../config.js";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/SupportList.css";
 import { AuthContext } from "../context/AuthContext";
@@ -13,7 +14,7 @@ const SupportList = () => {
     useEffect(() => {
         const fetchSupports = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/customer-support/byUser`, {
+                const response = await fetch(`${API}customer-support/byUser`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
