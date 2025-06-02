@@ -93,7 +93,6 @@ const ScheduledAppointments = () => {
               );
               })
               }
-              // eslint-disable-next-line no-unused-expressions
             </div>
         </div>
     );
