@@ -81,17 +81,19 @@ const ScheduledAppointments = () => {
             </div>
             <div className="subcontainer-scheduledAppointments">
               {consultations.map((consultation) => {
-                  return (
-                      <div key={consultation.id} className="content-scheduledAppointments">
-                          <p>{consultation.schedule_consultant?.consultant_specialty?.specialty?.name_specialty || "N/A"}</p>
-                          <p>{formatDate(consultation.appoinment_date) || "Data não disponível"}</p>
-                          <p>{consultation.appoinment_time || "Hora não disponível"}</p>
-                          <p>{consultation.schedule_consultant?.consultant_specialty?.duration || "0"} min</p>
-                          <p>R${consultation.schedule_consultant?.consultant_specialty?.value_per_duration || "0"},00</p>
-                          <p>{translateStatus(consultation.status) || "Desconhecido"}</p>
-                      </div>
-                  );
-              })}
+              return (
+                  <div key={consultation.id} className="content-scheduledAppointments">
+                      <p>{consultation.schedule_consultant?.consultant_specialty?.specialty?.name_specialty || "N/A"}</p>
+                      <p>{formatDate(consultation.appoinment_date) || "Data não disponível"}</p>
+                      <p>{consultation.appoinment_time || "Hora não disponível"}</p>
+                      <p>{consultation.schedule_consultant?.consultant_specialty?.duration || "0"} min</p>
+                      <p>R${consultation.schedule_consultant?.consultant_specialty?.value_per_duration || "0"},00</p>
+                      <p>{translateStatus(consultation.status) || "Desconhecido"}</p>
+                  </div>
+              );
+              })
+              }
+              // eslint-disable-next-line no-unused-expressions
             </div>
         </div>
     );
