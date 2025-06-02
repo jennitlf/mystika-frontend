@@ -8,9 +8,10 @@ const Support = () => {
     const colorSelect = {backgroundColor: 'rgb(208, 225, 233)'}
 
     const onClick = (e) => {
-        console.log("Changing to:", e.target.name);
-        setElement(e.target.dataset.name)
-    }
+        console.log("Changing to:", e.currentTarget.dataset.name);
+        setElement(e.currentTarget.dataset.name);
+    };
+    
 
     const renderContent = () => {
         switch (element) {
