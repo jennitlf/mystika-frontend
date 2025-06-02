@@ -8,7 +8,7 @@ const Support = () => {
     const colorSelect = {backgroundColor: 'rgb(208, 225, 233)'}
 
     const onClick = (e) => {
-        setElement(e.target.name)
+        setElement(e.target.dataset.name)
     }
 
     const renderContent = () => {
@@ -25,8 +25,8 @@ const Support = () => {
         <div className="container-ajuda">
             <div className="content-main-support">
             <nav className="nav-ajuda">
-                <button className="button-support-list" name="SupportList" onClick={onClick} style={element === "SupportList" ? colorSelect : {backgroundColor: 'inherit'}}>Lista de chamados</button>
-                <button name="SupportForm" onClick={onClick} style={element === "SupportForm" ? colorSelect : {backgroundColor: 'inherit'}}>Abra um chamado</button>
+                <button className="button-support-list" data-name="SupportList" onClick={onClick} style={element === "SupportList" ? colorSelect : {backgroundColor: 'inherit'}}>Lista de suportes</button>
+                <button data-name="SupportForm" onClick={onClick} style={element === "SupportForm" ? colorSelect : {backgroundColor: 'inherit'}}>Abra um chamado</button>
             </nav>
                 {renderContent()}
             </div>
