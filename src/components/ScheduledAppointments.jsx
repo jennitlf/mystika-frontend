@@ -100,4 +100,3 @@ const ScheduledAppointments = () => {
 };
 
 export default ScheduledAppointments;
-``
