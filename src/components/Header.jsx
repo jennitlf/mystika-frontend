@@ -18,7 +18,7 @@ const Header = () => {
                 <Link className="menu-nav" to={'/ajuda'}>ajuda</Link>
             </ul>
             <div className="content-button-enter">
-            {user ? <div className="menu-user"> <button >{user.name}</button> <span className="material-symbols-outlined logout" onClick={()=> logout()}>logout</span></div>: <Link className="menu-user" to={'/login'}> <button>Entrar</button></Link>}
+            {user ? <div className="menu-user"> <button >{user.name}</button> <span className="material-symbols-outlined logout" onClick={()=> logout()} translate="no">logout</span></div>: <Link className="menu-user" to={'/login'}> <button>Entrar</button></Link>}
             </div>
         </div>
     ) 

@@ -73,11 +73,11 @@ const SupportList = () => {
                                 <div className="support-item">
                                     <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="link-container-button-action-supportList" >
                                         <button className="button-action-supportList">
-                                            <span className="material-symbols-outlined">edit</span>
+                                            <span className="material-symbols-outlined" translate="no">edit</span>
                                         </button>
                                     </Link>
                                     <button className="button-action-supportList">
-                                        <span className="material-symbols-outlined">delete</span>
+                                        <span className="material-symbols-outlined" translate="no">delete</span>
                                     </button>
                                 </div>
                             </div>
