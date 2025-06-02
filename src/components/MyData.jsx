@@ -11,8 +11,8 @@ const MyData = () => {
     
 
     const onClick = (e) => {
-        setElement(e.target.name)
-    }
+        setElement(e.currentTarget.dataset.name);
+    };
 
     const renderContent = () => {
         switch (element) {
@@ -28,8 +28,8 @@ const MyData = () => {
         <div className="container-my-data">
             <div className="content-main-my-data">
                 <nav className="nav-my-data">
-                    <button name="DataUser" onClick={onClick} style={element === "DataUser" ? colorSelect : {backgroundColor: 'inherit'}}>Meus dados</button>
-                    <button name="scheduledAppointments" onClick={onClick} style={element === "scheduledAppointments" ? colorSelect : {backgroundColor: 'inherit'}}>Consultas agendadas</button>
+                    <button data-name="DataUser" onClick={onClick} style={element === "DataUser" ? colorSelect : {backgroundColor: 'inherit'}}>Meus dados</button>
+                    <button data-name="scheduledAppointments" onClick={onClick} style={element === "scheduledAppointments" ? colorSelect : {backgroundColor: 'inherit'}}>Consultas agendadas</button>
                 </nav>
                 {renderContent()}
             </div>
