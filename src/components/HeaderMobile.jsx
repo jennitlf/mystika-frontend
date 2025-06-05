@@ -1,35 +1,41 @@
 import React, { useState } from "react";
-import '../css/HeaderMobile.css'
-import file from '../image/file.png';
+import "../css/HeaderMobile.css";
+import file from "../image/file.png";
 import MenuOptions from "./MenuOptions";
 
-
 const HeaderMobile = () => {
-
-    const [menuOptions, setMenuOptions] = useState(false)
+    const [menuOptions, setMenuOptions] = useState(false);
 
     const onClick = (e) => {
-        e.preventDefault()
-        if (menuOptions){
-            setMenuOptions(false)
-        }else{
-            setMenuOptions(true)
-        }
-    }
+        e.preventDefault();
+        setMenuOptions(!menuOptions);
+    };
 
-    return(
+    return (
         <>
+            {menuOptions && (
+                <div 
+                    className="overlay" 
+                    onClick={() => setMenuOptions(false)}
+                />
+            )}
+            <MenuOptions menuActive={menuOptions} setMenuActive={setMenuOptions} />
             <div className="header-m">
-                <div className="container-logo-m">  
-                    <img src={file} alt="logo do site" />  
-                </div>
                 <button className="menu-user-m" type="button" onClick={onClick}>
-                {menuOptions ? <span className="material-symbols-outlined">close</span> :  <span className="material-symbols-outlined" translate="no"> menu </span>}
+                    {!menuOptions &&  (
+                        <div className="container-button-menu">
+                            <span className="material-symbols-outlined" translate="no">apps</span>
+                            <p>Menu</p>
+                        </div>
+                    )}
                 </button>
+                <div className="container-logo-m">
+                    <img src={file} alt="logo do site" />
+                </div>
             </div>
-            {menuOptions && <MenuOptions menuActive={menuOptions} setMenuActive={setMenuOptions}/> }
+            
         </>
-    )
+    );
 };
 
 export default HeaderMobile;

@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       const userData = getUserFromToken(storedToken);
       if (userData) {
         setUser(userData);
-        setToken(storedToken);  // Armazena o token
+        setToken(storedToken);
       } else {
         localStorage.removeItem('token');
       }
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    setToken(null);  // Remove o token do estado
+    setToken(null);  
     localStorage.removeItem('token');
     window.location.reload();
   };

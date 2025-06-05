@@ -4,10 +4,10 @@ import "../css/Home.css"
 import Filters from "./Filters";
 import Page from "./Page";
 import { API } from "../config";
+import { useDebounce } from "../utils/useDebounce";
 
 
 const Home = () => {
-  // console.log(API)
   const [consultants, setConsultants] = useState([]);
   const [totalConsultants, setTotalConsultants] = useState("");
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,9 @@ const Home = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1)
 
+  const debouncedParams = useDebounce(params, 500);
+
   useEffect(() => {
-    
     const fetchConsultants = async () => {
       try {
         const response = await fetch(`${API}general-find?page=${page}&${queryString}`);
@@ -38,29 +39,26 @@ const Home = () => {
         setLoading(false);
       }
     };
-   
     fetchConsultants();
-
-  }, [queryString, params, page]);
+  }, [queryString, debouncedParams, page]);
 
 
   useEffect(() => {
-
     setQueryString(
-    Object.entries(params).filter(([key, value]) => {
-   
-    if (Array.isArray(value)) return value.length > 0;
-    return value !== null && value !== undefined && value !== "";
-    })
-    .flatMap(([key, value]) => {
-   
-    if (Array.isArray(value)) {
-      return value.map(item => `${key}=${encodeURIComponent(item)}`);
-    }
-   
-    return `${key}=${encodeURIComponent(value)}`;
-    }).join('&'))
-  }, [params]);
+      Object.entries(debouncedParams)
+        .filter(([key, value]) => {
+          if (Array.isArray(value)) return value.length > 0;
+          return value !== null && value !== undefined && value !== "";
+        })
+        .flatMap(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value.map((item) => `${key}=${encodeURIComponent(item)}`);
+          }
+          return `${key}=${encodeURIComponent(value)}`;
+        })
+        .join("&")
+    );
+  }, [debouncedParams]);
 
 
   if (loading) {

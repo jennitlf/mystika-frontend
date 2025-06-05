@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Routes, Navigate, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.js';
 import PrivateRoute from './components/routes/PrivateRoute.js';
-import Header from './components/Header.jsx';
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
 import Consultant from './components/Consultant.jsx';
-import MyData from './components/MyData.jsx';
+import DataUser from './components/DataUser.jsx';
+import ScheduledAppointments from './components/ScheduledAppointments.jsx';
 import HeaderMobile from './components/HeaderMobile.jsx';
 import Home from './components/Home.jsx';
-import Support from './components/Support.jsx';
-import SupportDetails from './components/SupportDetails.jsx'; // Importe o novo componente
+import SupportForm from './components/SupportForm.jsx';
+import SupportList from './components/SupportList.jsx';
+import SupportDetails from './components/SupportDetails.jsx';
 import { ToastContainer } from 'react-toastify';
 import './toastfy.css';
 
@@ -26,15 +26,10 @@ export default function AppWrapper() {
 }
 
 function App() {
-  const isDesktop = useMediaQuery({ query: '(max-width: 670px)' });
-  const location = useLocation();
-
-  const noHeaderRoutes = ['/login', '/register'];
-  const showHeader = !noHeaderRoutes.includes(location.pathname);
 
   return (
     <div className="App">
-      {showHeader && (isDesktop ? <HeaderMobile /> : <Header />)}
+      <HeaderMobile />
       <Routes>
         <Route path="/" element={<Navigate to="/consultores" />} />
         <Route path="/consultores" element={<Home />} />
@@ -42,15 +37,31 @@ function App() {
           path="/meus-dados"
           element={
             <PrivateRoute>
-              <MyData />
+              <DataUser />
             </PrivateRoute>
           }
         />
         <Route
-          path="/ajuda"
+          path="/consultas-agendadas"
           element={
             <PrivateRoute>
-              <Support />
+              <ScheduledAppointments />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/solicitacoes-de-supote"
+          element={
+            <PrivateRoute>
+              <SupportList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/formulario-de-ajuda"
+          element={
+            <PrivateRoute>
+              <SupportForm />
             </PrivateRoute>
           }
         />
