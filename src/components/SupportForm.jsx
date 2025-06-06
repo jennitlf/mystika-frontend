@@ -63,6 +63,7 @@ const SupportForm = () => {
             Título
           </label>
           <input
+            maxLength={100}
             className="input-form-support-solicitation"
             name="title"
             type="text"
@@ -77,6 +78,7 @@ const SupportForm = () => {
               Digite seu email:
             </label>
             <input
+            maxLength={60}
               className="input-form-support-solicitation"
               name="email"
               type="email"
@@ -90,6 +92,7 @@ const SupportForm = () => {
               Digite seu Telefone:
             </label>
             <input
+              maxLength={15}
               className="input-form-support-solicitation"
               name="phone"
               type="phone"
@@ -104,6 +107,7 @@ const SupportForm = () => {
             Qual sua dúvida ou reclamação?
           </label>
           <textarea
+          maxLength={600}
             className="input-form-support textarea-form-support"
             name="content"
             placeholder="Escreva sua mensagem"
