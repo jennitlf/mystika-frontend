@@ -56,33 +56,27 @@ const SupportList = () => {
     return (
         <div className="container-support-list">
             <div className="subcontainer-support-list">
-                <div className="header-supportList">
-                    <h4 className="box-header">Titulo</h4>
-                    <h4 className="box-header">Data de registro</h4>
-                    <h4 className="box-header">Status</h4>
-                    <h4 className="box-header">ações</h4>
+                <div className="box-title-supports-header">
+                    <h4 className="title-supports-header" translate="no">Lista de suportes</h4>
                 </div>
                 {loading && <div className='loading-dataUser'><p>Carregando...</p></div>}
                 {!loading && supports && supports.length > 0 ? (
-                    <div className="body-support">
-                        {supports.map((support) => (
-                            <div className="support-items" key={support.id}>
-                                <p className="support-item">{support.title}</p>
-                                <p className="support-item">{formatDateTime(support.createdAt)}</p>
-                                <p className="support-item">{support.status}</p>
-                                <div className="support-item">
-                                    <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="link-container-button-action-supportList" >
-                                        <button className="button-action-supportList">
-                                            <span className="material-symbols-outlined" translate="no">edit</span>
-                                        </button>
-                                    </Link>
-                                    <button className="button-action-supportList">
-                                        <span className="material-symbols-outlined" translate="no">delete</span>
-                                    </button>
-                                </div>
+                    supports.map((support) => (
+                        <div className="support-items" key={support.id}>
+                            <div className="info-support-left">
+                                <p className="support-item support-item-date">{formatDateTime(support.createdAt)}</p>
+                                <div className="support-item support-item-title">{support.title}</div>
+                                <p className="support-item support-item-status">{support.status}</p>
                             </div>
-                        ))}
-                    </div>
+                            <div className="info-support-right">
+                                <Link to={`/ajuda/detalhes/${support.id}`} key={support.id} className="link-container-button-action-supportList" >
+                                    <button className="button-action-supportList">
+                                        <span className="material-symbols-outlined" translate="no">edit</span>
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+                    ))
                 ) : (
                     !loading && <p>Não há suportes registrados.</p>
                 )}

@@ -56,67 +56,69 @@ const SupportForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-support">
-      <div className="field-form-support">
-        <label className="label-form-support label-form-support-title" htmlFor="title">
-          Título
-        </label>
-        <input
-          className="input-form-support"
-          name="title"
-          type="text"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="field-form-support field-form-support-phone-email">
-        <div>
-          <label className="label-form-support label-form-support-email" htmlFor="email">
-            Digite seu email:
+    <div className="container-form-support">
+      <form onSubmit={handleSubmit} className="form-support">
+        <div className="field-form-support">
+          <label className="label-form-support label-form-support-title" htmlFor="title">
+            Título
           </label>
           <input
-            className="input-form-support"
-            name="email"
-            type="email"
-            value={formData.email}
+            className="input-form-support-solicitation"
+            name="title"
+            type="text"
+            value={formData.title}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
-          <label className="label-form-support label-form-support-phone" htmlFor="email">
-            Digite seu Telefone:
+        <div className="field-form-support field-form-support-phone-email">
+          <div>
+            <label className="label-form-support label-form-support-email" htmlFor="email">
+              Digite seu email:
+            </label>
+            <input
+              className="input-form-support-solicitation"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="label-form-support label-form-support-phone" htmlFor="email">
+              Digite seu Telefone:
+            </label>
+            <input
+              className="input-form-support-solicitation"
+              name="phone"
+              type="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="field-form-support">
+          <label className="label-form-support label-form-support-text" htmlFor="content">
+            Qual sua dúvida ou reclamação?
           </label>
-          <input
-            className="input-form-support"
-            name="phone"
-            type="phone"
-            value={formData.phone}
+          <textarea
+            className="input-form-support textarea-form-support"
+            name="content"
+            placeholder="Escreva sua mensagem"
+            value={formData.content}
             onChange={handleChange}
             required
-          />
+          ></textarea>
         </div>
-      </div>
-      <div className="field-form-support">
-        <label className="label-form-support label-form-support-text" htmlFor="content">
-          Qual sua dúvida ou reclamação?
-        </label>
-        <textarea
-          className="input-form-support textarea-form-support"
-          name="content"
-          placeholder="Escreva sua mensagem"
-          value={formData.content}
-          onChange={handleChange}
-          required
-        ></textarea>
-      </div>
-      <div className="content-button-submit">
-        <button type="submit" disabled={loading}>
-          {loading ? "Enviando..." : "Enviar"}
-        </button>
-      </div>
-    </form>
+        <div className="content-button-submit">
+          <button type="submit" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
