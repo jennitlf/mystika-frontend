@@ -173,8 +173,11 @@
 @media(max-width:319px){
     .content-main-scheduledAppointments{
         display: none;
-        
     }
+    .container-scheduledAppointments-noItmes{
+        display: none;
+    }
+
 }
 @media(max-width:340px){
     
