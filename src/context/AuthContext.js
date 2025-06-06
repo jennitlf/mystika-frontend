@@ -11,7 +11,6 @@ export const getUserFromToken = (token) => {
       return {
         id: decoded.id,
         name: decoded.name,
-        email: decoded.email,
       };
     }
     return null;
@@ -44,18 +43,20 @@ export const AuthProvider = ({ children }) => {
     const userData = getUserFromToken(token);
     if (userData) {
       setUser(userData);
-      setToken(token); 
+      setToken(token);
       localStorage.setItem('token', token);
     } else {
       console.error("Token inválido fornecido no login.");
       logout();
     }
   };
+  
 
   const logout = () => {
     setUser(null);
     setToken(null);  
     localStorage.removeItem('token');
+    console.log("Usuário desconectado com sucesso.");
     window.location.reload();
   };
 
