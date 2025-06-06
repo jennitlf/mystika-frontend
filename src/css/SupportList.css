@@ -5,20 +5,23 @@
     justify-content: center;
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
-    height: 700px;
-    width: 900px;
-    background-color: rgb(208, 225, 233);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 .subcontainer-support-list{
-    margin-top: 10px;
+    border-radius: 1em;
+    background-color: rgb(208, 225, 233);
+    height: 75%;
+    width: 45%;
+    padding: 0 50px 0 50px;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
     align-items: center;
-    height: 600px;
-    width: 800px;
+    justify-content: start;
+    flex-direction: column;
 }
 .header-supportList{
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,24 +29,22 @@
     align-items: center;
     padding: 0;
     height: 50px;
-    width: 750px;
+    width: 90%;
 }
 .box-header{
-
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 240px;
-    
+    width: 240px;   
 }
 .body-support{
     height: 550px;
-    width: 750px;
+    width: 90%;
 }
 .support-items{
     color: inherit; 
     text-decoration: none;
-    margin-top: 30px;
+    margin-top: 20px;
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -83,4 +84,51 @@
 .button-action-supportList span{
     margin: 0;
     color: black;
+}
+
+@media(max-width: 1535px){
+    .subcontainer-support-list{
+    width: 630px;
+    }
+    .box-header{
+        width: 150px;
+    }
+    .support-item{    
+        display: flex;
+        justify-content:space-around;
+        width: 150px;
+    }
+}
+@media(max-width: 770px){
+    .subcontainer-support-list{
+       height: 100%;
+       width: 100%;
+    }
+    .header-supportList{
+        margin-top: 100px;
+    }
+}
+
+@media(max-width: 640px){
+    .subcontainer-support-list{
+        padding-top: 90px;
+        width: 630px;
+    }
+    .header-supportList{
+       display: none;
+    }
+   
+    .support-item{    
+        display: flex;
+        justify-content:space-around;
+        width: 25%;
+    }
+    .button-action-supportList{
+        height: 35px;
+        width: 35px;
+    }
+    .button-action-supportList span{
+        
+        font-size:medium;
+    }
 }
