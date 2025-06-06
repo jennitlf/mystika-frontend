@@ -19,7 +19,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                 {user ? (
                     <div className="menu-user-menuOption">
                         <span className="material-symbols-outlined menu-user-menuOption-icon" translate="no">account_circle</span>
-                        <span className="menu-user-menuOption-name">{user.name}</span>  
+                        <span className="menu-user-menuOption-name" translate="no">{user.name}</span>  
                     </div>
                 ) : (
                     <Link className="menu-user-menuOption-button-login" onClick={onClick} to={'/login'}>
@@ -33,7 +33,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                 </Link>
                 <div className="options-m options-m-dataUser" onClick={() => setEnabledMyData(!enabledMydata)}>
                     Meus dados
-                    {enabledMydata ? (<span class="material-symbols-outlined">keyboard_arrow_up</span>) 
+                    {enabledMydata ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 
                     (<span class="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
                 </div>
@@ -45,7 +45,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                 )}
                 <div className="options-m options-m-help" onClick={() => setEnabledHelp(!enabledHelp)}>
                     Ajuda
-                    {enabledHelp ? (<span class="material-symbols-outlined">keyboard_arrow_up</span>) 
+                    {enabledHelp ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 
                     (<span class="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
                 </div>
