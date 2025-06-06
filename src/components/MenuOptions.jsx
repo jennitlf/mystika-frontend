@@ -4,7 +4,7 @@ import '../css/menuOptions.css'
 import { AuthContext } from '../context/AuthContext.js';
 
 const MenuOptions = ({ setMenuActive, menuActive }) => {
-    const { user, logout, token } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const [ enabledMydata, setEnabledMyData ] = useState(false);
     const [ enabledHelp, setEnabledHelp ] = useState(false);
     const onClick = () => {
