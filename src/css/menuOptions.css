@@ -153,10 +153,19 @@
     height: 40px;
     width: 300px;
     display: flex;
+    align-items: center;
     justify-content: center;
     color: rgb(80, 80, 80);
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
+}
+.menu-user-menuOption-button-login:hover{
+    color:blue;
+}
+.icon-login-menuOption{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container-logout{

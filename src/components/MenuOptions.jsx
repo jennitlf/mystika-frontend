@@ -18,12 +18,13 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
         <div className={`menu-options-m ${menuActive ? "active" : ""}`}>
                 {user ? (
                     <div className="menu-user-menuOption">
-                        <span class="material-symbols-outlined menu-user-menuOption-icon" translate="no">account_circle</span>
+                        <span className="material-symbols-outlined menu-user-menuOption-icon" translate="no">account_circle</span>
                         <span className="menu-user-menuOption-name">{user.name}</span>  
                     </div>
                 ) : (
                     <Link className="menu-user-menuOption-button-login" onClick={onClick} to={'/login'}>
                         Acesse sua conta
+                        <span className="material-symbols-outlined icon-login-menuOption" translate="no">login</span>
                     </Link>
                 )}
             <ul className="ul-options">
