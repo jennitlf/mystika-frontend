@@ -1,273 +1,183 @@
-.loading{
-    height: 200px;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Paleta: Azul escuro, bege suave, marrom quente */
+.main-home{
+  background: #f8f6f1;
 }
 
-.consultants{
-    height: 1600px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    align-items: center;
-  }
-
-  #title-consultant-page{
-    margin: 130px auto 40px auto;
-    color: rgb(134, 33, 33);
-  }
-  .consultants-e-filtes{
-    width: 1200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items:flex-start; 
-  }
-  
-  .Content-consultants{
-    width: 850px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 1fr));
-    justify-items: center;
-    margin: 0;
-  }
-  
-  .consultant-card{
-    background-color: rgb(140, 181, 201);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    width: 260px;
-    height: 415px;
-    margin: 5% 0 5% 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-  }
-
-  .container-img{
-    height: 195px;
-    width: 200px;
-    margin: 5px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 1em;
-}  
-.container-img img{
-  height: 100%;
-  width: auto;
-  border-radius: 10%;
-}
-.consultant-card h3{
+.consultants.section-modern {
   width: 100%;
-  height: 35px;
-  margin: 9px auto 5px auto;
-  font-family: "DM Serif Display", serif;
-  font-weight: 800;
-  font-style: normal;
-  letter-spacing: 1.5px;
-  
-}
-.box-specialty{
-  padding: 0;
-  width: 90%;
-  height: 50px;
-  color: rgb(25, 55, 63);
+  max-width: 1200px;
+  margin: 80px auto 60px auto;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  font-family: "DM Serif Display", serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size:smaller;
-  margin:2% 0 2% 10%;
-
+  align-items: center;
 }
-.box-specialty p {
-  width: 80%;
-  margin: 0;
+
+
+#title-consultant-page {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #4a3c31; 
+  margin-bottom: 40px;
+  max-width: 900px;
+  line-height: 1.3;
+  letter-spacing: 1.1px;
+  text-shadow: 0 1px 3px rgba(74, 60, 49, 0.2);
+}
+
+
+.consultants-e-filtes {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: start;
-
-}
-.specialty-label{
-  margin-bottom: 0;
-}
-.value-minimum b{
-  margin-left: 4px;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.div-button{
-  width: 75%;
-  height: 45px;
-  padding: 0;
-  background-color: inherit;
-  margin: 5px auto 5px auto;
+
+@media (max-width: 1100px) {
+  .consultants-e-filtes {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
 }
 
-.div-button button{
+
+.Content-consultants {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  justify-items: center;
+  padding-bottom: 30px;
+}
+
+
+.consultant-card {
+  background: linear-gradient(135deg, #8ca9b1 0%, #b7c4c9 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(140, 181, 201, 0.3);
+  width: 260px;
+  height: 440px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.consultant-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(140, 181, 201, 0.55);
+}
+
+
+.container-img {
+  width: 220px;
+  height: 210px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(74, 60, 49, 0.15);
+  margin-bottom: 15px;
+}
+
+.container-img img {
   width: 100%;
   height: 100%;
-  padding: 0;
-  margin: 0;
-  border: 0.1px solid rgb(140, 181, 201);
-  border-radius: 1em;
-  cursor: pointer;
-  font-family: "DM Serif Display", serif;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.consultant-card:hover .container-img img {
+  transform: scale(1.1);
+}
+
+
+.consultant-card h3 {
+  font-family: 'DM Serif Display', serif;
   font-weight: 700;
-  font-style: normal;
-}
-
-.div-button button:hover{
-  color: white;
-  background-color: brown;
-}
-
-
-
-/* filters and list */
-@media (max-width: 1250px){
-  .consultants-e-filtes{
-    width: 900px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-    
+  font-size: 1.5rem;
+  color: #4a3c31;
+  margin: 10px 0 6px 0;
+  letter-spacing: 1.2px;
+  text-align: center;
 }
 
 
-@media(max-width: 905px){
-  .Content-consultants{
-    width: 550px;
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
-    justify-items: center;
-  }
-  .consultant-card{
-    background-color: rgb(140, 181, 201);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    width: 250px;
-    height: 380px;
-    margin: 5% 0 5% 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    font-family: "Tsukimi Rounded", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .consultants-e-filtes{
-    width: 100vw;
-    align-items: center;
-  }
-  
-}
-
-.loading-consultant-list-filter{
- 
-    width: 100vw;
-    height: 100vh;
-    background-color: beige;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-}
-
-@media (max-width: 800px){
-  #title-consultant-page{
-    margin: 130px auto 40px auto;
-    font-size: larger;
-    color: rgb(134, 33, 33);
-  }
-}
-
-/* mobile */
-
-@media(max-width: 670px) {
-  #title-consultant-page{
-    margin: 130px 0 40px 0;
-    width: 300px;
-  }
-}
-
-@media(max-width: 600px) {
-  .Content-consultants{
-    width: 550px;
-    grid-template-columns: repeat(1, minmax(100px, 1fr));
-    justify-items: center;
-  }
-  .consultants-e-filtes{
-    width: 100vw;
-    align-items: center;
-  }
+.box-specialty {
+  width: 90%;
+  color: #273c44; 
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin: 12px 0 18px 10%;
+  text-align: left;
 }
 
 
-@media(max-width: 700px){
-  .consultants-e-filtes{
-    width: 100vw;
-    align-items: center;
+.div-button {
+  width: 80%;
+  margin: auto;
+}
+
+.div-button button {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 30px;
+  border: none;
+  font-family: 'DM Serif Display', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: #6b4c3b; 
+  color: #f8f6f1;
+  box-shadow: 0 4px 12px rgba(107, 76, 59, 0.5);
+  cursor: pointer;
+  transition: background 0.4s ease;
+}
+
+.div-button button:hover {
+  background: #4a3526;
+}
+
+
+.loading {
+  height: 200px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'DM Serif Display', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #6b4c3b;
+}
+
+
+@media (max-width: 900px) {
+  .Content-consultants {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
-  .Content-consultants{
+  .consultants-e-filtes {
+    width: 90vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .Content-consultants {
+    grid-template-columns: 1fr;
+    width: 90vw;
+  }
+  .consultant-card {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, minmax(90%, 1fr));
-    justify-items: center;
-    margin: 0;
-   
+    height: auto;
+    padding-bottom: 30px;
   }
-  .consultant-card{
-    background-color: rgb(140, 181, 201);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    text-align: center;
-    width: 80%;
-    height: 550px;
-    margin: 5% 0 5% 0;
-  }
-  .loading{
-    height: 200px;
+  .container-img {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 260px;
   }
-
-  .container-img{
-  
-    height: 290px;
-    width: 350px;
-    margin: 5px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 1em;
-}  
 }
-
-@media(max-width: 545px){
-  .container-img{
-    height: 280px;
-    width: 75%;
-    margin: 5px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 1em;
-}  
-}
-
-  
