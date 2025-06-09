@@ -1,38 +1,39 @@
-import React, { useState, useEffect} from "react";
-import Consultants from "./Consultants"
-import "../css/Home.css"
+import React, { useState, useEffect } from "react";
+import Consultants from "./Consultants";
+import "../css/Home.css";
 import Filters from "./Filters";
 import Page from "./Page";
 import { API } from "../config";
 import { useDebounce } from "../utils/useDebounce";
 
-
 const Home = () => {
   const [consultants, setConsultants] = useState([]);
   const [totalConsultants, setTotalConsultants] = useState("");
   const [loading, setLoading] = useState(true);
-  const [params, setParams] = useState({
-    "name": "",
-    "specialties": [],
-    "minValue": null,
-    "maxValue": null
+  const [immediateParams, setImmediateParams] = useState({
+    name: "",
+    specialties: [],
   });
-  const [ queryString, setQueryString ] = useState("limit=9")
+  const [debouncedParams, setDebouncedParams] = useState({
+    minValue: null,
+    maxValue: null,
+  });
+  const debouncedFilter = useDebounce(debouncedParams, 500);
+  const [queryString, setQueryString] = useState("limit=9");
   const [totalPage, setTotalPage] = useState(1);
-  const [page, setPage] = useState(1)
-
-  const debouncedParams = useDebounce(params, 500);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchConsultants = async () => {
       try {
-        const response = await fetch(`${API}general-find?page=${page}&${queryString}`);
-        ///                                 
+        const response = await fetch(
+          `${API}general-find?page=${page}&${queryString}`
+        );
         const data = await response.json();
         setConsultants(data.data);
-        setTotalConsultants(data.meta.total)
-        setTotalPage(data.meta.lastPage)
-        setPage(parseInt(data.meta.page))
+        setTotalConsultants(data.meta.total);
+        setTotalPage(data.meta.lastPage);
+        setPage(parseInt(data.meta.page));
       } catch (error) {
         console.error("Erro ao buscar consultores:", error);
       } finally {
@@ -40,12 +41,16 @@ const Home = () => {
       }
     };
     fetchConsultants();
-  }, [queryString, debouncedParams, page]);
-
+  }, [queryString, page]);
 
   useEffect(() => {
+    const combinedParams = {
+      ...immediateParams,
+      ...debouncedFilter,
+    };
+
     setQueryString(
-      Object.entries(debouncedParams)
+      Object.entries(combinedParams)
         .filter(([key, value]) => {
           if (Array.isArray(value)) return value.length > 0;
           return value !== null && value !== undefined && value !== "";
@@ -58,26 +63,37 @@ const Home = () => {
         })
         .join("&")
     );
-  }, [debouncedParams]);
-
+  }, [immediateParams, debouncedFilter]);
 
   if (loading) {
     return <p>Carregando consultores...</p>;
   }
-  
- 
 
   return (
     <div className="consultants">
-      <h2 id="title-consultant-page">Explore os melhores consultores e encontre o guia ideal para sua jornada!</h2>
+      <h2 id="title-consultant-page">
+        Explore os melhores consultores e encontre o guia ideal para sua
+        jornada!
+      </h2>
       <div className="consultants-e-filtes">
-         <Filters setParams={setParams} params={params}></Filters>
-        { totalConsultants > 0 ? <Consultants consultants={consultants}></Consultants>
-          : <div className="loading" >Não há itens correspondentes à consulta</div>}
+        <Filters
+          setImmediateParams={setImmediateParams}
+          setDebouncedParams={setDebouncedParams}
+          immediateParams={immediateParams}
+          debouncedParams={debouncedParams}
+        ></Filters>
+        {totalConsultants > 0 ? (
+          <Consultants consultants={consultants}></Consultants>
+        ) : (
+          <div className="loading">
+            Não há itens correspondentes à consulta
+          </div>
+        )}
       </div>
       <Page totalPage={totalPage} page={page} setPage={setPage}></Page>
     </div>
   );
-}
+};
 
 export default Home;
+
