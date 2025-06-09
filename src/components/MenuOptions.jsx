@@ -34,7 +34,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                     Meus dados
                     {enabledMydata ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 
-                    (<span class="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
+                    (<span className="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
                 </div>
                 {enabledMydata && (
                     <ul className="ul-options-myData">
@@ -46,7 +46,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                     Ajuda
                     {enabledHelp ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 
-                    (<span class="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
+                    (<span className="material-symbols-outlined" translate="no">keyboard_arrow_down</span>)}
                 </div>
                 {enabledHelp && (
                     <ul className="ul-options-help">
