@@ -57,11 +57,12 @@ const Filters = ({setParams, params}) => {
   const handleCheckBoxChange = (event) => {
 
     const { checked, id} = event.target
-
+      console.log("especialidade:", event.target.name)
       setParams((prevState)=>({
         ...prevState,
         "specialties": checked ? [...prevState.specialties, id] : prevState.specialties.filter((specialty) => specialty !== id)
       }));
+      console.log("params no filter:", params )
   }
 
     return (

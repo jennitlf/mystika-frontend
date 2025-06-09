@@ -153,7 +153,7 @@ const SupportDetail = () => {
                     </button>
                 </div>
                 <div className="content-button-return">
-                <Link to="/ajuda">
+                <Link to="/solicitacoes-de-supote">
                     <button>
                         voltar
                     </button>
