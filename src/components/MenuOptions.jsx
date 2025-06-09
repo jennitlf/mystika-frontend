@@ -15,6 +15,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
 
     return (
         <div className={`menu-options-m ${menuActive ? "active" : ""}`}>
+            <div className="menu-options-m-subcontainer">
                 {user ? (
                     <div className="menu-user-menuOption">
                         <span className="material-symbols-outlined menu-user-menuOption-icon" translate="no">account_circle</span>
@@ -55,13 +56,14 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                     </ul>
                 )}
             </ul>
+        </div>
             {user ? (
                     <div className="container-logout">Sair<span className="material-symbols-outlined logout" onClick={() => logout()} translate="no">logout</span></div>
                 ) : (
-                    <div></div>
+                    <div className="container-logout-off"></div>
                 )}
             
-        </div>
+    </div>
     );
 };
 

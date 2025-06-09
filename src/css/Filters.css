@@ -9,7 +9,7 @@
     margin: 20px 0 15px 5px;
     display: flex;
     justify-content: left;
-    font-family: "Tsukimi Rounded", serif;
+    font-family: "DM Serif Display", serif;
     font-weight: 700;
     font-style: normal;
 }
@@ -30,7 +30,7 @@
     outline: none;
     margin-left: 2px;
     color: rgb(134, 33, 33);
-    font-family: "Tsukimi Rounded", serif;
+    font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: normal;
     font-size: medium;
@@ -56,7 +56,7 @@
 .specialty div{
     display: flex;
     justify-content: left;
-    font-family: "Tsukimi Rounded", serif;
+    font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -87,7 +87,7 @@
     padding: 0;
     display: flex;
     justify-content: left;
-    font-family: "Tsukimi Rounded", serif;
+    font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: normal;
     font-size: small;
