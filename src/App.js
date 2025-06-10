@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.js';
 import PrivateRoute from './components/routes/PrivateRoute.js';
 import Register from './components/user/Register.jsx';
@@ -12,6 +12,7 @@ import Home from './components/user/Home.jsx';
 import SupportForm from './components/user/SupportForm.jsx';
 import SupportList from './components/user/SupportList.jsx';
 import SupportDetails from './components/user/SupportDetails.jsx';
+import RegisterConsultant from './components/consultant/RegisterConsultant.jsx';
 import { ToastContainer } from 'react-toastify';
 import './toastfy.css';
 
@@ -26,10 +27,13 @@ export default function AppWrapper() {
 }
 
 function App() {
+  const location = useLocation();
 
+  const noHeaderRoutes = ['/usuario/login', '/usuario/register', '/consultor/register', '/consultor/login'];
+  const showHeader = !noHeaderRoutes.includes(location.pathname);
   return (
     <div className="App">
-      <HeaderMobile />
+      {showHeader &&  <HeaderMobile />}
       <Routes>
         <Route path="/" element={<Navigate to="/consultores" />} />
         <Route path="/consultores" element={<Home />} />
@@ -76,6 +80,8 @@ function App() {
         <Route path="/consultor/:id" element={<Consultant />} />
         <Route path="usuario/login" element={<Login />} />
         <Route path="usuario/register" element={<Register />} />
+        {/* <Route path="consultor/login" element={<Login />} /> */}
+        <Route path="consultor/register" element={<RegisterConsultant />} />
       </Routes>
       <ToastContainer
         position="bottom-right"

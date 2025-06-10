@@ -6,6 +6,7 @@ import Filters from "./Filters";
 import Page from "./Page";
 import { API } from "../../config";
 import { useDebounce } from "../../utils/useDebounce";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [consultants, setConsultants] = useState([]);
@@ -99,7 +100,7 @@ const Home = () => {
         <p className="consultor-description">
           Seja um consultor em nossa plataforma e compartilhe seu conhecimento esotérico com quem busca luz e orientação.
         </p>
-        <button className="consultor-button">Cadastre-se como Consultor</button>
+        <Link to={'/consultor/register'} target="_blank" className="consultor-button">Cadastre-se como Consultor</Link>
         <div className="consultor-icons">
           <span className="icon tarot-icon" aria-label="Tarot"></span>
           <span className="icon numerology-icon" aria-label="Numerologia"></span>
