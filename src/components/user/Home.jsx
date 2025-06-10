@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Consultants from "./Consultants";
-import "../css/Home.css";
-import "../css/HomeSectionFinal.css";
+import "../../css/user/Home.css";
+import "../../css/user/HomeSectionFinal.css";
 import Filters from "./Filters";
 import Page from "./Page";
-import { API } from "../config";
-import { useDebounce } from "../utils/useDebounce";
+import { API } from "../../config";
+import { useDebounce } from "../../utils/useDebounce";
 
 const Home = () => {
   const [consultants, setConsultants] = useState([]);

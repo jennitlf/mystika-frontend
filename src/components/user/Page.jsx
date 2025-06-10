@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import '../css/Page.css'
+import '../../css/user/Page.css'
 
 const Page = ({totalPage, setPage, page}) => {
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { API } from "../config.js";
+import { API } from "../../config.js";
 import "react-toastify/dist/ReactToastify.css";
-import "../css/SupportList.css";
-import { AuthContext } from "../context/AuthContext";
+import "../../css/user/SupportList.css";
+import { AuthContext } from "../../context/AuthContext.js";
 
 const SupportList = () => {
     const { token } = useContext(AuthContext);

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import "../css/Login.css";
-import file from '../image/file.png';
+import "../../css/user/Login.css";
+import file from '../../image/file.png';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { AuthContext } from "../context/AuthContext";
-import { API } from "../config";
+import { AuthContext } from "../../context/AuthContext";
+import { API } from "../../config";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -75,7 +75,7 @@ const Login = () => {
           </div>
         </form>
         <div className="redirection-to-resgitry">
-          <p> Ainda não tem login? <Link className="registry-link" to="/register">Registre-se</Link></p>
+          <p> Ainda não tem login? <Link className="registry-link" to="/usuario/register">Registre-se</Link></p>
         </div>
         <div className="redirection-to-recovery">
           <p><Link className="registry-link" to="/register">Esqueceu</Link> a senha?</p>

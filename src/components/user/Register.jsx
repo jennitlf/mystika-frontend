@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import file from '../image/file.png';
-import '../css/Register.css';
-import { API } from "../config";
+import file from '../../image/file.png';
+import '../../css/user/Register.css';
+import { API } from "../../config";
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

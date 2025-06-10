@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../css/Filters.css";
-import { API } from "../config";
+import "../../css/user/Filters.css";
+import { API } from "../../config";
 
 const Filters = ({
   setImmediateParams,

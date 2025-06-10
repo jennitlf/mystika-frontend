@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { API } from "../config.js";
-import "../css/SupportForm.css";
-import { AuthContext } from "../context/AuthContext";
+import { API } from "../../config.js";
+import "../../css/user/SupportForm.css";
+import { AuthContext } from "../../context/AuthContext.js";
 
 const SupportForm = () => {
   const { token } = useContext(AuthContext);

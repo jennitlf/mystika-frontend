@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../css/Consultant.css";
-import { API } from "../config";
-import { AuthContext } from "../context/AuthContext";
+import "../../css/user/Consultant.css";
+import { API } from "../../config";
+import { AuthContext } from "../../context/AuthContext";
 import { toast } from 'react-toastify';
 
 const Consultant = () => {

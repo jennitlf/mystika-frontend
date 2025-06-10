@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
-import "../css/DataUser.css";
-import { API } from "../config.js";
-import { AuthContext } from '../context/AuthContext.js';
+import "../../css/user/DataUser.css";
+import { API } from "../../config.js";
+import { AuthContext } from '../../context/AuthContext.js';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

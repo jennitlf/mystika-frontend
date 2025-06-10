@@ -2,16 +2,16 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.js';
 import PrivateRoute from './components/routes/PrivateRoute.js';
-import Register from './components/Register.jsx';
-import Login from './components/Login.jsx';
-import Consultant from './components/Consultant.jsx';
-import DataUser from './components/DataUser.jsx';
-import ScheduledAppointments from './components/ScheduledAppointments.jsx';
-import HeaderMobile from './components/HeaderMobile.jsx';
-import Home from './components/Home.jsx';
-import SupportForm from './components/SupportForm.jsx';
-import SupportList from './components/SupportList.jsx';
-import SupportDetails from './components/SupportDetails.jsx';
+import Register from './components/user/Register.jsx';
+import Login from './components/user/Login.jsx';
+import Consultant from './components/user/Consultant.jsx';
+import DataUser from './components/user/DataUser.jsx';
+import ScheduledAppointments from './components/user/ScheduledAppointments.jsx';
+import HeaderMobile from './components/user/HeaderMobile.jsx';
+import Home from './components/user/Home.jsx';
+import SupportForm from './components/user/SupportForm.jsx';
+import SupportList from './components/user/SupportList.jsx';
+import SupportDetails from './components/user/SupportDetails.jsx';
 import { ToastContainer } from 'react-toastify';
 import './toastfy.css';
 
@@ -74,8 +74,8 @@ function App() {
           }
         />
         <Route path="/consultor/:id" element={<Consultant />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="usuario/login" element={<Login />} />
+        <Route path="usuario/register" element={<Register />} />
       </Routes>
       <ToastContainer
         position="bottom-right"

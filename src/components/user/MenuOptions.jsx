@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
-import '../css/menuOptions.css'
-import { AuthContext } from '../context/AuthContext.js';
+import '../../css/user/menuOptions.css'
+import { AuthContext } from '../../context/AuthContext.js';
 
 const MenuOptions = ({ setMenuActive, menuActive }) => {
     const { user, logout } = useContext(AuthContext);
@@ -22,7 +22,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                         <span className="menu-user-menuOption-name" translate="no">{user.name}</span>  
                     </div>
                 ) : (
-                    <Link className="menu-user-menuOption-button-login" onClick={onClick} to={'/login'}>
+                    <Link className="menu-user-menuOption-button-login" onClick={onClick} to={'usuario/login'}>
                         Acesse sua conta
                         <span className="material-symbols-outlined icon-login-menuOption" translate="no">login</span>
                     </Link>
@@ -52,7 +52,7 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
                 {enabledHelp && (
                     <ul className="ul-options-help">
                         <Link to={`/solicitacoes-de-supote`} className="ul-options-help-li li-help-list" onClick={onClick}>Lista de pedidos</Link>
-                        <Link to={`/formulario-de-ajuda`} className="ul-options-help-li li-help" onClick={onClick}>Solcite ajuda</Link>
+                        <Link to={`/formulario-de-ajuda`} className="ul-options-help-li li-help" onClick={onClick}>Solicite ajuda</Link>
                     </ul>
                 )}
             </ul>

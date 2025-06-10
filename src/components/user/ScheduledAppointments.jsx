@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../css/ScheduledAppointments.css";
-import { AuthContext } from "../context/AuthContext.js";
+import "../../css/user/ScheduledAppointments.css";
+import { AuthContext } from "../../context/AuthContext.js";
 import { toast } from "react-toastify";
-import { API } from "../config.js";
+import { API } from "../../config.js";
 
 const ScheduledAppointments = () => {
     const { token } = useContext(AuthContext);

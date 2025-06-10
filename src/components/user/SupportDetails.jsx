@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AuthContext } from "../context/AuthContext";
-import { API } from "../config.js";
-import "../css/supportDetails.css"
+import { AuthContext } from "../../context/AuthContext.js";
+import { API } from "../../config.js";
+import "../../css/user/supportDetails.css"
 
 const SupportDetail = () => {
     const { token } = useContext(AuthContext);

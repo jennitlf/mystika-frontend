@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../css/HeaderMobile.css";
-import file from "../image/file.png";
+import "../../css/user/HeaderMobile.css";
+import file from "../../image/file.png";
 import MenuOptions from "./MenuOptions";
 
 const HeaderMobile = () => {
