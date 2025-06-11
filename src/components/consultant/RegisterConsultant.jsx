@@ -6,7 +6,7 @@ import "../../css/consultant/register.css";
 const RegisterConsultant = () => {
     const { control, handleSubmit } = useForm();
     const [step, setStep] = useState(1);
-     const [selectedFileName, setSelectedFileName] = useState("");
+    const [selectedFileName, setSelectedFileName] = useState("");
 
     const onSubmit = (data) => {
         console.log("Form Data:", data);
@@ -26,17 +26,17 @@ const RegisterConsultant = () => {
 
     return (
         <div className="container-register">
-            <div className="content-left">
-                <div className="content-text-register">
+            <div className="content-left-register-consultant">
+                <div className="content-text-register-consultant">
                     <h3 className="content-text-1-register animate-slide-in">
                         Conecte-se com aqueles que buscam orientação e sabedoria.
                     </h3>
                 </div>
             </div>
-            <div className="content-right">
+            <div className="content-right-register-consultant">
                 <div className="content-sign-in-register">
                     <h5>
-                        Already have an account? <Link>Sign in here!</Link>
+                        Already have an account? <Link to={'/consultor/login'}>Sign in here!</Link>
                     </h5>
                 </div>
                 <div className="container-form-register-consultant">

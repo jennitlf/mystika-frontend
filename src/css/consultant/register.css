@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 
-.content-left {
+.content-left-register-consultant {
     background-color: #fff;
     width: 45%;
     height: 100%;
@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.content-right {
+.content-right-register-consultant {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@
     height: 100%;
 }
 
-.content-text-register {
+.content-text-register-consultant {
     margin-top: 300px;
     width: 100%;
     height: 200px;

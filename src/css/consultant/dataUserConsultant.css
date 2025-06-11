@@ -1,0 +1,233 @@
+.container-data-user-consultant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    height: 1075px;
+    background-color: #2c1053;
+    overflow: none;
+}
+.card-data-user-consultant {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.box-title-data-user-consultant{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+}
+.title-data-user-consultant {
+    color: #fff;
+    font-weight: 800;
+    font-size: 28px;
+    margin:0;
+}
+
+.form-data-user-consultant {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+.box-data-user-consultant{
+    display:flex;
+    flex-direction: row;
+}
+.field-input-data-user-consultant{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 90px;
+    margin: 5px; 
+    width: 400px;
+}
+.field-input-data-user-consultant label {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.field-input-data-user-consultant input{
+    outline: none;
+    width: 88%;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px 5px 5px 0;
+    padding-left: 10px;
+    font-size: 18px;
+}
+.field-input-data-user-consultant input:hover{
+    height: 70px;
+    width: 90%;
+}
+.field-input-data-user-consultant input:disabled{
+    background-color:  #dbd6d6;
+}
+.field-textarea-data-user-consultant{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 230px;
+    margin: 5px; 
+    width: 400px;
+}
+.field-textarea-data-user-consultant label {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.field-textarea-data-user-consultant textarea {
+    outline: none;
+    width: 88%;
+    height: 180px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px 5px 5px 0;
+    padding-left: 10px;
+    font-size: 18px;
+}
+.field-textarea-data-user-consultant textarea:hover{
+    height: 200px;
+    width: 90%;
+}
+.field-input-select-data-user-consultant{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 5px; 
+    width: 400px;
+}
+.field-input-select-data-user-consultant label {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.field-input-select-data-user-consultant select {
+    outline: none;
+    width: 88%;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+    margin: 5px 5px 5px 0;
+    padding-left: 10px;
+    font-size: 18px;
+}
+.field-input-select-data-user-consultant select:hover{
+    height: 50px;
+    width: 90%;
+}
+
+.input-data-user-consultant:focus,
+.textarea-data-user-consultant:focus {
+    border-color: #73347e;
+    box-shadow: 0px 0px 5px rgba(115, 52, 126, 0.5);
+    outline: none;
+}
+
+.textarea-data-user-consultant {
+    height: 100px;
+    resize: none;
+}
+
+.button-submit-data-user-consultant {
+    background-color: #73347e;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-submit-data-user-consultant:hover {
+    background-color: #5a2964;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.error-data-user-consultant{
+    color: rgb(250, 187, 187);
+}
+
+@media(max-width:905px){
+    .card-data-user-consultant {
+        padding: 10px;
+        box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+    }
+    .box-data-user-consultant{
+        justify-content: space-between;
+    }
+    .box-label-data-user-consultant{
+        display: flex;
+        justify-content: start;
+        width: 92%;
+    }
+    .field-input-data-user-consultant{
+        align-items: center;
+        width: 300px;
+    }
+    .field-textarea-data-user-consultant{
+        width: 300px;
+    }
+    .field-input-select-data-user-consultant{
+        width: 300px;
+    }
+}
+@media(max-width:600px){
+    .container-data-user-consultant {
+        padding-top: 60px;
+        height: auto;
+    }
+    .card-data-user-consultant {
+        width: 90%;
+        padding: 10px;
+    }
+    .box-data-user-consultant{
+        flex-direction: column;
+        align-items: center;
+    }
+    .field-input-data-user-consultant,
+    .field-textarea-data-user-consultant,
+    .field-input-select-data-user-consultant{
+        width: 100%;
+        margin: 5px 0;
+    }
+    .field-input-data-user-consultant input,
+    .field-textarea-data-user-consultant textarea,
+    .field-input-select-data-user-consultant select,
+    .field-input-select-data-user-consultant option {
+        width: 300px;
+    }
+}
+@media(max-width:380px){
+    .field-input-data-user-consultant input,
+    .field-textarea-data-user-consultant textarea,
+    .field-input-select-data-user-consultant select,
+    .field-input-select-data-user-consultant option {
+        width: 250px;
+    }
+}
+@media(max-width:320px){
+    .container-data-user-consultant {
+        display: none;
+    }
+}
+
+
