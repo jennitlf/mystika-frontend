@@ -46,6 +46,7 @@
 
 .content-sign-in-register{
     display: flex;
+    align-items: center;
     justify-content: end;
     height: 50px;
     width: 85%;
@@ -79,13 +80,11 @@
 
 .container-title-register-consultant{
     width: 95%;
-    height: 80px;
+    height: 75px;
     display: flex;
     align-items: center;
 }
 .form-register-consultant{
-    background-color: aliceblue;
-    height: 720px;
     width: 95%;
 }
 .container-title-register-consultant h3{
@@ -104,7 +103,7 @@
 }
 .content-step1-register-consultant{
     width: 50%;
-    height: 100%;
+    height: 80px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -113,15 +112,162 @@
 .subcontainer-step1-register-consultant-up{
     display: flex;
     flex-direction: column;
+    height: 180px;
+    width: 100%;
+    
 }
-.content-step1-register-consultant input, .subcontainer-step1-register-consultant-down input{
-    width: 80%;
+.subcontainer-step1-register-consultant-down{
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    width: 100%;
+    align-items: start;
+    justify-content: start;
+}
+.content-step1-register-consultant input{
+    outline: none;
+    width: 40%;
     height: 50px;
     border-radius: 5px;
     border: none;
     padding-left: 10px;
     font-size: 18px;
     margin-bottom: 20px;
+}
+.subcontainer-step1-register-consultant-down .custom-file-upload {
+  display: inline-block;
+  width: 40%;
+  height: 50px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: none;
+  padding-left: 10px;
+  font-size: 18px;
+  line-height: 50px; /* Alinha o texto verticalmente */
+  text-align: center; /* Centraliza o texto horizontalmente */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.subcontainer-step1-register-consultant-down .custom-file-upload:hover {
+  background-color: #e0e0e0; /* Cor ao passar o mouse */
+}
+
+.subcontainer-step1-register-consultant-down input[type="file"] {
+  display: none; /* Esconde o input padrão */
+}
+.file-name-display {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #9e9e9e;
+}
+.content-step1-register-consultant{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+}
+.input-cpf-register-consultant{
+    margin-left: 20px;
+}
+.input-email-register-consultant{
+    margin-left: 20px;
+}
+.button-prev-register-consultant{
+    width: 40%;
+    height: 50px;
+    background-color: #73347e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 20px;
+}
+.button-next-register-consultant{
+    width: 40%;
+    height: 50px;
+    background-color: #73347e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button-submit-register-consultant{
+    width: 40%;
+    height: 50px;
+    background-color: #73347e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button-submit-register-consultant:hover{
+    background-color: #d3d6d1;
+    color: #73347e;
+}
+.step2-register-consultant{
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+.container-step2-register-consultant-up{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+.step2-register-consultant textarea{
+    width: 300px;
+    height: 250px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+}
+#about-specialties-register{
+ margin-left: 20px;
+}
+.step3-register-consultant input{
+    width: 320px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+}
+.step3-register-consultant select {
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    outline: none;
+    appearance: none; /* Remove a seta padrão do select */
+    background-color: #fff; /* Ajuste conforme necessário */
+    cursor: pointer;
+}
+#payment-plan-register{
+    margin-left: 20px;
 }
 .container-copyright-register-consultant{
     
