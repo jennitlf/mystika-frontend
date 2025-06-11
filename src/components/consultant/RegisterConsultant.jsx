@@ -6,7 +6,7 @@ import "../../css/consultant/register.css";
 const RegisterConsultant = () => {
     const { control, handleSubmit } = useForm();
     const [step, setStep] = useState(1);
-    const [fileName, setFileName] = useState("");
+     const [selectedFileName, setSelectedFileName] = useState("");
 
     const onSubmit = (data) => {
         console.log("Form Data:", data);
@@ -18,7 +18,9 @@ const RegisterConsultant = () => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setFileName(file.name);
+            setSelectedFileName(file.name); 
+        } else {
+            setSelectedFileName("");
         }
     };
 
@@ -88,35 +90,31 @@ const RegisterConsultant = () => {
                                 </div>
                                 <div className="subcontainer-step1-register-consultant-down">
                                    <Controller
-                                        name="image_consultant"
-                                        control={control}
-                                        render={({ field }) => (
-                                            <>
-                                                <input
-                                                    {...field}
-                                                    id="image-consultant-register"
-                                                    className="input-image-register-consultant"
-                                                    type="file"
-                                                    onChange={(e) => {
-                                                        field.onChange(e);
-                                                        handleFileChange(e);
-                                                    }}
-                                                    style={{ display: "none" }}
-                                                />
-                                                <label
-                                                    htmlFor="image-consultant-register"
-                                                    className="custom-file-upload"
-                                                >
-                                                    Escolha uma imagem
-                                                </label>
-                                                {fileName && (
-                                                    <p className="file-name-display">
-                                                        Arquivo selecionado: {fileName}
-                                                    </p>
-                                                )}
-                                            </>
-                                        )}
-                                    />
+                                    name="image_consultant"
+                                    control={control}
+                                    rules={{ required: "Image is required" }}
+                                    render={({ field }) => (
+                                        <>
+                                            <input
+                                                type="file"
+                                                onChange={(e) => {
+                                                    handleFileChange(e); // Atualiza o estado local
+                                                    field.onChange(e); // Passa o evento para o React Hook Form
+                                                }}
+                                                className="input-image-register-consultant"
+                                                style={{ display: "none" }}
+                                                id="file-input"
+                                            />
+                                            <label htmlFor="file-input" className="custom-file-upload">
+                                                Escolha uma imagem
+                                            </label>
+                                            {selectedFileName && (
+                                                <p className="file-name">{selectedFileName}</p>
+                                            )}
+                                        </>
+                                    )}
+                                />
+
                                 </div>
 
                                 
