@@ -11,6 +11,7 @@ export const getUserFromToken = (token) => {
       return {
         id: decoded.id,
         name: decoded.name,
+        role: decoded.role,
       };
     }
     return null;

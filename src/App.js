@@ -12,6 +12,13 @@ import Home from './components/user/Home.jsx';
 import SupportForm from './components/user/SupportForm.jsx';
 import SupportList from './components/user/SupportList.jsx';
 import SupportDetails from './components/user/SupportDetails.jsx';
+import LoginConsultant from './components/consultant/LoginConsultant.jsx';
+import DataUserConsultant from './components/consultant/DataUserConsultant.jsx';
+import MySpecialties from './components/consultant/MySpecialties.jsx';
+import ScheduleConsultant from './components/consultant/ScheduleConsultant.jsx';
+import FinanceConsultant from './components/consultant/FinanceConsultant.jsx';
+import NewSupportConsultant from './components/consultant/NewSupportConsultant.jsx';
+import SupportListConsultant from './components/consultant/SupportListConsultant.jsx';
 import RegisterConsultant from './components/consultant/RegisterConsultant.jsx';
 import { ToastContainer } from 'react-toastify';
 import './toastfy.css';
@@ -40,7 +47,7 @@ function App() {
         <Route
           path="/meus-dados"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['user']}>
               <DataUser />
             </PrivateRoute>
           }
@@ -48,7 +55,7 @@ function App() {
         <Route
           path="/consultas-agendadas"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['user']}>
               <ScheduledAppointments />
             </PrivateRoute>
           }
@@ -56,7 +63,7 @@ function App() {
         <Route
           path="/solicitacoes-de-supote"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['user']}>
               <SupportList />
             </PrivateRoute>
           }
@@ -64,7 +71,7 @@ function App() {
         <Route
           path="/formulario-de-ajuda"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['user']}>
               <SupportForm />
             </PrivateRoute>
           }
@@ -72,15 +79,66 @@ function App() {
         <Route
           path="/ajuda/detalhes/:id"
           element={
-            <PrivateRoute>
+            <PrivateRoute allowedRoles={['user']}>
               <SupportDetails />
             </PrivateRoute>
           }
         />
+        {/* rotas consultant */}
+        <Route
+        path="/consultor/dados-do-perfil"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <DataUserConsultant />
+          </PrivateRoute>
+        }
+        />
+        <Route
+        path="/consultor/especialidades"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <MySpecialties />
+          </PrivateRoute>
+        }
+        />
+        <Route
+        path="/consultor/agenda"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <ScheduleConsultant />
+          </PrivateRoute>
+        }
+        />
+        <Route
+        path="/consultor/financeiro"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <FinanceConsultant />
+          </PrivateRoute>
+        }
+        />
+        <Route
+        path="/consultor/suportes"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <SupportListConsultant />
+          </PrivateRoute>
+        }
+        />
+        <Route
+        path="/consultor/novo-suporte"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <NewSupportConsultant />
+          </PrivateRoute>
+        }
+        />
+
+        {/* rotas publicas */}
         <Route path="/consultor/:id" element={<Consultant />} />
         <Route path="usuario/login" element={<Login />} />
         <Route path="usuario/register" element={<Register />} />
-        {/* <Route path="consultor/login" element={<Login />} /> */}
+        <Route path="consultor/login" element={<LoginConsultant />} />
         <Route path="consultor/register" element={<RegisterConsultant />} />
       </Routes>
       <ToastContainer
