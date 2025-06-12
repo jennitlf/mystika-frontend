@@ -25,7 +25,6 @@ const DataUserConsultant = () => {
                 }
                 const data = await response.json();
                 setConsultantData(data);
-                console.log('json obtido pelo get', data)
                 reset(data);
             } catch (error) {
                 console.error("Erro ao buscar dados do consultor:", error);
