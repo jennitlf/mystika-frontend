@@ -93,7 +93,7 @@ const Consultant = () => {
 
   const postConsultation = async () => {
     if (!user) {
-      navigate('/login');
+      navigate('/usuario/login');
       return;
     }
     if ( !selectedDateTime?.date || !selectedDateTime?.time) {
