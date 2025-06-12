@@ -8,7 +8,6 @@
     align-items: center;
     border-bottom: solid 1px #E1E5EE;
 }
-
 .container-1{
     margin-top: 10px;
     height: 320px;
@@ -44,10 +43,6 @@
     margin: 120px 0 0px 15px;
     width: 500px;
     flex: 0 1 auto; 
-}
-
-.name-assessment{
-
 }
 
 .name-assessment-sub{
@@ -156,10 +151,8 @@
    font-size: x-large;
    font-family: "Changa", serif;
    font-optical-sizing: auto;
-   font-weight: 400;
-  
+   font-weight: 400; 
 }
-
 .c-specialties-unit{
     padding: 10px;
     height: 90px;
@@ -258,114 +251,122 @@
         flex-direction: column;
     } 
 }
+  
+  
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: scale(0.9); /* Leve efeito de zoom */
+}
+to {
+    opacity: 1;
+    transform: scale(1);
+}
+}
 
 .modal {
-    position: fixed; /* Para que o modal fique fixo na tela */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semitransparente */
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    z-index: 1000; /* Certifique-se de que está acima de outros elementos */
-  }
-  
-  .modal-content {
-    background: white;
-    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: #fff;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80%;
     padding: 20px;
-    max-width: 500px;
-    width: 90%; /* Adapta a largura em telas menores */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para destacar */
-    animation: fadeIn 0.3s ease; /* Animação de entrada */
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9); /* Leve efeito de zoom */
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .calendar {
+    border-radius: 10px;
+    overflow-y: auto; /* Adiciona scroll para conteúdos que ultrapassam o height */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container-close-button {
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.container-close-button button{
+    border:0.5px solid rgb(170, 170, 170);
+    width: 25px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.calendar {
     display: flex;
-    flex-wrap: wrap; /* Para organizar os dias em várias linhas */
-    gap: 10px; /* Espaçamento entre os dias */
-    margin-bottom: 20px;
-  }
-  
-  .calendar-day {
-    background: #f0f0f0;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.calendar-day {
     padding: 10px;
+    background-color: #f1f1f1;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-    transition: background 0.3s ease;
-  }
-  
-  .calendar-day:hover {
-    background: rgb(206, 132, 103);
-  }
-  .times{
-    margin-top:40px;
-  }
-  
-  .time-button {
-    background: #f0f0f0;
+    flex: 1 0 30%; /* Ajusta a largura para caber várias datas em uma linha */
+}
+
+.calendar-day:hover {
+    background-color: #e0e0e0;
+}
+
+.times {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.time-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    padding: 10px;
-    margin: 5px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .time-button:hover {
-    background: #e0e0e0;
-  }
-  .container-close-button{
+    flex: 1 0 30%; /* Adapta a largura para caber várias opções */
+}
+
+.time-button.selected {
+    background-color: #0056b3;
+}
+
+.schedule-button {
     width: 100%;
-    display: flex;
-    justify-content: end;
-  }
-  .close-button {
-    margin-right: 10PX;
-    top: 10px;
-    right: 10px;
-    background: transparent;
+    padding: 15px;
+    background-color: green;
+    color: white;
     border: none;
-    font-size: 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: x-large;
-  }
-  
-  .schedule-button {
-    height: 35px;
-    width: 150px;
-    margin-top: 35px;
-    background-color: #ddd;
+    margin-top: 20px;
+}
+
+.schedule-button:disabled {
+    background-color: grey;
     cursor: not-allowed;
-    background-color: rgb(145, 156, 161);
-    border: 0.1px solid rgb(145, 156, 161);
-    border-radius: 1em;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
-    color: rgb(50, 61, 66);
-  }
+}
+
+.time-button:hover {
+background: #e0e0e0;
+}
+
+.schedule-button:enabled {
+background-color: rgb(140, 181, 201);
+border: 0.1px solid rgb(140, 181, 201);
+color: white;
+cursor: pointer;
+}
   
-  .schedule-button:enabled {
-    background-color: rgb(140, 181, 201);
-    border: 0.1px solid rgb(140, 181, 201);
-    color: white;
-    cursor: pointer;
-  }
-  
-  .time-button.selected {
-    background-color: rgb(206, 132, 103);
-    color: white;
-  }
