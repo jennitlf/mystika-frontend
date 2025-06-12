@@ -24,7 +24,7 @@ const MenuOptionsConsultant = ({ setMenuActive, menuActive }) => {
                     </Link>
                 )}
             <ul className="ul-options">
-            <Link to={`/consultores`} className="options-m options-m-consultants" onClick={onClick}>
+                <Link to={`/consultor/consultas-agendadas`} className="options-m options-m-consultants" onClick={onClick}>
                     Consultas
                 </Link>
             <div className="options-m options-m-dataUser" onClick={() => setEnabledMyData(!enabledMydata)}>

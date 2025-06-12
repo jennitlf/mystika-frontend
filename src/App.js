@@ -20,6 +20,7 @@ import FinanceConsultant from './components/consultant/FinanceConsultant.jsx';
 import NewSupportConsultant from './components/consultant/NewSupportConsultant.jsx';
 import SupportListConsultant from './components/consultant/SupportListConsultant.jsx';
 import RegisterConsultant from './components/consultant/RegisterConsultant.jsx';
+import ConsultationsConsultant from './components/consultant/consultationsConsultant.jsx'
 import { ToastContainer } from 'react-toastify';
 import './toastfy.css';
 
@@ -85,6 +86,14 @@ function App() {
           }
         />
         {/* rotas consultant */}
+        <Route
+        path="/consultor/consultas-agendadas"
+        element={
+          <PrivateRoute allowedRoles={['consultant']}>
+            <ConsultationsConsultant />
+          </PrivateRoute>
+        }
+        />
         <Route
         path="/consultor/dados-do-perfil"
         element={
