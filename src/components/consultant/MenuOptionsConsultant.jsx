@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext.js';
+import '../../css/consultant/menuOptionsConsultant.css'
 
 const MenuOptionsConsultant = ({ setMenuActive, menuActive }) => {
     const { user, logout } = useContext(AuthContext);
@@ -10,24 +11,24 @@ const MenuOptionsConsultant = ({ setMenuActive, menuActive }) => {
         setMenuActive(false);
     };
     return(
-        <div className={`menu-options-m ${menuActive ? "active" : ""}`}>
-            <div className="menu-options-m-subcontainer">
+        <div className={`menu-options-consultant ${menuActive ? "active" : ""}`}>
+            <div className="menu-options-consultant-subcontainer">
                 {user ? (
-                    <div className="menu-user-menuOption">
-                        <span className="material-symbols-outlined menu-user-menuOption-icon" translate="no">account_circle</span>
-                        <span className="menu-user-menuOption-name" translate="no">{user.name}</span>  
+                    <div className="menu-user-menuOption-consultant">
+                        <span className="material-symbols-outlined menu-user-menuOption-icon-consultant" translate="no">account_circle</span>
+                        <span className="menu-consultant-menuOption-name" translate="no">{user.name}</span>  
                     </div>
                 ) : (
-                    <Link className="menu-user-menuOption-button-login" onClick={onClick} to={'usuario/login'}>
+                    <Link className="menu-consultant-menuOption-button-login" onClick={onClick} to={'usuario/login'}>
                         Acesse sua conta
-                        <span className="material-symbols-outlined icon-login-menuOption" translate="no">login</span>
+                        <span className="material-symbols-outlined icon-login-menuOption-consultant" translate="no">login</span>
                     </Link>
                 )}
-            <ul className="ul-options">
-                <Link to={`/consultor/consultas-agendadas`} className="options-m options-m-consultants" onClick={onClick}>
-                    Consultas
+            <ul className="ul-options-consultant">
+                <Link to={`/consultor/consultas-agendadas`} className="options-m-consultant options-m-consultants" onClick={onClick}>
+                    Minhas Consultas
                 </Link>
-            <div className="options-m options-m-dataUser" onClick={() => setEnabledMyData(!enabledMydata)}>
+            <div className="options-m-consultant options-m-dataUser" onClick={() => setEnabledMyData(!enabledMydata)}>
                     Meus dados
                     {enabledMydata ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 
@@ -41,7 +42,7 @@ const MenuOptionsConsultant = ({ setMenuActive, menuActive }) => {
                         <Link to={`/consultor/financeiro`} className="ul-options-myData-li li-scheduleAppoiment" onClick={onClick}>Financeiro</Link>
                     </ul>
                 )}
-                <div className="options-m options-m-help" onClick={() => setEnabledHelp(!enabledHelp)}>
+                <div className="options-m-consultant options-m-help" onClick={() => setEnabledHelp(!enabledHelp)}>
                     Ajuda
                     {enabledHelp ? (<span className="material-symbols-outlined" translate="no">keyboard_arrow_up</span>) 
                     : 

@@ -70,7 +70,7 @@ const Filters = ({
   return (
     <div className="content-filters">
       <div className="name">
-        <span className="material-symbols-outlined" translate="no">
+        <span className="material-symbols-outlined icon-filters-user" translate="no">
           search
         </span>
         <input

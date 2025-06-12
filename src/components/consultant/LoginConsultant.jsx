@@ -21,7 +21,7 @@ const LoginConsultant = () => {
                 const { access_token } = await response.json();
                 login(access_token);
                 toast.success("Login realizado com sucesso!");
-                navigate("/consultores");
+                navigate("/consultor/consultas-agendadas");
             } else {
                 toast.error("Erro no login. Verifique suas credenciais.");
             }
