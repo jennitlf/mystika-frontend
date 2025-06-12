@@ -36,26 +36,29 @@ const DataUserConsultant = () => {
     }, [user.id, token, reset]);
 
     const onSubmit = async (data) => {
-        console.log(data)
-        try {
-            const response = await fetch(`${API}consultant/${user.id}`, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            if (response.ok) {
-                toast.success("Dados atualizados com sucesso!");
-            } else {
-                throw new Error("Erro ao atualizar dados");
-            }
-        } catch (error) {
-            console.error("Erro ao atualizar dados:", error);
-            toast.error("Erro ao atualizar dados.");
+    const { id, created_at, updated_at, role, status, password, ...filteredData } = data;
+    try {
+        const response = await fetch(`${API}consultant/${user.id}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(filteredData),
+        });
+
+        if (response.ok) {
+            toast.success("Dados atualizados com sucesso!");
+        } else {
+            const errorData = await response.json();
+            console.error("Erro no backend:", errorData);
+            throw new Error("Erro ao atualizar dados");
         }
-    };
+    } catch (error) {
+        console.error("Erro ao atualizar dados:", error);
+        toast.error("Erro ao atualizar dados.");
+    }
+};
 
     if (!consultantData) return <div>Carregando...</div>;
 
