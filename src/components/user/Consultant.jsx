@@ -204,7 +204,7 @@ const Consultant = () => {
               </button>
             </div>
             <h3>Selecione uma data</h3>
-            <div className="calendar">
+            <div className="calendar-schedule-consultant">
               {schedule && schedule.length > 0 ? (
                 schedule.map((slot) => (
                   <div

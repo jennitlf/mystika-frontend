@@ -11,16 +11,16 @@
     font-weight: 700;
     font-style: normal;
 }
-.name-search{
+.name-search-filter-user{
     margin: 5px 0 10px 0;
     height: 40px;
     width: 98%;
     display: flex;
     align-items: center;
-    border: 0.1px solid rgb(140, 181, 201);
+    border: 0.1px solid #4a3c31;
     border-radius: 1em;
 }
-.name-search input{
+.name-search-filter-user input{
     height: 100px;
     width: 85%;
     background-color: inherit;
@@ -41,28 +41,28 @@
   'wght' 500,
   'GRAD' 0,
   'opsz' 24;
-  color: rgb(134, 33, 33);
+  color: #4a3c31;
   margin-left: 5px;
 }
 
-.specialty{
+.specialty-filters-user{
     margin: 2px 2px 15px 2px;
     width: 98%;
     display: flex;
     flex-direction: column;
 }
-.specialty div{
+.specialty-filters-user div{
     display: flex;
     justify-content: left;
     font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: normal;
 }
-.specialty input[type="checkbox"]{
-    accent-color: rgb(134, 33, 33);;
+.specialty-filters-user input[type="checkbox"]{
+    accent-color: #4a3c31;
 }
 
-.value{
+.value-filters-user{
     margin: 2px;
     height: 50px;
     width: 98%;
@@ -72,7 +72,7 @@
     align-items: center;
     justify-content: left;
 }
-.min, .max{
+.min-filter-user, .max-filter-user{
     height: 100%;
     width: 40%;
     margin: 5px;
@@ -80,7 +80,7 @@
     flex-direction: column;
 }
 
-.min label, .max label{
+.min-filter-user label, .max-filter-user label{
     margin: 0;
     padding: 0;
     display: flex;
@@ -92,15 +92,15 @@
 
 }
 
-.min input, .max input{
+.min-filter-user input, .max-filter-user input{
     margin: 2px 0 0 0 ;
     padding: 0;
     width: 90%;
     height: 40%;
     outline: none;
-    border: 0.1px solid rgb(140, 181, 201);
-    border-radius: 0.2em ;
-    color: rgb(134, 33, 33);
+    border: 0.1px solid #4a3c31;
+    border-radius: 0.3em ;
+    color: rgb(134,33, 33);
 }
 
 @media (max-width:1250px){

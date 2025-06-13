@@ -1,5 +1,224 @@
 .container-scheduleConsultant-consultant {
     background-color: #2c1053;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
+    height: 100vh
+}
+.content-filter-schedule-consultant{
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.box-filter-specilaty-schedule-consultant{
+    margin-left: 12%;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    border-bottom: 0.5px solid #e4e1e1;
+}
+.button-add-schedule-consultant{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    border-radius: 5em;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.26);
+    border: none;
+    background-color: #b396db;
+}
+.button-add-schedule-consultant span{
+    font-weight: 600;
+    color: #2c1053;
+}
+.container-button-add-schedule-consultant{
+    margin-right: 12%;
+    height: 100%;
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid #e4e1e1;
+}
+.content-schedule-consultant{
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    height: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.react-calendar {
+    background-color: transparent;
+    width: 90% !important;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 0.5em;
+}
+/* .react-calendar, .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+    box-sizing: border-box;
+    height: 90px;
+} */
+ .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+    box-sizing: border-box;
+    height: 80px;
+}
+.react-calendar__month-view{
+    height: 600px;
+}
+.react-calendar__navigation button{
+    font-size: x-large;
+
+}
+.react-calendar__navigation__label{
+    color: #2c1053;
+    font-size: larger;
+}
+.react-calendar__month-view__weekdays{
+    color: #2c1053;
+    font-size:medium;
+}
+.react-calendar__viewContainer{
+    height: 100px !important;
+}
+/* .react-calendar * {
+    box-sizing: border-box;
+
+}
+
+.react-calendarviewContainer {
+    width: 100% !important; 
+    height: 100%;
+}
+
+.react-calendartile {
+    width: calc(100% / 7) !important;
+} */
+.react-calendar .highlight {
+    /* border: 0.5px solid #2c1053; */
+    border: 0.5px solid #b396db;
+    background-color: #f2eafd;
+    border-radius: 0.5em;
+}
+
+.modal-schedule-consultant,  .modal-container-add-schedule-consultant{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-schedule-consultant {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+}
+
+.close-modal-schedule-consultant {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.container-time-timeslot-schedule-consultant {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    
+}
+.timeslot-schedule-consultant{
+    border-radius: 0.5em;
+    border: 1px solid #2c1053;
+}
+
+.sub-container-add-schedule-consultant{
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    height: 600px;
+    width: 500px;
+}
+
+
+.sub-container-add-schedule-consultant{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.add-form-schedule-consultant {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.content-add-specialty-schedule-consultant, .content-add-button-submit-schedule-consultant, .content-add-field-schedule-consultant{
+    height: 60px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-add-specialty-schedule-consultant select, .content-add-field-schedule-consultant input{
+    height: 35px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 0.5px solid #b396db;
+    font-size: 18px; 
+    max-width: 280px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-add-button-submit-schedule-consultant{
+    margin-top: 20px;
+}
+.content-add-button-submit-schedule-consultant button{
+    height: 35px;
+    width: 90%;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px; 
+    max-width: 280px;
+    border: none;
+
+}
+.add-status-schedule-consultant{
+    display: none;
 }

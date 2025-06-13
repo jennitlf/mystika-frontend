@@ -69,7 +69,7 @@ const Filters = ({
 
   return (
     <div className="content-filters">
-      <div className="name">
+      <div className="name-search-filter-user">
         <span className="material-symbols-outlined icon-filters-user" translate="no">
           search
         </span>
@@ -81,7 +81,7 @@ const Filters = ({
         />
       </div>
       <p>Filtrar por especialidade</p>
-      <div className="specialty">
+      <div className="specialty-filters-user">
         {specialties.map((specialty) => (
           <div key={specialty.id_specialty}>
             <input
@@ -97,8 +97,8 @@ const Filters = ({
         ))}
       </div>
       <p>Filtrar por valor</p>
-      <div className="value">
-        <div className="min">
+      <div className="value-filters-user">
+        <div className="min-filter-user">
           <label htmlFor="min-Value">Valor mínimo</label>
           <input
             type="number"
@@ -107,7 +107,7 @@ const Filters = ({
             onChange={handleInputChange}
           />
         </div>
-        <div className="max">
+        <div className="max-filter-user">
           <label htmlFor="max-Value">Valor máximo</label>
           <input
             type="number"
