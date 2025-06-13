@@ -25,7 +25,6 @@
 }
 
 .content-text-register-consultant {
-    margin-top: 300px;
     width: 100%;
     height: 200px;
     display: flex;
@@ -134,27 +133,23 @@
     font-size: 18px;
     margin-bottom: 20px;
 }
-.subcontainer-step1-register-consultant-down .custom-file-upload {
-  display: inline-block;
+
+.custom-file-upload-register-consultant{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40%;
   height: 50px;
   background-color: #f0f0f0;
   border-radius: 5px;
   border: none;
-  padding-left: 10px;
-  font-size: 18px;
-  line-height: 50px; /* Alinha o texto verticalmente */
-  text-align: center; /* Centraliza o texto horizontalmente */
+  font-size: 15px;
+  text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.subcontainer-step1-register-consultant-down .custom-file-upload:hover {
-  background-color: #e0e0e0; /* Cor ao passar o mouse */
-}
-
 .subcontainer-step1-register-consultant-down input[type="file"] {
-  display: none; /* Esconde o input padrão */
+  display: none; 
 }
 .file-name-display {
     margin-top: 8px;
@@ -262,8 +257,8 @@
     font-size: 18px;
     margin-bottom: 20px;
     outline: none;
-    appearance: none; /* Remove a seta padrão do select */
-    background-color: #fff; /* Ajuste conforme necessário */
+    appearance: none; 
+    background-color: #fff; 
     cursor: pointer;
 }
 #payment-plan-register{
@@ -291,4 +286,86 @@
 
 .animate-slide-in {
     animation: slide-in 1s ease-out forwards;
+}
+@media(max-width:958px){
+    .container-register{
+        justify-content: center;
+    }
+    .content-left-register-consultant {
+        display: none;
+    }
+    .content-right-register-consultant{
+        width: 90%;
+    }
+}
+@media(max-width: 530px){
+    .content-sign-in-register h5 {
+        font-size: 15px;
+    }
+    .content-sign-in-register a {
+        font-size: 16px;
+    }
+    .content-step1-register-consultant{
+        flex-direction: column;
+        height: 110px;
+    }
+    .container-title-register-consultant{
+        justify-content: center
+    }
+    .container-title-register-consultant h3 {
+        font-size: 35px;
+    }
+    .subcontainer-step1-register-consultant-down{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        position: relative;
+    }
+    .content-step1-register-consultant input{
+        margin: 0 0 15px 0;
+        width: 70%;
+        height: 35px;
+        font-size: 15px;
+    }
+    .custom-file-upload-register-consultant{
+        margin-top: 10px;
+        width: 73%;
+        height: 38px;
+    }
+  
+    .navigation-buttons-register-consultant{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .navigation-buttons-register-consultant button{
+        height: 38px;
+        width: 70%;
+    }
+    .container-copyright-register-consultant{
+        font-size: 15px;
+    }
+}
+
+@media(max-width:415px){
+    .content-sign-in-register h5 {
+        font-size: 12px;
+    }
+    .content-sign-in-register a {
+        font-size: 14px;
+    }
+    .container-title-register-consultant h3 {
+        font-size: 30px;
+        text-align: center;
+    }
+     .container-copyright-register-consultant{
+        font-size: 12px;
+    }
+}
+@media(max-width:316px){
+    .container-register{
+        display:none;
+    }
 }

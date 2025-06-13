@@ -105,7 +105,7 @@ const RegisterConsultant = () => {
                                                 style={{ display: "none" }}
                                                 id="file-input"
                                             />
-                                            <label htmlFor="file-input" className="custom-file-upload">
+                                            <label htmlFor="file-input" className="custom-file-upload-register-consultant">
                                                 Escolha uma imagem
                                             </label>
                                             {selectedFileName && (
