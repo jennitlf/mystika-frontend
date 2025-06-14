@@ -93,7 +93,7 @@
 }
 .form-login-consultant input{
     outline: none;
-    width: 350px;
+    width: 80%;
     height: 50px;
     border-radius: 5px;
     border: none;
@@ -121,4 +121,65 @@
 }
 .container-copyright-login-consultant p{
     margin-left: 27%;
+}
+@media(max-width:1275px){
+    .content-sign-in-login{
+        width: 70%;
+    }
+    .container-form-login-consultant{
+        width: 70%;
+    }
+    .content-sign-in-login h5{
+        font-size: 15px;
+        margin-right: 0;
+    }
+    .content-text-login-consultant h3{
+        font-size: 50px;
+        margin-right: 50px;
+    }
+    .container-copyright-login-consultant{
+        width: 70%;
+    }
+    .container-copyright-login-consultant p{
+        margin-left: 0;
+    }
+}
+@media(max-width:745px){
+    .container-login-consultant{
+        justify-content: center;
+    }
+    .content-right-login-consultant{
+        width: 85%;
+    }
+    .content-left-login-consultant{
+        display: none;
+    }
+}
+@media(max-width:490px){
+    .content-sign-in-login{
+        width: 90%;
+    }
+    .content-sign-in-login h5{
+        font-size: 14px;
+    }
+    .content-sign-in-login a{
+        font-size: 16px;
+    }
+    .container-form-login-consultant{
+        width: 90%;
+    }
+    .container-title-login-consultant{
+        font-size: 30px;
+    }
+    .container-copyright-login-consultant{
+        width: 90%;
+    }
+    .container-copyright-login-consultant p{
+        font-size: 13px;
+    }
+}
+@media(max-width:310px){
+    .container-login-consultant{
+        display: none;
+    }
 }
