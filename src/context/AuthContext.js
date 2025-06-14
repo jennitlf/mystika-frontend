@@ -57,7 +57,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null);  
     localStorage.removeItem('token');
-    console.log("Usuário desconectado com sucesso.");
     window.location.reload();
   };
 

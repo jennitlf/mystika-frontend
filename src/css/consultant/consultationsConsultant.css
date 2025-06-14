@@ -164,3 +164,9 @@
     justify-content: center;
     margin: 5px;
 }
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}

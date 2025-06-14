@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 import { API } from "../../config";
 import "../../css/consultant/consultationsConsultant.css";
@@ -23,7 +22,6 @@ const ConsultationsConsultant = () => {
           throw new Error("Não foi possível buscar suas consultas.");
         }
         const data = await response.json();
-        console.log("Consultas:", data.data);
         setConsultations(data.data);
       } catch (error) {
         console.error("Erro ao buscar consultas:", error);
@@ -34,7 +32,7 @@ const ConsultationsConsultant = () => {
     };
 
     fetchConsultations();
-  }, [])
+  }, [token])
   return (
     <div className="container-consultation-consultant">
       <div className="subcontainer-consultation-consultant">
