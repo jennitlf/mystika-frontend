@@ -197,3 +197,64 @@
     font-weight: 400;
     font-style: normal;
 }
+
+@media(max-width:504px){
+   .menu-options-m {
+    height: 100vh;
+    width: 280px;
+    position: fixed;
+    top: 0;
+    left: -350px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    padding-left: 25px;
+    }
+    .menu-user-menuOption-button-login {
+    font-size: x-large;
+    text-decoration: none;
+    margin-top: 40px;
+    height: 35px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(80, 80, 80);
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    }
+    .ul-options{
+    width: 250px;
+    }
+    .container-logout{
+        width: 250px;
+    }
+}
+@media(max-width:380px){
+    .menu-options-m {
+        height: 100vh;
+        width: 230px;
+        padding-left: 20px;
+    }
+    .menu-user-menuOption-button-login {
+        width: 220px;
+        font-size: 120%;
+    }
+    .menu-user-menuOption-name{
+        font-size: 99%;
+    }
+    .ul-options{
+        width: 220px;
+        margin-top: 25px;
+    }
+    .options-m{
+        font-size: 120%;
+    }
+    .container-logout{
+        width: 220px;
+    }
+}

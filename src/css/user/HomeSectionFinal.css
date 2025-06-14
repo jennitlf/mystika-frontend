@@ -402,6 +402,9 @@
     .final-section {
       flex-direction: column;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   
     .consultor-cta,
@@ -409,8 +412,9 @@
     .newsletter,
     .depoimentos,
     .mapa-site {
-      max-width: 100%;
+      max-width: 90%;
       flex-basis: auto;
+      padding: 5px 5px;
     }
   
     .newsletter-form {
@@ -418,4 +422,10 @@
       gap: 15px;
     }
   }
+
+@media(max-width: 385px){
+  .final-section{
+    padding: 0;
+  }
+}
   

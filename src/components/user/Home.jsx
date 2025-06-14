@@ -73,7 +73,7 @@ const Home = () => {
 
   return (
     <div className="main-home">
-      <section className="consultants section-modern">
+      <section className="consultants-home section-1-home">
         <h2 id="title-consultant-page">
           Explore os melhores consultores e encontre o guia ideal para sua jornada!
         </h2>
