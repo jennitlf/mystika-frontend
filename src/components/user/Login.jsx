@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "../../css/user/Login.css";
-import file from '../../image/file.png';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../context/AuthContext";
@@ -50,7 +49,7 @@ const Login = () => {
   return (
     <div className="container-main-login">
       <div className="box-login-1">
-        <img src={file} alt="logo site" />
+        <p className="welcomeTo-login-user">Bem vindo!</p>
       </div>
       <div className="box-login-2">
         <div className="title-login">Login</div>

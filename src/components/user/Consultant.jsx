@@ -67,10 +67,9 @@ const Consultant = () => {
         `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
       );
       const data = await response.json();
-      // Agrupar os horários por data e ordenar as datas em ordem crescente
       const grouped = groupScheduleByDate(data);
       const groupedSchedule = Object.values(grouped);
-      groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date)); // Ordena as datas
+      groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date));
       setSchedule(groupedSchedule);
       setShowModal(true);
     } catch (error) {
@@ -119,11 +118,10 @@ const Consultant = () => {
         },
         body: JSON.stringify(data),
       });
-  
+      
       if (!response.ok) {
         throw new Error("Erro ao marcar consulta.");
       }
-  
       toast.success("Consulta marcada com sucesso!");
       setTimeout(() => {
         window.location.reload();
@@ -226,17 +224,19 @@ const Consultant = () => {
             {availableTimes.length > 0 && (
               <div className="times">
                 <h4>Horários disponíveis:</h4>
-                {availableTimes.map((time) => (
-                  <button
-                    key={time}
-                    className={`time-button ${
-                      selectedDateTime?.time === time ? "selected" : ""
-                    }`}
-                    onClick={() => handleTimeClick(time)}
-                  >
-                    {time}
-                  </button>
-                ))}
+                <div className="container-times">
+                  {availableTimes.map((time) => (
+                    <button
+                      key={time}
+                      className={`time-button ${
+                        selectedDateTime?.time === time ? "selected" : ""
+                      }`}
+                      onClick={() => handleTimeClick(time)}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
             <button

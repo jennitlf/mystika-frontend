@@ -1,18 +1,21 @@
 .menu-options-m {
     height: 100vh;
-    width: 320px;
+    width: 320px; 
     position: fixed;
     top: 0;
     left: -350px; 
-    background-color: #f9f9f9;
+    background-color: var(--color-light-beige, #f0ede6);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start; 
     z-index: 1000;
-    transition: left 0.3s ease;
+    transition: left 0.4s ease-in-out, box-shadow 0.4s ease-in-out; 
     padding-left: 30px;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1); 
+    border-right: 1px solid rgba(139, 170, 185, 0.3);
 }
+
 .overlay {
     position: fixed;
     top: 0;
@@ -20,241 +23,274 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 999;
     pointer-events: auto;
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.menu-options-m.active {
-    left: 0; 
+.overlay.active { 
+    opacity: 1;
 }
-.ul-options{
-    width: 300px;
+
+
+.menu-options-m.active {
+    left: 0;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
+}
+
+.menu-options-m-subcontainer {
+    width: 100%;
+}
+
+
+.menu-user-menuOption {
+    margin-top: 30px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 20px; 
+    border-bottom: 1px solid rgba(139, 170, 185, 0.2); 
+    padding-bottom: 15px; 
+    margin-bottom: 20px; 
+}
+.menu-user-menuOption-icon {
+    margin-right: 15px; 
+    height: 60px; 
+    width: 60px;
+    font-size: 2.8rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary-brown, #6b4c3b); 
+}
+.menu-user-menuOption-name {
+    flex-grow: 1; 
+    height: auto;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 500; 
+    font-size: 1.3rem; 
+    color: var(--color-text-dark, #4a3c31); 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+}
+
+
+.menu-user-menuOption-button-login {
+    font-size: 1.4rem; 
+    text-decoration: none;
+    margin-top: 40px;
+    height: 50px; 
+    width: calc(100% - 30px); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--color-primary-brown, #6b4c3b); 
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 600; 
+    border: 2px solid var(--color-primary-brown, #6b4c3b); 
+    border-radius: 30px; 
+    transition: all 0.3s ease;
+    background-color: transparent; 
+    margin-bottom: 20px; 
+}
+.menu-user-menuOption-button-login:hover {
+    color: var(--color-background-light, #f8f6f1);
+    background-color: var(--color-primary-brown, #6b4c3b); 
+    box-shadow: 0 4px 10px rgba(107, 76, 59, 0.4); 
+}
+.icon-login-menuOption {
+    font-size: 1.6rem; 
+}
+
+
+.ul-options {
+    width: 100%; 
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    align-items: start;
-    margin-top: 40px;
+    justify-content: flex-start; 
+    margin-top: 0; 
     margin-left: 0;
     padding: 0;
-}
-.options-m-consultants{
-    cursor: pointer;
-}
-.options-m{
-    width: 200px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 18px 0 16px 0;
-    font-size: x-large;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    color: rgba(134, 33, 33, 0.74);
-    /* border-bottom: solid 1px #E1E5EE; */
-    text-decoration: none;
-    cursor: default;
-}
-
-.menu-user-menuOption{
-    margin-top: 20px;
-    height: 70px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-}
-.menu-user-menuOption-icon{
-    margin: 0 10px 0 0;
-    height: 50px;
-    width: 50px;
-    font-size: xx-large;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.menu-user-menuOption-name{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 35px;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: large;
-    font-optical-sizing: auto;
-    border-radius: 0.5em;
-}
-
-
-.ul-options-myData{
-    padding: 0 0 0 10px;
-    margin: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-}
-.ul-options-myData-li{
-    font-size: medium;
-    font-optical-sizing: auto;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: none;
-    
-}
-.li-mydata{
-    margin-top: 0;
-    margin-bottom: 13px;
-}
-.li-scheduleAppoiment{
-    margin-bottom: 13px;
 }
 
 
-
-.ul-options-help{
-    padding: 0 0 0 10px;
-    margin: 0;
-    list-style: none;
+.options-m {
+    width: calc(100% - 30px); 
     display: flex;
-    flex-direction: column;
-}
-.ul-options-help-li{
-    font-size: medium;
-    font-optical-sizing: auto;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: none;
-}
-.li-help-list{
-    margin-top: 0;
-    margin-bottom: 13px;
-}
-.li-help{
-    margin-bottom: 13px;
-}
-
-.menu-user-menuOption-button-login{
-    font-size:x-large;
-    text-decoration: none;
-    margin-top: 40px;
-    height: 40px;
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-}
-.menu-user-menuOption-button-login:hover{
-    color:blue;
-}
-.icon-login-menuOption{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.container-logout{
-    height: 50px;
-    width: 250px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: center;
-    font-size: larger;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.container-logout-off{
-    height: 50px;
-    width: 250px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-size: larger;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-@media(max-width:504px){
-   .menu-options-m {
-    height: 100vh;
-    width: 280px;
-    position: fixed;
-    top: 0;
-    left: -350px;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: start;
-    z-index: 1000;
-    transition: left 0.3s ease;
-    padding-left: 25px;
-    }
-    .menu-user-menuOption-button-login {
-    font-size: x-large;
-    text-decoration: none;
-    margin-top: 40px;
-    height: 35px;
-    width: 250px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    color: rgb(80, 80, 80);
+    padding: 12px 0;
+    font-size: 1.5rem; 
     font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    }
-    .ul-options{
-    width: 250px;
-    }
-    .container-logout{
-        width: 250px;
-    }
+    font-weight: 600;
+    color: var(--color-text-dark, #4a3c31);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
-@media(max-width:380px){
+
+.options-m:hover {
+    color: var(--color-primary-brown, #6b4c3b);
+    transform: translateX(5px);
+}
+
+.options-m .material-symbols-outlined {
+    font-size: 1.8rem; 
+    color: var(--color-primary-brown, #6b4c3b); 
+}
+
+
+.ul-options-myData,
+.ul-options-help {
+    padding: 0 0 0 20px;
+    margin: 5px 0 15px 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px);
+}
+.ul-options-myData-li,
+.ul-options-help-li {
+    font-size: 1.1rem;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+    color: rgba(74, 60, 49, 0.8);
+    padding: 8px 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.ul-options-myData-li:hover,
+.ul-options-help-li:hover {
+    color: var(--color-gold, #d4af37);
+    transform: translateX(3px);
+}
+
+.container-logout {
+    height: 60px;
+    width: calc(100% - 30px);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    font-size: 1.4rem;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 500;
+    color: var(--color-highlight-red, #862121);
+    border-top: 1px solid rgba(139, 170, 185, 0.2);
+    margin-top: 20px;
+    gap: 10px; 
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.container-logout:hover {
+    color: #b73e3e;
+    transform: translateX(5px);
+}
+.logout {
+    font-size: 1.8rem; 
+}
+
+.container-logout-off {
+    height: 60px;
+    width: calc(100% - 30px);
+}
+
+@media(max-width: 930px) {
     .menu-options-m {
-        height: 100vh;
-        width: 230px;
+        width: 280px;
         padding-left: 20px;
     }
-    .menu-user-menuOption-button-login {
-        width: 220px;
-        font-size: 120%;
-    }
-    .menu-user-menuOption-name{
-        font-size: 99%;
-    }
-    .ul-options{
-        width: 220px;
+    .menu-user-menuOption {
         margin-top: 25px;
+        height: 70px;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
     }
-    .options-m{
-        font-size: 120%;
+    .menu-user-menuOption-icon {
+        height: 50px;
+        width: 50px;
+        font-size: 2.5rem;
+        margin-right: 10px;
     }
-    .container-logout{
-        width: 220px;
+    .menu-user-menuOption-name {
+        font-size: 1.2rem;
+    }
+    .menu-user-menuOption-button-login {
+        font-size: 1.2rem;
+        height: 45px;
+        width: calc(100% - 20px);
+    }
+    .icon-login-menuOption {
+        font-size: 1.4rem;
+    }
+    .ul-options {
+        margin-top: 0;
+    }
+    .options-m {
+        font-size: 1.3rem;
+        padding: 10px 0;
+        width: calc(100% - 20px);
+    }
+    .options-m .material-symbols-outlined {
+        font-size: 1.6rem;
+    }
+    .ul-options-myData,
+    .ul-options-help {
+        padding: 0 0 0 15px;
+        margin: 5px 0 10px 0;
+        width: calc(100% - 35px);
+    }
+    .ul-options-myData-li,
+    .ul-options-help-li {
+        font-size: 1rem;
+        padding: 6px 0;
+    }
+    .container-logout {
+        height: 50px;
+        font-size: 1.2rem;
+        width: calc(100% - 20px);
+    }
+    .logout {
+        font-size: 1.6rem;
+    }
+}
+
+@media(max-width: 380px){
+    .menu-options-m {
+        width: 250px;
+        padding-left: 15px;
+    }
+    .menu-user-menuOption-name {
+        font-size: 1.1rem;
+    }
+    .menu-user-menuOption-button-login {
+        font-size: 1.1rem;
+        height: 40px;
+        width: calc(100% - 15px);
+    }
+    .options-m {
+        font-size: 1.2rem;
+        width: calc(100% - 15px);
+    }
+    .ul-options-myData,
+    .ul-options-help {
+        width: calc(100% - 30px);
+    }
+    .ul-options-myData-li,
+    .ul-options-help-li {
+        font-size: 0.95rem;
+    }
+    .container-logout {
+        font-size: 1.1rem;
+        width: calc(100% - 15px);
     }
 }

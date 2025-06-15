@@ -1,4 +1,18 @@
-.content-consultant{
+/* Variáveis de cor e fonte (se ainda não definidas globalmente, adicione-as aqui ou em um arquivo de variáveis) */
+:root {
+    --color-light-beige: #f0ede6;
+    --color-background-light: #f8f6f1;
+    --color-primary-brown: #6b4c3b;
+    --color-text-dark: #4a3c31;
+    --color-gold: #d4af37;
+    --color-highlight-red: #862121;
+    --color-blue-gray: rgba(139, 170, 185, 0.3); /* Base para bordas e sombras */
+    --color-light-blue-gray: rgba(207, 220, 226, 0.404); /* Cor mais clara para fundos sutis */
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+}
+
+.content-consultant {
     margin-top: 65px;
     width: 100vw;
     height: auto;
@@ -6,264 +20,236 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: solid 1px #E1E5EE;
+    border-bottom: solid 1px var(--color-blue-gray);
+    background-color: var(--color-background-light); /* Fundo claro para a página */
 }
-.container-1{
-    margin-top: 10px;
-    height: 320px;
+
+.container-1 {
+    margin-top: 20px;
+    height: auto; /* Ajustado para flexibilidade */
     width: 1250px;
+    max-width: 95%; /* Garante responsividade */
     display: flex;
     flex-direction: row;
-    border-bottom: solid 1px #E1E5EE;
+    align-items: flex-start; /* Alinha o topo do conteúdo */
+    padding-bottom: 30px; /* Espaçamento inferior */
+    border-bottom: solid 1px var(--color-blue-gray);
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    justify-content: center;
 }
-.image{
-    margin: 5px;
-    width: 200px;
-    height: 290px;
+
+.image {
+    margin: 10px;
+    width: 250px; /* Um pouco maior para destaque */
+    height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    border-radius: 0.5em;
-    z-index: 1;
+    border-radius: 0.8em; /* Bordas mais suaves */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    flex-shrink: 0; /* Previne encolhimento em telas menores */
 }
 
-.image img{
+.image img {
     height: 100%;
     width: auto;
-    border-radius: 10%;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 0.8em; /* Manter o border-radius do container */
 }
 
-.name-assessment-status{
+.name-assessment-status {
     display: flex;
-    flex-direction: row;
-    justify-content:left;
-    align-items: start;
-    margin: 120px 0 0px 15px;
-    width: 500px;
-    flex: 0 1 auto; 
+    flex-direction: column; /* Alterado para coluna para melhor organização do texto */
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 15px 0 25px; /* Ajuste de margem */
+    flex: 1; /* Permite que ocupe o espaço restante */
+    min-width: 300px; /* Garante largura mínima em telas menores */
 }
 
-.name-assessment-sub{
+.name-assessment-sub {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 10px; /* Espaçamento abaixo do nome e status */
 }
 
-.name-consultant{
+.name-consultant {
     margin: 0;
-    font-size: xx-large;
-    /* font-family: "Changa", serif;
-    font-optical-sizing: auto;
-    font-weight: 200; */
-    font-family: "DM Serif Display", serif;
-    font-weight: 800;
-    font-style: normal;
-    
+    font-size: 2.8rem; /* Tamanho maior para destaque */
+    font-family: var(--font-dm-serif);
+    font-weight: 700; /* Mais pesado para um título */
+    color: var(--color-text-dark);
 }
 
-.assessment{
-    margin-bottom: 20px;
+.assessment {
+    margin-bottom: 15px; /* Espaçamento inferior */
 }
 
-.status{
+.status {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20px;
-    width: 70px;
-    margin: 8px 10px 0 20px;
+    height: 25px;
+    width: 80px;
+    margin-left: 20px;
     background-color: inherit;
     border-radius: 2em;
-    border: 2px solid green;
-    color: green;
+    border: 2px solid #28a745; /* Verde mais vibrante */
+    color: #28a745;
+    font-size: 0.9rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
 }
 
-.star{
-    margin-top: 8px;
-    font-size: x-large;
-    color: rgb(245, 231, 40);
+.star {
+    margin-top: 5px;
+    font-size: 1.8rem; /* Tamanho ajustado */
+    color: var(--color-gold); /* Cor dourada para as estrelas */
 }
-.content-occurred p, i{
+
+.content-occurred p,
+.content-occurred i {
     margin: 0;
-    font-weight: 800;
-    margin-bottom:5px ;
-    color: rgb(140, 181, 201);
+    font-weight: 600; /* Mais legível */
+    margin-bottom: 5px;
+    color: var(--color-primary-brown); /* Cor mais alinhada com a paleta */
+    font-family: var(--font-josefin-sans);
 }
 
-.content-occurred-sub{
+.content-occurred-sub {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
-}
-.occurred{
-    margin-right: 10px; 
+    justify-content: flex-start;
 }
 
-.container-2{
+.occurred {
+    margin-right: 8px;
+    font-size: 1.4rem; /* Ícone um pouco maior */
+}
+
+.container-2 {
     width: 1250px;
+    max-width: 95%;
     height: auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap; /* Permite quebrar linha */
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
-.data-profile{
-    width: 625px; 
+.data-profile {
+    width: 600px; /* Largura ajustada */
+    max-width: 100%;
+    padding: 0 15px; /* Espaçamento interno */
+    box-sizing: border-box;
 }
 
-.c-specialties{
-    width: 625px;   
+.c-specialties {
+    width: 600px; /* Largura ajustada */
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 15px; /* Espaçamento interno */
+    box-sizing: border-box;
 }
 
-.data-profile h3{
-    
-    margin-left: 8px;
-    margin-right: 8px;
-    font-size: xx-large;
-    font-family: "DM Serif Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
+.data-profile h3 {
+    margin-left: 0; /* Remover margem extra */
+    margin-right: 0;
+    font-size: 2rem;
+    font-family: var(--font-dm-serif);
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 15px; /* Espaçamento abaixo do título */
+    border-bottom: 1px solid var(--color-blue-gray);
+    padding-bottom: 8px;
 }
-.data-profile p{
-    font-size: large;
+
+.data-profile p {
+    font-size: 1.1rem; /* Tamanho de fonte mais confortável */
     text-align: justify;
-    margin-left: 8px;
-    margin-right: 8px;
-    font-family: "DM Serif Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
+    margin-left: 0;
+    margin-right: 0;
+    font-family: var(--font-josefin-sans);
+    font-weight: 400;
+    line-height: 1.6; /* Melhorar legibilidade */
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
 }
 
-.c-specialties h2{
-    margin: 2px;
+.c-specialties h3 {
+    margin-left: 0; /* Alinhado com o conteúdo */
+    font-size: 2rem;
+    font-family: var(--font-dm-serif);
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-blue-gray);
+    padding-bottom: 8px;
+    width: 100%; /* Ocupa a largura total para o border-bottom */
 }
-.c-specialties p{
-    margin: 5px;
-}
-.c-specialties h3{
-   margin-left: 90px;
-   font-size: x-large;
-   font-family: "Changa", serif;
-   font-optical-sizing: auto;
-   font-weight: 400; 
-}
-.c-specialties-unit{
-    padding: 10px;
-    height: 90px;
-    width: 60%;
-    border-radius: 2em;
-    border: solid 1px rgba(207, 220, 226, 0.404);
-    margin: 10px 0px 10px 90px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
-    background-color: rgba(207, 220, 226, 0.404);
+
+.c-specialties-unit {
+    padding: 15px 20px; /* Mais padding */
+    height: auto; /* Altura flexível */
+    width: 100%; /* Ocupa a largura total disponível */
+    box-sizing: border-box; /* Inclui padding na largura */
+    border-radius: 0.8em; /* Bordas mais suaves */
+    border: solid 1px var(--color-blue-gray);
+    margin: 10px 0; /* Margem apenas superior e inferior */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Sombra mais sutil */
+    background-color: var(--color-light-beige); /* Fundo mais claro */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Alinhamento à esquerda */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transição suave para hover */
 }
 
-.c-specialties-unit div{
+.c-specialties-unit h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.4rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    color: var(--color-primary-brown);
+}
+
+.c-specialties-unit div {
     display: flex;
-    flex-direction: row;  
-}
-.c-specialties-unit:hover{
-    color: brown;
-    background-color: rgb(140, 181, 201);
+    flex-direction: row;
+    gap: 20px; /* Espaço entre duração e valor */
 }
 
-@media(max-width: 1250px){
-    .container-1{
-        width: 100vw;
-        justify-content: center;
-        align-items: center;
-    }
-    .container-2{
-        width: 100vw;
-        justify-content: center;
-        align-items: center;
-    }
-}
-@media(max-width: 980px){
-    .container-2{
-        flex-direction: column;
-    }
-   
-}
-@media(max-width: 660px){
-    .container-2{
-        justify-content: center;
-        align-items: center;
-    }
-    .data-profile{
-        width: 100vw; 
-    }
-    .c-specialties{
-        width: 100vw;  
-        justify-content: center;
-        align-items: center; 
-    }
-    .c-specialties h3{
-        margin-left: 0;
-    }
-    .c-specialties-unit{
-        margin-left: 0;
-    }
-    .container-1{
-        height: 500px;
-        flex-direction: column;
-    }
-    .name-assessment-status{
-        margin-top: 10px;
-        width: 100vw;
-        margin-left: 0;
-        justify-content: center;
-    }
-    .name-assessment{
-        display: flex ;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .image{
-        width: 200px;
-        height: 390px;
-       
-    }
-    .data-profile h3{
-        margin-left: 20px;
-        margin-right: 20px;
-        font-size: x-large;
-    }
-    .data-profile p{
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-    .name-assessment-sub, .assessment, .content-occurred{
-        margin-left: 5px;
-    }
-    .name-assessment-sub {
-        flex-direction: column;
-    } 
-}
-  
-  
-@keyframes fadeIn {
-from {
-    opacity: 0;
-    transform: scale(0.9); /* Leve efeito de zoom */
-}
-to {
-    opacity: 1;
-    transform: scale(1);
-}
+.c-specialties-unit p {
+    margin: 0;
+    font-size: 1rem;
+    font-family: var(--font-josefin-sans);
+    color: var(--color-text-dark);
 }
 
+.c-specialties-unit:hover {
+    background-color: var(--color-primary-brown); /* Fundo marrom no hover */
+    color: var(--color-background-light); /* Texto claro no hover */
+    transform: translateY(-5px); /* Leve elevação */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais proeminente */
+}
+
+.c-specialties-unit:hover h2,
+.c-specialties-unit:hover p {
+    color: var(--color-background-light); /* Manter o texto claro */
+}
+
+
+/* --- Modal Styling --- */
 .modal {
     position: fixed;
     top: 0;
@@ -275,98 +261,241 @@ to {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
+    animation: fadeIn 0.3s ease-out; /* Adiciona a animação de fade in */
 }
 
 .modal-content {
     position: relative;
-    background: #fff;
+    background: var(--color-light-beige); /* Fundo do modal alinhado */
     width: 90%;
     max-width: 600px;
-    max-height: 80%;
-    padding: 20px;
+    max-height: 80vh; /* Altura máxima para melhor visualização em telas menores */
+    padding: 30px; /* Mais padding */
     border-radius: 10px;
-    overflow-y: auto; /* Adiciona scroll para conteúdos que ultrapassam o height */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os elementos do modal */
 }
 
 .container-close-button {
-    border: none;
     position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.container-close-button button{
-    border:0.5px solid rgb(170, 170, 170);
-    width: 25px;
-    height: 22px;
-    cursor: pointer;
+    top: 15px;
+    right: 15px;
 }
 
-.calendar {
+.container-close-button button {
+    background: none;
+    border: 1px solid var(--color-blue-gray); /* Borda sutil */
+    border-radius: 50%; /* Botão redondo */
+    width: 30px; /* Tamanho do botão */
+    height: 30px;
+    font-size: 1.2rem;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-close-button button:hover {
+    background-color: var(--color-highlight-red); /* Vermelho no hover para fechar */
+    color: white;
+    border-color: var(--color-highlight-red);
+}
+
+.modal-content h3, .modal-content h4 {
+    font-family: var(--font-dm-serif);
+    color: var(--color-text-dark);
+    margin-bottom: 10px;
+    text-align: center;
+}
+.modal-content h3 {
+    font-size: 1.8rem;
+}
+.modal-content h4 {
+    font-size: 1.4rem;
+}
+
+.calendar-schedule-consultant {
+    display: grid; /* Usar grid para melhor controle dos itens */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Colunas responsivas */
+    gap: 15px; /* Espaçamento entre os dias */
+    justify-items: center; /* Centraliza os itens no grid */
 }
 
 .calendar-day {
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
+    padding: 12px 15px; /* Mais padding */
+    background-color: var(--color-background-light); /* Fundo claro */
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 8px; /* Bordas suaves */
     cursor: pointer;
     text-align: center;
-    flex: 1 0 30%; /* Ajusta a largura para caber várias datas em uma linha */
+    font-family: var(--font-josefin-sans);
+    font-weight: 500;
+    color: var(--color-text-dark);
+    transition: all 0.2s ease;
+    width: 100%; /* Ocupa a largura da célula do grid */
+    box-sizing: border-box;
 }
 
 .calendar-day:hover {
-    background-color: #e0e0e0;
+    background-color: var(--color-primary-brown); /* Marrom no hover */
+    color: var(--color-background-light);
+    border-color: var(--color-primary-brown);
+}
+.calendar-day.selected { /* Adicionar esta classe quando a data for selecionada */
+    background-color: var(--color-gold); /* Dourado para data selecionada */
+    color: white;
+    border-color: var(--color-gold);
 }
 
+
 .times {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-items: center;
+}
+.container-times{
+    display: grid; /* Usar grid para os horários */
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Colunas responsivas */
     gap: 10px;
+    justify-items: center;
 }
 
 .time-button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 10px 15px;
+    background-color: var(--color-primary-brown); /* Botões de horário marrons */
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    flex: 1 0 30%; /* Adapta a largura para caber várias opções */
+    font-family: var(--font-josefin-sans);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .time-button.selected {
-    background-color: #0056b3;
+    background-color: var(--color-gold); /* Dourado para horário selecionado */
+}
+
+.time-button:hover:not(.selected) { /* Hover para não selecionados */
+    background-color: #5a3d2e; /* Tom mais escuro de marrom */
 }
 
 .schedule-button {
     width: 100%;
     padding: 15px;
-    background-color: green;
+    background-color: var(--color-primary-brown); /* Botão de agendamento marrom */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-size: 1.2rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .schedule-button:disabled {
-    background-color: grey;
+    background-color: var(--color-blue-gray); /* Cinza para desabilitado */
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
-.time-button:hover {
-background: #e0e0e0;
+.schedule-button:enabled:hover {
+    background-color: #5a3d2e; /* Tom mais escuro de marrom no hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.schedule-button:enabled {
-background-color: rgb(140, 181, 201);
-border: 0.1px solid rgb(140, 181, 201);
-color: white;
-cursor: pointer;
+/* Animação do modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
-  
+
+/* Media Queries (ajustes para telas menores) */
+@media (max-width: 980px) {
+    .container-1 {
+        flex-direction: column;
+        align-items: center;
+    }
+    .name-assessment-status {
+        margin: 20px 0 0 0;
+        align-items: center;
+        text-align: center;
+    }
+    .name-assessment-sub {
+        flex-direction: column;
+        text-align: center;
+    }
+    .status {
+        margin: 10px 0 0 0; /* Ajuste para centralizar abaixo do nome */
+    }
+    .container-2 {
+        flex-direction: column;
+        align-items: center;
+    }
+    .data-profile, .c-specialties {
+        width: 95%; /* Ocupa mais largura em telas menores */
+        padding: 0 10px;
+        margin-bottom: 30px; /* Espaço entre as seções */
+    }
+    .c-specialties-unit {
+        margin: 10px auto; /* Centraliza */
+    }
+    .data-profile h3, .c-specialties h3 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 660px) {
+    .content-consultant {
+        margin-top: 50px; /* Ajuste para telas muito pequenas */
+    }
+    .name-consultant {
+        font-size: 2.2rem;
+    }
+    .star {
+        font-size: 1.5rem;
+    }
+    .data-profile h3, .c-specialties h3 {
+        font-size: 1.6rem;
+    }
+    .data-profile p {
+        font-size: 1rem;
+    }
+    .c-specialties-unit h2 {
+        font-size: 1.2rem;
+    }
+    .c-specialties-unit p {
+        font-size: 0.9rem;
+    }
+    .image {
+        width: 200px;
+        height: 250px;
+    }
+    .modal-content {
+        padding: 20px;
+        max-height: 90vh; /* Permite mais altura em telas menores */
+    }
+    .calendar-schedule-consultant {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    .time-button {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+}

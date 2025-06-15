@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import file from '../../image/file.png';
 import '../../css/user/Register.css';
 import { API } from "../../config";
 import { toast } from 'react-toastify';
@@ -53,7 +52,7 @@ const Register = () => {
     return (
         <div className="container-main-register">
             <div className="box-register-1">
-                <img src={file} alt="logo site" />
+                 <p className="welcomeTo-login-user">Bem vindo!</p>
             </div>
             <div className="box-register-2">
                 <div className="title-register">Registre-se</div>

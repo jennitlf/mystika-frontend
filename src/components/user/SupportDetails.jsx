@@ -87,11 +87,6 @@ const SupportDetail = () => {
         <div className="container-support-details">
             <form onSubmit={handleSubmit} className="form-support-details-edit">
 
-                {/* <h2>Detalhes do Suporte</h2>
-                <p><strong>Título:</strong> {support.title}</p>
-                <p><strong>Email:</strong> {support.email}</p>
-                <p><strong>Mensagem:</strong> {support.content}</p>
-                <p><strong>Status:</strong> {support.status}</p> */}
                 <div className="field-form-support-details">
                     <label className="label-form-support-details label-form-support-status" htmlFor="status">
                         Status
@@ -148,16 +143,14 @@ const SupportDetail = () => {
                     ></textarea>
                 </div>
                 <div className="content-button-submit-details">
-                    <button type="submit" disabled={loading}>
-                    {loading ? "Enviando..." : "Enviar"}
+                    <Link className="content-button-return" to="/solicitacoes-de-supote">
+                        <button>
+                            voltar
+                        </button>
+                    </Link>
+                    <button className="button-submit-details" type="submit" disabled={loading}>
+                        {loading ? "Enviando..." : "Enviar"}
                     </button>
-                </div>
-                <div className="content-button-return">
-                <Link to="/solicitacoes-de-supote">
-                    <button>
-                        voltar
-                    </button>
-                </Link>
                 </div>
             </form>
         </div>
