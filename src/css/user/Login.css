@@ -1,4 +1,3 @@
-/* Variáveis de cor e fonte (assegure-se de que estão definidas globalmente ou em um arquivo acessível) */
 :root {
     --color-light-beige: #f0ede6;
     --color-background-light: #f8f6f1;
@@ -6,77 +5,77 @@
     --color-text-dark: #4a3c31;
     --color-gold: #d4af37;
     --color-highlight-red: #862121;
-    --color-blue-gray: rgba(139, 170, 185, 0.3); /* Base para bordas e sombras */
-    --color-light-blue-gray: rgba(207, 220, 226, 0.404); /* Cor mais clara para fundos sutis */
+    --color-blue-gray: rgba(139, 170, 185, 0.3); 
+    --color-light-blue-gray: rgba(207, 220, 226, 0.404); 
     --font-dm-serif: "DM Serif Display", serif;
     --font-josefin-sans: "Josefin Sans", sans-serif;
-    --color-success-green: #28a745; /* Para mensagens de sucesso, se houver */
-    --color-error-red: #dc3545; /* Para mensagens de erro */
+    --color-success-green: #28a745;
+    --color-error-red: #dc3545;
 }
 
 .container-main-login {
     height: 100vh;
     width: 100vw;
-    background-color: var(--color-background-light); /* Fundo claro do site */
+    background-color: var(--color-background-light); 
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Garante que nada transborde */
+    overflow: hidden; 
 }
 
 .box-login-1 {
-    width: 400px; /* Um pouco maior para mais impacto */
-    height: 500px; /* Altura ajustada */
-    background-color: var(--color-primary-brown); /* Marrom principal para o box da esquerda */
-    border-top-left-radius: 1em; /* Bordas arredondadas */
+    width: 400px; 
+    height: 500px;
+    background-color: var(--color-primary-brown);
+    border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Remover overflow: hidden; se o texto não for quebrar linha e for grande */
+    
 }
 
 .welcomeTo-login-user {
-    font-family: var(--font-dm-serif); /* Fonte elegante para o "Bem vindo!" */
-    font-size: 3rem; /* Tamanho maior para destaque */
-    color: white; /* Texto branco para contraste com o fundo marrom */
+    font-family: var(--font-dm-serif); 
+    font-size: 3rem;
+    color: white; 
     text-align: center;
-    padding: 20px; /* Espaçamento interno */
+    padding: 20px; 
     box-sizing: border-box;
 }
 
 .box-login-2 {
-    width: 450px; /* Largura ajustada para o formulário */
-    height: 500px; /* Mesma altura do box 1 */
-    background-color: var(--color-light-beige); /* Fundo bege claro para o formulário */
+    width: 450px; 
+    height: 500px;
+    background-color: var(--color-light-beige); 
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra consistente */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px; /* Espaçamento interno */
-    box-sizing: border-box; /* Inclui padding na largura e altura */
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
 .title-login {
-    font-family: var(--font-dm-serif); /* Fonte para títulos */
-    font-size: 2.5rem; /* Tamanho maior para o título */
-    font-weight: 700; /* Mais peso para destaque */
+    font-family: var(--font-dm-serif); 
+    font-size: 2.5rem; 
+    font-weight: 700;
     color: var(--color-text-dark);
-    margin-bottom: 30px; /* Mais espaço abaixo do título */
+    margin-bottom: 30px;
     text-align: center;
     width: 100%;
 }
 
 .form-login {
-    width: 80%; /* Mais adaptável */
-    max-width: 350px; /* Largura máxima para formulários */
+    width: 80%; 
+    max-width: 350px;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaçamento entre os campos */
+    gap: 15px; 
 }
 
 .form-field {
@@ -86,33 +85,33 @@
 }
 
 .form-field label {
-    margin-bottom: 8px; /* Espaçamento abaixo do label */
-    font-family: var(--font-josefin-sans); /* Fonte para labels */
+    margin-bottom: 8px;
+    font-family: var(--font-josefin-sans); 
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-dark);
 }
 
 .form-field input {
-    height: 40px; /* Altura maior para os inputs */
-    padding: 0 15px; /* Padding interno */
-    border: 1px solid var(--color-blue-gray); /* Borda sutil */
+    height: 40px; 
+    padding: 0 15px;
+    border: 1px solid var(--color-blue-gray); 
     border-radius: 0.5em;
     outline: none;
     font-family: var(--font-josefin-sans);
     font-size: 1rem;
     color: var(--color-text-dark);
-    transition: all 0.2s ease; /* Transição suave */
-    background-color: white; /* Fundo branco para inputs */
+    transition: all 0.2s ease;
+    background-color: white; 
 }
 
 .form-field input:focus {
-    border-color: var(--color-primary-brown); /* Borda marrom ao focar */
-    box-shadow: 0 0 0 3px rgba(107, 76, 59, 0.2); /* Sombra mais suave e alinhada */
+    border-color: var(--color-primary-brown); 
+    box-shadow: 0 0 0 3px rgba(107, 76, 59, 0.2); 
 }
 
 .error-message {
-    color: var(--color-error-red); /* Cor vermelha para erros */
+    color: var(--color-error-red);
     font-family: var(--font-josefin-sans);
     font-size: 0.85rem;
     margin-top: 5px;
@@ -120,108 +119,107 @@
 
 .container-button-submit {
     width: 100%;
-    margin-top: 25px; /* Mais espaço acima do botão */
+    margin-top: 25px; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .container-button-submit button {
-    height: 45px; /* Altura maior para o botão */
-    width: 180px; /* Largura ajustada */
-    border-radius: 0.8em; /* Mais arredondado */
-    background-color: var(--color-primary-brown); /* Cor marrom principal */
+    height: 45px;
+    width: 180px; 
+    border-radius: 0.8em; 
+    background-color: var(--color-primary-brown); 
     border: 1px solid var(--color-primary-brown);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra mais proeminente */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     font-family: var(--font-josefin-sans);
     font-size: 1.1rem;
     font-weight: 600;
-    color: white; /* Texto branco */
-    transition: all 0.3s ease; /* Transição suave para hover e focus */
+    color: white; 
+    transition: all 0.3s ease; 
 }
 
 .container-button-submit button:hover {
-    background-color: #5a3d2e; /* Tom mais escuro de marrom */
-    border-color: #5a3d2e;
+    background-color: #5a3d2e; 
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px); /* Leve elevação */
+    transform: translateY(-2px); 
 }
 
 .container-button-submit button:focus-visible {
-    outline: none; /* Remove o outline padrão */
-    box-shadow: 0 0 0 4px rgba(107, 76, 59, 0.4); /* Sombra de foco mais visível */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(107, 76, 59, 0.4); 
 }
 
 .redirection-to-resgitry,
 .redirection-to-recovery {
     width: 100%;
     text-align: center;
-    margin-top: 20px; /* Espaçamento entre os blocos de texto */
+    margin-top: 20px; 
 }
 
 .redirection-to-resgitry p,
 .redirection-to-recovery p {
-    color: var(--color-text-dark); /* Cor de texto padrão */
+    color: var(--color-text-dark); 
     margin: 0;
-    font-size: 0.95rem; /* Tamanho ajustado */
+    font-size: 0.95rem;
     font-family: var(--font-josefin-sans);
     font-weight: 400;
-    line-height: 1.5; /* Espaçamento entre linhas */
+    line-height: 1.5; 
 }
 
 .registry-link {
     text-decoration: none;
     cursor: pointer;
-    font-weight: 600; /* Mais peso para o link */
-    color: var(--color-gold); /* Cor dourada para o link */
+    font-weight: 600;
+    color: var(--color-gold); 
     transition: all 0.2s ease;
 }
 
 .registry-link:hover {
-    color: #c09f30; /* Tom mais escuro de dourado */
-    text-decoration: underline; /* Sublinhado no hover */
+    color: #c09f30;
+    text-decoration: underline;
 }
 
-/* --- Media Queries --- */
+
 @media (max-width: 1005px) {
     .box-login-1 {
-        width: 350px; /* Reduz um pouco o box da esquerda */
-        height: 470px; /* Ajusta altura */
+        width: 350px; 
+        height: 470px; 
     }
     .welcomeTo-login-user {
-        font-size: 2.5rem; /* Ajusta o tamanho da fonte em telas menores */
+        font-size: 2.5rem; 
     }
     .box-login-2 {
-        width: 400px; /* Reduz um pouco o box do formulário */
-        height: 470px; /* Ajusta altura */
+        width: 400px; 
+        height: 470px; 
     }
 }
 
 @media (max-width: 795px) {
     .container-main-login {
         flex-direction: column;
-        justify-content: flex-start; /* Alinha ao topo em telas menores */
-        padding-top: 50px; /* Espaçamento do topo */
+        justify-content: flex-start; 
+        padding-top: 50px; 
     }
     .box-login-1 {
-        display: none; /* Oculta o box da esquerda em telas menores */
+        display: none; 
     }
-    /* O estilo .welcomeTo-login-user também será oculto com o box-login-1 */
+   
     .box-login-2 {
-        border-radius: 1em; /* Arredonda todas as bordas quando a imagem é oculta */
-        width: 90%; /* Ocupa mais largura */
-        max-width: 400px; /* Largura máxima para não esticar demais */
-        height: auto; /* Altura flexível */
-        padding: 30px 20px; /* Mais padding */
+        border-radius: 1em; 
+        width: 90%;
+        max-width: 400px; 
+        height: auto; 
+        padding: 30px 20px; 
     }
     .title-login {
         font-size: 2rem;
         margin-bottom: 25px;
     }
     .form-login {
-        width: 95%; /* Ocupa mais largura no formulário */
-        max-width: none; /* Remove max-width para flexibilidade */
+        width: 95%;
+        max-width: none; 
     }
     .container-button-submit button {
         width: 160px;

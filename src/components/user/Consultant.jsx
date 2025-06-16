@@ -9,6 +9,7 @@ const Consultant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [ buttonLoading, setButtonLoading ] = useState(false)
   const [consultantData, setConsultantData] = useState(null);
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +110,7 @@ const Consultant = () => {
     const times =
       schedule.find((slot) => slot.date === date)?.available_times || [];
     setAvailableTimes(times);
-    setSelectedDateTime((prev) => ({ ...prev, time: null }));
+    setSelectedDateTime({ date, time: null });
   };
 
   const handleTimeClick = (time) => {
@@ -140,6 +141,7 @@ const Consultant = () => {
   }
 
   const postConsultation = async () => {
+    setButtonLoading(true)
     if (!user) {
       toast.info("Por favor, faça login para marcar uma consulta.");
       navigate('/usuario/login');
@@ -178,9 +180,11 @@ const Consultant = () => {
       setTimeout(() => {
         window.location.reload();
       }, 1500)
+      setButtonLoading(false)
     } catch (error) {
       console.error("Erro ao marcar consulta:", error);
       toast.error(error.message || "Erro ao marcar consulta.");
+      setButtonLoading(false)
     }
   };
 
@@ -274,6 +278,7 @@ const Consultant = () => {
                 </p>
               )}
             </div>
+          
             {availableTimes.length > 0 && selectedDateTime?.date && (
               <div className="times">
                 <h4>Horários disponíveis:</h4>
@@ -295,9 +300,9 @@ const Consultant = () => {
             <button
               onClick={postConsultation}
               className="schedule-button"
-              disabled={!selectedDateTime?.date || !selectedDateTime?.time}
+              disabled={!selectedDateTime?.date || !selectedDateTime?.time || buttonLoading} 
             >
-              Marcar Consulta
+              {buttonLoading ? "Carregando..." : "Marcar Consulta"}
             </button>
           </div>
         </div>

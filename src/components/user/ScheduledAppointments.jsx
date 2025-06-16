@@ -154,7 +154,7 @@ const ScheduledAppointments = () => {
                                                 <div className="duracao">
                                                     {consultation.scheduleConsultant?.consultantSpecialty?.duration || "0"} min
                                                 </div>
-                                                <div className={`status-schedule-item ${getStatusClass(consultation.status)}`}>
+                                                <div className={`status-schedule-item ${getStatusClass(consultation.status)}-schedule-user`}>
                                                     {consultation.status || "Desconhecido"}
                                                 </div>
                                             </div>

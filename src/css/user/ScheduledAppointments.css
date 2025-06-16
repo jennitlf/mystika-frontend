@@ -137,17 +137,17 @@
 }
 
 
-.status-pendente {
+.status-pendente-schedule-user {
     border: 2px solid var(--color-gold, #d4af37);
     color: var(--color-gold, #d4af37);
     background-color: rgba(212, 175, 55, 0.1);
 }
-.status-realizada {
+.status-realizada-schedule-user {
     border: 2px solid #4CAF50; 
     color: #4CAF50;
     background-color: rgba(76, 175, 80, 0.1);
 }
-.status-cancelada {
+.status-cancelada-schedule-user{
     border: 2px solid var(--color-highlight-red, #862121); 
     color: var(--color-highlight-red, #862121);
     background-color: rgba(134, 33, 33, 0.1);

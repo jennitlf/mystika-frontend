@@ -1,4 +1,4 @@
-/* Variáveis de cor e fonte (se ainda não definidas globalmente, adicione-as aqui ou em um arquivo de variáveis) */
+
 :root {
     --color-light-beige: #f0ede6;
     --color-background-light: #f8f6f1;
@@ -6,8 +6,8 @@
     --color-text-dark: #4a3c31;
     --color-gold: #d4af37;
     --color-highlight-red: #862121;
-    --color-blue-gray: rgba(139, 170, 185, 0.3); /* Base para bordas e sombras */
-    --color-light-blue-gray: rgba(207, 220, 226, 0.404); /* Cor mais clara para fundos sutis */
+    --color-blue-gray: rgba(139, 170, 185, 0.3); 
+    --color-light-blue-gray: rgba(207, 220, 226, 0.404);
     --font-dm-serif: "DM Serif Display", serif;
     --font-josefin-sans: "Josefin Sans", sans-serif;
 }
@@ -15,77 +15,78 @@
 .content-consultant {
     margin-top: 65px;
     width: 100vw;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-bottom: solid 1px var(--color-blue-gray);
-    background-color: var(--color-background-light); /* Fundo claro para a página */
+    background-color: var(--color-background-light);
 }
 
 .container-1 {
     margin-top: 20px;
-    height: auto; /* Ajustado para flexibilidade */
+    height: auto;
     width: 1250px;
-    max-width: 95%; /* Garante responsividade */
+    max-width: 95%; 
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* Alinha o topo do conteúdo */
-    padding-bottom: 30px; /* Espaçamento inferior */
+    align-items: flex-start; 
+    padding-bottom: 30px; 
     border-bottom: solid 1px var(--color-blue-gray);
-    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    flex-wrap: wrap; 
     justify-content: center;
 }
 
 .image {
     margin: 10px;
-    width: 250px; /* Um pouco maior para destaque */
+    width: 250px; 
     height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    border-radius: 0.8em; /* Bordas mais suaves */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    flex-shrink: 0; /* Previne encolhimento em telas menores */
+    border-radius: 0.8em; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .image img {
     height: 100%;
     width: auto;
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
-    border-radius: 0.8em; /* Manter o border-radius do container */
+    object-fit: cover;
+    border-radius: 0.8em; 
 }
 
 .name-assessment-status {
     display: flex;
-    flex-direction: column; /* Alterado para coluna para melhor organização do texto */
+    flex-direction: column; 
     justify-content: flex-start;
     align-items: flex-start;
-    margin: 10px 15px 0 25px; /* Ajuste de margem */
-    flex: 1; /* Permite que ocupe o espaço restante */
-    min-width: 300px; /* Garante largura mínima em telas menores */
+    margin: 10px 15px 0 25px;
+    flex: 1;
+    min-width: 300px;
 }
 
 .name-assessment-sub {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10px; /* Espaçamento abaixo do nome e status */
+    margin-bottom: 10px;
 }
 
 .name-consultant {
     margin: 0;
-    font-size: 2.8rem; /* Tamanho maior para destaque */
+    font-size: 2.8rem;
     font-family: var(--font-dm-serif);
-    font-weight: 700; /* Mais pesado para um título */
+    font-weight: 700; 
     color: var(--color-text-dark);
 }
 
 .assessment {
-    margin-bottom: 15px; /* Espaçamento inferior */
+    margin-bottom: 15px; 
 }
 
 .status {
@@ -97,7 +98,7 @@
     margin-left: 20px;
     background-color: inherit;
     border-radius: 2em;
-    border: 2px solid #28a745; /* Verde mais vibrante */
+    border: 2px solid #28a745; 
     color: #28a745;
     font-size: 0.9rem;
     font-family: var(--font-josefin-sans);
@@ -106,16 +107,16 @@
 
 .star {
     margin-top: 5px;
-    font-size: 1.8rem; /* Tamanho ajustado */
-    color: var(--color-gold); /* Cor dourada para as estrelas */
+    font-size: 1.8rem;
+    color: var(--color-gold); 
 }
 
 .content-occurred p,
 .content-occurred i {
     margin: 0;
-    font-weight: 600; /* Mais legível */
+    font-weight: 600;
     margin-bottom: 5px;
-    color: var(--color-primary-brown); /* Cor mais alinhada com a paleta */
+    color: var(--color-primary-brown);
     font-family: var(--font-josefin-sans);
 }
 
@@ -128,7 +129,7 @@
 
 .occurred {
     margin-right: 8px;
-    font-size: 1.4rem; /* Ícone um pouco maior */
+    font-size: 1.4rem; 
 }
 
 .container-2 {
@@ -137,56 +138,56 @@
     height: auto;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap; /* Permite quebrar linha */
+    flex-wrap: wrap;
     justify-content: center;
     padding-top: 30px;
     padding-bottom: 50px;
 }
 
 .data-profile {
-    width: 600px; /* Largura ajustada */
+    width: 600px;
     max-width: 100%;
-    padding: 0 15px; /* Espaçamento interno */
+    padding: 0 15px; 
     box-sizing: border-box;
 }
 
 .c-specialties {
-    width: 600px; /* Largura ajustada */
+    width: 600px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 0 15px; /* Espaçamento interno */
+    padding: 0 15px;
     box-sizing: border-box;
 }
 
 .data-profile h3 {
-    margin-left: 0; /* Remover margem extra */
+    margin-left: 0; 
     margin-right: 0;
     font-size: 2rem;
     font-family: var(--font-dm-serif);
     font-weight: 600;
     color: var(--color-text-dark);
-    margin-bottom: 15px; /* Espaçamento abaixo do título */
+    margin-bottom: 15px; 
     border-bottom: 1px solid var(--color-blue-gray);
     padding-bottom: 8px;
 }
 
 .data-profile p {
-    font-size: 1.1rem; /* Tamanho de fonte mais confortável */
+    font-size: 1.1rem; 
     text-align: justify;
     margin-left: 0;
     margin-right: 0;
     font-family: var(--font-josefin-sans);
     font-weight: 400;
-    line-height: 1.6; /* Melhorar legibilidade */
+    line-height: 1.6; 
     color: var(--color-text-dark);
     margin-bottom: 20px;
 }
 
 .c-specialties h3 {
-    margin-left: 0; /* Alinhado com o conteúdo */
+    margin-left: 0;
     font-size: 2rem;
     font-family: var(--font-dm-serif);
     font-weight: 600;
@@ -194,25 +195,25 @@
     margin-bottom: 20px;
     border-bottom: 1px solid var(--color-blue-gray);
     padding-bottom: 8px;
-    width: 100%; /* Ocupa a largura total para o border-bottom */
+    width: 100%;
 }
 
 .c-specialties-unit {
-    padding: 15px 20px; /* Mais padding */
-    height: auto; /* Altura flexível */
-    width: 100%; /* Ocupa a largura total disponível */
-    box-sizing: border-box; /* Inclui padding na largura */
-    border-radius: 0.8em; /* Bordas mais suaves */
+    padding: 15px 20px; 
+    height: auto; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border-radius: 0.8em; 
     border: solid 1px var(--color-blue-gray);
-    margin: 10px 0; /* Margem apenas superior e inferior */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Sombra mais sutil */
-    background-color: var(--color-light-beige); /* Fundo mais claro */
+    margin: 10px 0; 
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); 
+    background-color: var(--color-light-beige); 
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* Alinhamento à esquerda */
+    align-items: flex-start; 
     cursor: pointer;
-    transition: all 0.3s ease; /* Transição suave para hover */
+    transition: all 0.3s ease; 
 }
 
 .c-specialties-unit h2 {
@@ -226,7 +227,7 @@
 .c-specialties-unit div {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Espaço entre duração e valor */
+    gap: 20px; 
 }
 
 .c-specialties-unit p {
@@ -237,19 +238,19 @@
 }
 
 .c-specialties-unit:hover {
-    background-color: var(--color-primary-brown); /* Fundo marrom no hover */
-    color: var(--color-background-light); /* Texto claro no hover */
-    transform: translateY(-5px); /* Leve elevação */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra mais proeminente */
+    background-color: var(--color-primary-brown); 
+    color: var(--color-background-light);
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .c-specialties-unit:hover h2,
 .c-specialties-unit:hover p {
-    color: var(--color-background-light); /* Manter o texto claro */
+    color: var(--color-background-light); 
 }
 
 
-/* --- Modal Styling --- */
+
 .modal {
     position: fixed;
     top: 0;
@@ -261,22 +262,22 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
-    animation: fadeIn 0.3s ease-out; /* Adiciona a animação de fade in */
+    animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
     position: relative;
-    background: var(--color-light-beige); /* Fundo do modal alinhado */
+    background: var(--color-light-beige); 
     width: 90%;
     max-width: 600px;
-    max-height: 80vh; /* Altura máxima para melhor visualização em telas menores */
-    padding: 30px; /* Mais padding */
+    max-height: 80vh; 
+    padding: 30px; 
     border-radius: 10px;
     overflow-y: auto;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra mais destacada */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); 
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Espaçamento entre os elementos do modal */
+    gap: 20px; 
 }
 
 .container-close-button {
@@ -287,9 +288,9 @@
 
 .container-close-button button {
     background: none;
-    border: 1px solid var(--color-blue-gray); /* Borda sutil */
-    border-radius: 50%; /* Botão redondo */
-    width: 30px; /* Tamanho do botão */
+    border: 1px solid var(--color-blue-gray); 
+    border-radius: 50%; 
+    width: 30px; 
     height: 30px;
     font-size: 1.2rem;
     color: var(--color-text-dark);
@@ -301,7 +302,7 @@
 }
 
 .container-close-button button:hover {
-    background-color: var(--color-highlight-red); /* Vermelho no hover para fechar */
+    background-color: var(--color-highlight-red); 
     color: white;
     border-color: var(--color-highlight-red);
 }
@@ -320,34 +321,34 @@
 }
 
 .calendar-schedule-consultant {
-    display: grid; /* Usar grid para melhor controle dos itens */
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Colunas responsivas */
-    gap: 15px; /* Espaçamento entre os dias */
-    justify-items: center; /* Centraliza os itens no grid */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px; 
+    justify-items: center; 
 }
 
 .calendar-day {
-    padding: 12px 15px; /* Mais padding */
-    background-color: var(--color-background-light); /* Fundo claro */
+    padding: 12px 15px;
+    background-color: var(--color-background-light); 
     border: 1px solid var(--color-blue-gray);
-    border-radius: 8px; /* Bordas suaves */
+    border-radius: 8px; 
     cursor: pointer;
     text-align: center;
     font-family: var(--font-josefin-sans);
     font-weight: 500;
     color: var(--color-text-dark);
     transition: all 0.2s ease;
-    width: 100%; /* Ocupa a largura da célula do grid */
+    width: 100%; 
     box-sizing: border-box;
 }
 
 .calendar-day:hover {
-    background-color: var(--color-primary-brown); /* Marrom no hover */
+    background-color: var(--color-primary-brown); 
     color: var(--color-background-light);
     border-color: var(--color-primary-brown);
 }
-.calendar-day.selected { /* Adicionar esta classe quando a data for selecionada */
-    background-color: var(--color-gold); /* Dourado para data selecionada */
+.calendar-day.selected { 
+    background-color: var(--color-gold);
     color: white;
     border-color: var(--color-gold);
 }
@@ -360,15 +361,15 @@
     justify-items: center;
 }
 .container-times{
-    display: grid; /* Usar grid para os horários */
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Colunas responsivas */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 10px;
     justify-items: center;
 }
 
 .time-button {
     padding: 10px 15px;
-    background-color: var(--color-primary-brown); /* Botões de horário marrons */
+    background-color: var(--color-primary-brown); 
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -381,17 +382,17 @@
 }
 
 .time-button.selected {
-    background-color: var(--color-gold); /* Dourado para horário selecionado */
+    background-color: var(--color-gold); 
 }
 
-.time-button:hover:not(.selected) { /* Hover para não selecionados */
-    background-color: #5a3d2e; /* Tom mais escuro de marrom */
+.time-button:hover:not(.selected) { 
+    background-color: #5a3d2e; 
 }
 
 .schedule-button {
     width: 100%;
     padding: 15px;
-    background-color: var(--color-primary-brown); /* Botão de agendamento marrom */
+    background-color: var(--color-primary-brown);
     color: white;
     border: none;
     border-radius: 8px;
@@ -404,17 +405,17 @@
 }
 
 .schedule-button:disabled {
-    background-color: var(--color-blue-gray); /* Cinza para desabilitado */
+    background-color: var(--color-blue-gray); 
     cursor: not-allowed;
     opacity: 0.7;
 }
 
 .schedule-button:enabled:hover {
-    background-color: #5a3d2e; /* Tom mais escuro de marrom no hover */
+    background-color: #5a3d2e; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Animação do modal */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -426,7 +427,7 @@
     }
 }
 
-/* Media Queries (ajustes para telas menores) */
+
 @media (max-width: 980px) {
     .container-1 {
         flex-direction: column;
@@ -442,19 +443,19 @@
         text-align: center;
     }
     .status {
-        margin: 10px 0 0 0; /* Ajuste para centralizar abaixo do nome */
+        margin: 10px 0 0 0; 
     }
     .container-2 {
         flex-direction: column;
         align-items: center;
     }
     .data-profile, .c-specialties {
-        width: 95%; /* Ocupa mais largura em telas menores */
+        width: 95%; 
         padding: 0 10px;
-        margin-bottom: 30px; /* Espaço entre as seções */
+        margin-bottom: 30px; 
     }
     .c-specialties-unit {
-        margin: 10px auto; /* Centraliza */
+        margin: 10px auto; 
     }
     .data-profile h3, .c-specialties h3 {
         text-align: center;
@@ -463,7 +464,7 @@
 
 @media (max-width: 660px) {
     .content-consultant {
-        margin-top: 50px; /* Ajuste para telas muito pequenas */
+        margin-top: 50px; 
     }
     .name-consultant {
         font-size: 2.2rem;
@@ -489,7 +490,7 @@
     }
     .modal-content {
         padding: 20px;
-        max-height: 90vh; /* Permite mais altura em telas menores */
+        max-height: 90vh; 
     }
     .calendar-schedule-consultant {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
