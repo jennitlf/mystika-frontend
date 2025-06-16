@@ -1,33 +1,82 @@
-import React, { useState, useRef } from "react"; 
+import React, { useState, useCallback, useMemo } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { API } from "../../config";
 import "../../css/consultant/register.css";
 
 const RegisterConsultant = () => {
-   
-    const { control, handleSubmit, trigger, setValue, formState: { errors } } = useForm();
+    const { control, handleSubmit, trigger, setValue, formState: { errors } } = useForm({
+        mode: "onBlur"
+    });
     const [step, setStep] = useState(1);
     const [selectedFileName, setSelectedFileName] = useState("");
+    const [error, setError] = useState(null); 
+    const [isLoading, setIsLoading] = useState(false); 
+    const navigate = useNavigate(); 
+    const allowedImageTypes = useMemo(() => 
+        ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    , []);
 
-    
-    const fileInputRef = useRef(null);
-
-    const onSubmit = (data) => {
-        console.log("Form Data:", data);
+    const formatCpf = useCallback((value) => {
+        if (!value) return "";
+        let cpf = value.replace(/\D/g, ''); 
         
-        alert("Formulário enviado com sucesso! Verifique o console para os dados.");
-        
-    };
+        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
 
+        return cpf;
+    }, []); 
+    const onSubmit = useCallback(async (data) => {
+        setError(null);
+        setIsLoading(true); 
+
+        const formData = new FormData();
+
+        for (const key in data) {
+            if (key !== 'image_consultant') {
+                if (key === 'cpf') {
+                    formData.append(key, data[key].replace(/\D/g, ''));
+                } else if (data[key] !== undefined && data[key] !== null) {
+                    formData.append(key, data[key]);
+                }
+            }
+        }
+        formData.append('role', 'consultant');
+
+        if (data.image_consultant && data.image_consultant[0]) {
+            formData.append('image_consultant', data.image_consultant[0]);
+        }
+
+        try {
+            const response = await fetch(`${API}auth/consultant/register`, { 
+                method: 'POST',
+                body: formData, 
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro no registro');
+            }
+
+            const result = await response.json();
+            console.log("Registro bem-sucedido:", result);
+            navigate('/consultor/login'); 
+        } catch (err) {
+            console.error("Erro ao registrar:", err.message);
+            setError(err.message); 
+        } finally {
+            setIsLoading(false); 
+        }
+    }, [navigate, setError, setIsLoading]); 
     const handleNextStep = async () => {
         let isValid = false;
         if (step === 1) {
-            isValid = await trigger(["name", "cpf", "phone", "email"]); 
+            isValid = await trigger(["name", "cpf", "phone", "email", "image_consultant"]); 
         } else if (step === 2) {
             isValid = await trigger(["profile_data", "about_specialties", "consultants_story"]);
         } else if (step === 3) {
-            
-            isValid = await trigger(["consultations_carried_out", "payment_plan", "password", "image_consultant"]);
+            isValid = await trigger(["consultations_carried_out", "payment_plan", "password"]);
         }
         
         if (isValid) {
@@ -39,20 +88,27 @@ const RegisterConsultant = () => {
             }
         }
     };
-
-    const previousStep = () => setStep((prev) => Math.max(prev - 1, 1));
-
-    
-    const handleFileChange = (event) => {
+    const previousStep = useCallback(() => setStep((prev) => Math.max(prev - 1, 1)), []);
+    const handleFileChange = useCallback((event) => {
         const file = event.target.files[0];
         if (file) {
+            if (!allowedImageTypes.includes(file.type)) {
+                setError('Tipo de arquivo não permitido. Por favor, selecione uma imagem (JPG, PNG, GIF, WebP).');
+                setSelectedFileName("");
+                setValue("image_consultant", null, { shouldValidate: true }); 
+                event.target.value = null; 
+                return false; 
+            }
+            setError(null);
             setSelectedFileName(file.name);
-            setValue("image_consultant", file, { shouldValidate: true }); 
+            setValue("image_consultant", file, { shouldValidate: true });
+            return true; 
         } else {
             setSelectedFileName("");
             setValue("image_consultant", null, { shouldValidate: true });
+            return true; 
         }
-    };
+    }, [allowedImageTypes, setError, setValue]); 
 
     return (
         <div className="container-register">
@@ -84,28 +140,36 @@ const RegisterConsultant = () => {
                                             control={control}
                                             rules={{ required: "O nome é obrigatório." }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Nome completo"/>
+                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Nome completo" disabled={isLoading}/>
                                             )}
                                         />
-                                        {errors.name && <p className="error-message-consultant">{errors.name.message}</p>}
+                                        {errors.name && <p className="error-message">{errors.name.message}</p>}
                                     </div>
                                     <div className="form-field-consultant">
                                         <Controller
                                             name="cpf"
                                             id="cpf-register-consultant"
                                             control={control}
-                                            rules={{
+                                            rules={{ 
                                                 required: "O CPF é obrigatório.",
-                                                pattern: {
-                                                    value: /^\d{11}$/,
-                                                    message: "CPF inválido. Use apenas números."
-                                                }
+                                                validate: (value) => value.replace(/\D/g, '').length === 11 || "O CPF deve ter 11 dígitos."
                                             }}
-                                            render={({ field }) => (
-                                                <input {...field} maxLength='11' className="input-consultant" placeholder="CPF (apenas números)"/>
+                                            render={({ field: { onChange, value, ...rest } }) => (
+                                                <input 
+                                                    {...rest} 
+                                                    maxLength='14' 
+                                                    className="input-consultant" 
+                                                    placeholder="CPF"
+                                                    disabled={isLoading}
+                                                    value={formatCpf(value)} 
+                                                    onChange={(e) => {
+                                                        const cleanedValue = e.target.value.replace(/\D/g, '');
+                                                        onChange(cleanedValue); 
+                                                    }}
+                                                />
                                             )}
                                         />
-                                        {errors.cpf && <p className="error-message-consultant">{errors.cpf.message}</p>}
+                                        {errors.cpf && <p className="error-message">{errors.cpf.message}</p>}
                                     </div>
                                 </div>
                                 <div className="subcontainer-step1-register-consultant-middle">
@@ -122,10 +186,10 @@ const RegisterConsultant = () => {
                                                 }
                                             }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='15' type="number" className="input-consultant" placeholder="Telefone (apenas números)"/>
+                                                <input {...field} maxLength='15' className="input-consultant" placeholder="Telefone (apenas números)" disabled={isLoading}/>
                                             )}
                                         />
-                                        {errors.phone && <p className="error-message-consultant">{errors.phone.message}</p>}
+                                        {errors.phone && <p className="error-message">{errors.phone.message}</p>}
                                     </div>
                                     <div className="form-field-consultant">
                                         <Controller
@@ -140,11 +204,59 @@ const RegisterConsultant = () => {
                                                 }
                                             }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Email"/>
+                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Email" disabled={isLoading}/>
                                             )}
                                         />
-                                        {errors.email && <p className="error-message-consultant">{errors.email.message}</p>}
+                                        {errors.email && <p className="error-message">{errors.email.message}</p>}
                                     </div>
+                                </div>
+                                <div className="subcontainer-step1-register-consultant-down">
+                                   <Controller
+                                    name="image_consultant"
+                                    control={control}
+                                    rules={{ 
+                                        required: "A imagem é obrigatória.",
+                                        validate: {
+                                            fileType: (value) => {
+                                                if (!value) return "A imagem é obrigatória."; 
+                                                if (!value[0]) return "A imagem é obrigatória.";
+                                                if (!allowedImageTypes.includes(value[0].type)) {
+                                                    return 'Tipo de arquivo não permitido. Por favor, selecione uma imagem (JPG, PNG, GIF, WebP).';
+                                                }
+                                                return true;
+                                            }
+                                        }
+                                    }}
+                                    render={({ field: { onChange, value, ...rest } }) => ( 
+                                        <>
+                                            <input
+                                                type="file"
+                                                accept="image/jpeg, image/png, image/gif, image/webp"
+                                                onChange={(e) => {
+                                                    const isValidFile = handleFileChange(e); 
+                                                    if (isValidFile || !e.target.files[0]) {
+                                                        onChange(e.target.files); 
+                                                    } else {
+                                                        onChange(null);
+                                                    }
+                                                }}
+                                                className="input-consultant-file"
+                                                style={{ display: "none" }}
+                                                id="file-input-consultant"
+                                                disabled={isLoading} 
+                                                {...rest}
+                                            />
+                                            <label htmlFor="file-input-consultant" className="custom-file-upload-consultant" style={isLoading ? { cursor: 'not-allowed', opacity: 0.6 } : {}}>
+                                                Escolha uma imagem de perfil
+                                            </label>
+                                            {selectedFileName && (
+                                                <p className="file-name">{selectedFileName}</p>
+                                            )}
+                                        </>
+                                    )}
+                                />
+                                {errors.image_consultant && <p className="error-message">{errors.image_consultant.message}</p>}
+                                {error && <p className="error-message">{error}</p>}
                                 </div>
                             </div>
                         )}
@@ -159,10 +271,10 @@ const RegisterConsultant = () => {
                                             minLength: { value: 50, message: "Mínimo de 50 caracteres." }
                                         }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='800' className="textarea-consultant" placeholder="Fale sobre seu perfil profissional (min. 50 caracteres)"/>
+                                            <textarea {...field} maxLength='800' id="profile-data-register" className="textarea-consultant" placeholder="Fale sobre seu perfil profissional (min. 50 caracteres)" disabled={isLoading}/>
                                         )}
                                     />
-                                    {errors.profile_data && <p className="error-message-consultant">{errors.profile_data.message}</p>}
+                                    {errors.profile_data && <p className="error-message">{errors.profile_data.message}</p>}
                                 </div>
                                 <div className="form-field-consultant">
                                     <Controller
@@ -173,12 +285,12 @@ const RegisterConsultant = () => {
                                             minLength: { value: 30, message: "Mínimo de 30 caracteres." }
                                         }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='700' className="textarea-consultant" placeholder="Descreva suas especialidades (min. 30 caracteres)"/>
+                                            <textarea {...field} maxLength='700' id="about-specialties-register" className="textarea-consultant" placeholder="Descreva suas especialidades (min. 30 caracteres)" disabled={isLoading}/>
                                         )}
                                     />
-                                    {errors.about_specialties && <p className="error-message-consultant">{errors.about_specialties.message}</p>}
+                                    {errors.about_specialties && <p className="error-message">{errors.about_specialties.message}</p>}
                                 </div>
-                                <div className="form-field-consultant">
+                                <div className="container-step2-register-consultant-down">
                                     <Controller
                                         name="consultants_story"
                                         id="consultants-story-register"
@@ -188,10 +300,11 @@ const RegisterConsultant = () => {
                                             minLength: { value: 50, message: "Mínimo de 50 caracteres." }
                                         }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='700' className="textarea-consultant" placeholder="Conte sua história como consultor (min. 50 caracteres)"/>
+                                            <textarea {...field} maxLength='700' className="textarea-consultant" placeholder="Conte sua história como consultor (min. 50 caracteres)" disabled={isLoading}
+                                            />
                                         )}
                                     />
-                                    {errors.consultants_story && <p className="error-message-consultant">{errors.consultants_story.message}</p>}
+                                    {errors.consultants_story && <p className="error-message">{errors.consultants_story.message}</p>}
                                 </div>
                             </div>
                         )}
@@ -214,10 +327,11 @@ const RegisterConsultant = () => {
                                                 className="input-consultant"
                                                 placeholder="Quantas consultas você já realizou?"
                                                 onWheel={(e) => e.target.blur()}
+                                                disabled={isLoading}
                                             />
                                         )}
                                     />
-                                    {errors.consultations_carried_out && <p className="error-message-consultant">{errors.consultations_carried_out.message}</p>}
+                                    {errors.consultations_carried_out && <p className="error-message">{errors.consultations_carried_out.message}</p>}
                                 </div>
                                 <div className="form-field-consultant">
                                     <Controller
@@ -230,17 +344,18 @@ const RegisterConsultant = () => {
                                             {...field}
                                             id="payment-plan-register"
                                             className="select-consultant"
+                                            disabled={isLoading}
                                         >
                                             <option value="">
                                                 Selecione um plano de pagamento
                                             </option>
-                                            <option value="monthly">Mensal</option>
-                                            <option value="biannual">Semestral</option>
-                                            <option value="annual">Anual</option>
+                                            <option value="mensal">Mensal</option>
+                                            <option value="semestral">Semestral</option>
+                                            <option value="anual">Anual</option>
                                         </select>
                                     )}
                                     />
-                                    {errors.payment_plan && <p className="error-message-consultant">{errors.payment_plan.message}</p>}
+                                    {errors.payment_plan && <p className="error-message">{errors.payment_plan.message}</p>}
                                 </div>
                                 <div className="form-field-consultant">
                                     <Controller
@@ -252,63 +367,31 @@ const RegisterConsultant = () => {
                                             minLength: { value: 6, message: "A senha deve ter no mínimo 6 caracteres." }
                                         }}
                                         render={({ field }) => (
-                                            <input {...field} maxLength='15' className="input-consultant" placeholder="Crie sua senha" type="password"/>
+                                            <input {...field} maxLength='15' className="input-consultant" placeholder="Crie sua senha" type="password" disabled={isLoading}/>
                                         )}
                                     />
-                                    {errors.password && <p className="error-message-consultant">{errors.password.message}</p>}
-                                </div>
-                                
-                                <div className="form-field-consultant file-upload-field">
-                                    <input
-                                        type="file"
-                                        ref={fileInputRef} 
-                                        onChange={handleFileChange} 
-                                        className="input-consultant-file"
-                                        id="file-input-consultant"
-                                        
-                                    />
-                                    <label htmlFor="file-input-consultant" className="custom-file-upload-consultant">
-                                        Escolha uma imagem de perfil
-                                    </label>
-                                    {selectedFileName && (
-                                        <span className="file-name-display-consultant">{selectedFileName}</span>
-                                    )}
-                                    
-                                    {errors.image_consultant && <p className="error-message-consultant">{errors.image_consultant.message}</p>}
+                                    {errors.password && <p className="error-message">{errors.password.message}</p>}
                                 </div>
                             </div>
                         )}
-                        <div className="navigation-buttons-register-consultant">
+                        <div className="container-button-register-consultant">
                             {step > 1 && (
-                                <button
-                                    type="button"
-                                    onClick={previousStep}
-                                    className="button-consultant button-prev-consultant"
-                                >
+                                <button type="button" onClick={previousStep} className="button-prev-consultant" disabled={isLoading}>
                                     Voltar
                                 </button>
                             )}
-                            {step < 3 ? (
-                                <button
-                                    type="button"
-                                    onClick={handleNextStep}
-                                    className="button-consultant button-next-consultant"
-                                >
+                            {step < 3 && (
+                                <button type="button" onClick={handleNextStep} className="button-next-consultant" disabled={isLoading}>
                                     Próximo
                                 </button>
-                            ) : (
-                                <button
-                                    type="submit"
-                                    className="button-consultant button-submit-consultant"
-                                >
-                                    Registrar
+                            )}
+                            {step === 3 && (
+                                <button type="submit" className="button-register-consultant" disabled={isLoading}>
+                                    {isLoading ? "Registrando..." : "Cadastrar"}
                                 </button>
                             )}
                         </div>
                     </form>
-                </div>
-                <div className="container-copyright-register-consultant">
-                    <p>©copyright 2025. Copyright inc ltd</p>
                 </div>
             </div>
         </div>

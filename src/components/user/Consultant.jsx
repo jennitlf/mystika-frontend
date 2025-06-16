@@ -6,10 +6,10 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from 'react-toastify';
 
 const Consultant = () => {
-  const { id } = useParams(); // 'id' should be the consultant's ID
+  const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [consultantData, setConsultantData] = useState(null); // Renamed to consultantData to avoid confusion with the component name
+  const [consultantData, setConsultantData] = useState(null);
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -27,11 +27,10 @@ const Consultant = () => {
       if (!acc[dateKey]) {
         acc[dateKey] = { 
           date: slot.date,
-          schedule_id: slot.schedule_id, // Ensure schedule_id is correctly mapped
+          schedule_id: slot.schedule_id,
           available_times: [...slot.available_times] 
         };
       } else {
-        // Only add unique times if date already exists
         const newTimes = slot.available_times.filter(time => !acc[dateKey].available_times.includes(time));
         acc[dateKey].available_times = [...acc[dateKey].available_times, ...newTimes];
       }
@@ -42,15 +41,13 @@ const Consultant = () => {
 
   useEffect(() => {
     const fetchConsultant = async () => {
-      // **CRITICAL DEBUGGING POINT:** Verify `id` from `useParams`
       console.log("ID from useParams:", id); 
       
-      // Add validation for 'id' to prevent invalid API calls
       if (!id || typeof id !== 'string' || id === "solicitacoes-de-supote" || !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
         console.error("Invalid consultant ID from URL parameters:", id);
         toast.error("ID do consultor inválido na URL.");
         setLoading(false);
-        navigate('/'); // Redirect to homepage or error page
+        navigate('/');
         return;
       }
 
@@ -64,15 +61,13 @@ const Consultant = () => {
           throw new Error("Erro ao buscar dados do consultor.");
         }
         const data = await response.json();
-        
-        // Ensure data.data is an array and not empty
         if (Array.isArray(data.data) && data.data.length > 0) {
           setConsultantData(data.data);
         } else {
           console.warn("Consultant data not found or empty:", data);
           toast.info("Dados do consultor não encontrados.");
-          setConsultantData([]); // Set to empty array to prevent issues
-          navigate('/'); // Maybe redirect if no consultant data
+          setConsultantData([]);
+          navigate('/');
         }
       } catch (error) {
         console.error("Erro ao buscar consultor:", error);
@@ -84,7 +79,7 @@ const Consultant = () => {
 
     fetchConsultant();
 
-  }, [id, navigate]); // Add navigate to dependency array
+  }, [id, navigate]);
 
   const handleSpecialtyClick = async (idConsultantSpecialty) => {
     try {
@@ -114,19 +109,17 @@ const Consultant = () => {
     const times =
       schedule.find((slot) => slot.date === date)?.available_times || [];
     setAvailableTimes(times);
-    setSelectedDateTime({ date, time: null });
+    setSelectedDateTime((prev) => ({ ...prev, time: null }));
   };
 
   const handleTimeClick = (time) => {
     setSelectedDateTime((prev) => ({ ...prev, time }));
   };
 
-  // Render loading state
   if (loading) {
     return <p>Carregando consultor...</p>;
   }
 
-  // Render error/not found state if consultantData is null or empty
   if (!consultantData || consultantData.length === 0) {
     return (
       <div className="content-consultant-not-found">
@@ -136,13 +129,8 @@ const Consultant = () => {
     );
   }
 
-  // Assign the first consultant specialty object for easier access
-  // This assumes consultantData is an array of consultant-specialty objects,
-  // and you want to display information about the consultant from the first entry.
   const consultantDetails = consultantData[0].consultant; 
   if (!consultantDetails) {
-    // This case should ideally be covered by the `consultantData.length === 0` check
-    // but added as a fallback for defensive programming.
     return (
       <div className="content-consultant-not-found">
         <p>Detalhes do consultor indisponíveis.</p>
@@ -188,8 +176,8 @@ const Consultant = () => {
       }
       toast.success("Consulta marcada com sucesso!");
       setTimeout(() => {
-        window.location.reload(); // Consider more sophisticated state management instead of full reload
-      }, 1500) // Shortened timeout
+        window.location.reload();
+      }, 1500)
     } catch (error) {
       console.error("Erro ao marcar consulta:", error);
       toast.error(error.message || "Erro ao marcar consulta.");
@@ -201,7 +189,7 @@ const Consultant = () => {
       <div className="container-1">
         <div className="image">
           <img
-            src={consultantDetails.image_consultant} // Use consultantDetails here
+            src={consultantDetails.image_consultant}
             alt="foto do consultor"
           />
         </div>
@@ -209,13 +197,11 @@ const Consultant = () => {
           <div className="name-assessment">
             <div className="name-assessment-sub">
               <p className="name-consultant">
-                {consultantDetails.name} {/* Use consultantDetails here */}
+                {consultantDetails.name}
               </p>{" "}
-              {/* Assuming status logic goes here, if any */}
               <div className="status">Online</div> 
             </div>
             <div className="assessment">
-              {/* Static stars, consider making dynamic based on actual rating */}
               <i className="material-icons star">star</i>
               <i className="material-icons star">star</i>
               <i className="material-icons star">star</i>
@@ -226,7 +212,7 @@ const Consultant = () => {
               <p>Consultas Realizadas</p>
               <div className="content-occurred-sub">
                 <i className="material-icons occurred">Youtube</i>
-                <p>{consultantDetails.consultations_carried_out}</p> {/* Use consultantDetails here */}
+                <p>{consultantDetails.consultations_carried_out}</p>
               </div>
             </div>
           </div>
@@ -235,19 +221,18 @@ const Consultant = () => {
       <div className="container-2">
         <div className="data-profile">
           <h3>Sobre o especialista</h3>
-          <p>{consultantDetails.profile_data}</p> {/* Use consultantDetails here */}
+          <p>{consultantDetails.profile_data}</p>
           <h3>Sobre suas especialidades</h3>
-          <p>{consultantDetails.about_specialties}</p> {/* Use consultantDetails here */}
+          <p>{consultantDetails.about_specialties}</p>
           <h3>História</h3>
-          <p>{consultantDetails.consultants_story}</p> {/* Use consultantDetails here */}
+          <p>{consultantDetails.consultants_story}</p>
         </div>
         <div className="c-specialties">
           <h3>Selecione uma especialidade:</h3>
-          {/* Map directly over consultantData (the array of consultant-specialty objects) */}
           {consultantData.map((specialty) => ( 
             <div
-              id={specialty.id} // This 'id' is the consultant_specialty ID
-              key={specialty.id} // Use a unique key for list items, specialty.id is better here
+              id={specialty.id}
+              key={specialty.id}
               className="c-specialties-unit"
               onClick={() => handleSpecialtyClick(specialty.id)}
             >
@@ -275,9 +260,9 @@ const Consultant = () => {
                 schedule.map((slot) => (
                   <div
                     key={slot.date}
-                    className={`calendar-day ${selectedDateTime?.date === slot.date ? 'selected-date' : ''}`} // Add selected class
+                    className={`calendar-day ${selectedDateTime?.date === slot.date ? 'selected-date' : ''}`}
                     onClick={() => handleDateClick(slot.date)}
-                    style={{ opacity: slot.available_times.length ? 1 : 0.6, cursor: slot.available_times.length ? 'pointer' : 'not-allowed' }} // Indicate if no times
+                    style={{ opacity: slot.available_times.length ? 1 : 0.6, cursor: slot.available_times.length ? 'pointer' : 'not-allowed' }}
                   >
                     {parseLocalDate(slot.date).toLocaleDateString("pt-BR")}
                   </div>
@@ -289,7 +274,7 @@ const Consultant = () => {
                 </p>
               )}
             </div>
-            {availableTimes.length > 0 && selectedDateTime?.date && ( // Only show times if a date is selected and times exist
+            {availableTimes.length > 0 && selectedDateTime?.date && (
               <div className="times">
                 <h4>Horários disponíveis:</h4>
                 <div className="container-times">
