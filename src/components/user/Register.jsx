@@ -38,7 +38,7 @@ const Register = () => {
           });
           if (response.ok) {
             toast.success("Cadastro realizado com sucesso! Faça login para continuar.");
-            navigate("/login");
+            navigate("/usuario/login");
           } else {
             toast.error("Erro no cadastro. Tente novamente.");
             console.error(response);
@@ -93,7 +93,7 @@ const Register = () => {
                     </div>
                 </form>
                 <div className="redirection-to-login">
-                    <p> Faça <Link className="login-link" to={'/login'}>Login</Link> com sua conta</p>
+                    <p> Faça <Link className="login-link" to={'/usuario/login'}>Login</Link> com sua conta</p>
                 </div>
             </div>
         </div>
