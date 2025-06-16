@@ -1,18 +1,40 @@
+
+:root {
+    
+    --color-consultant-dark-blue: #0D253F;
+    --color-consultant-medium-blue: #1B4965;
+    --color-consultant-light-blue: #62B6CB;
+    --color-consultant-accent-gold: #FFD700;
+    --color-text-light: #F5F5F5; 
+    --color-text-dark-consultant: #333333; 
+
+    
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+
+    
+    --color-success-green: #28a745;
+    --color-error-red: #dc3545;
+}
+
 .menu-options-consultant {
     height: 100vh;
     width: 320px;
     position: fixed;
     top: 0;
     left: -350px; 
-    background-color: #f9f9f9;
+    background-color: var(--color-consultant-medium-blue); 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start; 
     z-index: 1000;
-    transition: left 0.3s ease;
-    padding-left: 30px;
+    transition: left 0.3s ease-out; 
+    padding: 20px 0 20px 30px; 
+    box-sizing: border-box; 
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
 }
+
 .overlay {
     position: fixed;
     top: 0;
@@ -20,189 +42,244 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 999; 
     pointer-events: auto;
+    opacity: 0; 
     transition: opacity 0.3s ease;
 }
 
 .menu-options-consultant.active {
     left: 0; 
 }
-.ul-options-consultant{
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: start;
-    margin-top: 40px;
-    margin-left: 0;
-    padding: 0;
-}
-.options-m-consultants{
-    cursor: pointer;
-}
-.options-m-consultant{
-    width: 230px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 18px 0 16px 0;
-    font-size: x-large;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    color: #2c1053;
-    /* border-bottom: solid 1px #E1E5EE; */
-    text-decoration: none;
-    cursor: default;
+
+.overlay.active {
+    opacity: 1;
 }
 
-.menu-user-menuOption-consultant{
+.menu-options-consultant-subcontainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-user-menuOption-consultant {
     margin-top: 20px;
     height: 70px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
-}
-.menu-user-menuOption-icon-consultant{
-    margin: 0 10px 0 0;
-    height: 50px;
-    width: 50px;
-    font-size: xx-large;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.menu-user-menuOption-icon-consultant{
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 24;
-    color: #2c1053;
-    margin-left: 5px;
-}
-.menu-consultant-menuOption-name{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 35px;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: large;
-    font-optical-sizing: auto;
-    border-radius: 0.5em;
+    justify-content: flex-start;
+    padding-left: 5px; 
+    width: 100%; 
 }
 
-
-.ul-options-myData{
-    padding: 0 0 0 10px;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-}
-.ul-options-myData-li{
-    font-size: medium;
-    font-optical-sizing: auto;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: none;
+.menu-user-menuOption-icon-consultant {
+    font-size: 2.5rem; 
+    color: var(--color-consultant-accent-gold); 
+    margin-right: 15px; 
     
 }
-.li-mydata{
-    margin-top: 0;
-    margin-bottom: 13px;
+
+.menu-consultant-menuOption-name {
+    font-family: var(--font-josefin-sans);
+    font-weight: 600; 
+    font-size: 1.3rem; 
+    color: var(--color-text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 180px; 
 }
-.li-scheduleAppoiment{
-    margin-bottom: 13px;
+
+.menu-consultant-menuOption-button-login {
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    font-size: 1.2rem; 
+    text-decoration: none;
+    margin-top: 40px;
+    height: 50px; 
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-consultant-light-blue);
+    color: var(--color-consultant-dark-blue);
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 0 15px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-consultant-menuOption-button-login:hover {
+    background-color: #4a9ec0;
+    transform: translateY(-2px);
+}
+
+.icon-login-menuOption-consultant {
+    font-size: 1.5rem;
+    margin-left: 10px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.ul-options-consultant {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 40px;
+    margin-left: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.options-m-consultant {
+    width: 90%; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 20px; 
+    font-size: 1.3rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    color: var(--color-text-light);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.options-m-consultant:hover {
+    color: var(--color-consultant-accent-gold);
+}
+
+.options-m-dataUser .icon-arrow,
+.options-m-help .icon-arrow {
+    font-size: 1.5rem; 
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: var(--color-text-light);
+    transition: transform 0.2s ease;
 }
 
 
-
-.ul-options-help{
-    padding: 0 0 0 10px;
-    margin: 0;
+.ul-options-sub-menu { 
+    padding: 0;
+    margin: -10px 0 10px 20px; 
     list-style: none;
     display: flex;
     flex-direction: column;
+    width: calc(100% - 20px); 
 }
-.ul-options-help-li{
-    font-size: medium;
-    font-optical-sizing: auto;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
+
+.ul-options-sub-menu-li { 
+    font-size: 1rem; 
+    font-family: var(--font-josefin-sans);
     font-weight: 400;
-    padding: 0;
+    color: rgba(255, 255, 255, 0.7); 
+    padding: 8px 0;
     cursor: pointer;
     text-decoration: none;
-}
-.li-help-list{
-    margin-top: 0;
-    margin-bottom: 13px;
-}
-.li-help{
-    margin-bottom: 13px;
+    transition: color 0.2s ease;
 }
 
-.menu-consultant-menuOption-button-login{
-    font-size:x-large;
-    text-decoration: none;
-    margin-top: 40px;
-    height: 40px;
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(80, 80, 80);
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-}
-.menu-consultant-menuOption-button-login:hover{
-    color:blue;
-}
-.icon-login-menuOption-consultant{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.ul-options-sub-menu-li:hover {
+    color: var(--color-consultant-light-blue);
 }
 
-.container-logout{
-    height: 50px;
-    width: 250px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: center;
-    font-size: larger;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
 
-.container-logout-off{
-    height: 50px;
-    width: 250px;
+.container-logout {
+    height: 60px;
+    width: 90%;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    font-size: larger;
-    font-family: "Josefin Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+    font-size: 1.3rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+    padding-left: 5px; 
+}
+
+.container-logout:hover {
+    color: var(--color-error-red);
+}
+
+.logout-icon {
+    font-size: 1.8rem;
+    margin-left: 15px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+}
+
+.container-logout:hover .logout-icon {
+    color: var(--color-error-red);
+}
+
+.container-logout-off {
+    height: 60px;
+    width: 90%;
+}
+
+
+@media (max-width: 768px) {
+    .menu-options-consultant {
+        width: 280px; 
+        padding: 20px 0 20px 20px;
+    }
+    .menu-user-menuOption-icon-consultant {
+        font-size: 2.2rem;
+    }
+    .menu-consultant-menuOption-name {
+        font-size: 1.2rem;
+        max-width: 150px;
+    }
+    .options-m-consultant {
+        font-size: 1.2rem;
+    }
+    .ul-options-sub-menu-li {
+        font-size: 0.95rem;
+    }
+    .container-logout {
+        font-size: 1.2rem;
+    }
+    .logout-icon {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-options-consultant {
+        width: 100vw; 
+        max-width: 280px; 
+        padding: 20px 0 20px 15px;
+    }
+    .menu-user-menuOption-icon-consultant {
+        font-size: 2rem;
+    }
+    .menu-consultant-menuOption-name {
+        font-size: 1.1rem;
+        max-width: 130px;
+    }
+    .options-m-consultant {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    .ul-options-sub-menu-li {
+        font-size: 0.9rem;
+        padding: 6px 0;
+    }
+    .container-logout {
+        font-size: 1.1rem;
+        height: 50px;
+    }
+    .logout-icon {
+        font-size: 1.4rem;
+    }
 }

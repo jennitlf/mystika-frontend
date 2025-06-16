@@ -7,7 +7,7 @@ import { API } from "../../config";
 import '../../css/consultant/login.css'
 
 const LoginConsultant = () => {
-    const { control, handleSubmit } = useForm();
+    const { control, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
     const onSubmit = async (data) => {
@@ -36,49 +36,77 @@ const LoginConsultant = () => {
             <div className="content-left-login-consultant">
                 <div className="content-text-login-consultant">
                     <h3 className="content-text-1-login animate-slide-in">
-                            Bem vindo!
+                            Bem-vindo!
                     </h3>
                 </div>
             </div>
             <div className="content-right-login-consultant">
                 <div className="content-sign-in-login">
                     <h5>
-                        Not registered?? <Link to={'/consultor/register'}>Register here!</Link>
+                        Ainda não registrado? <Link to={'/consultor/register'}>Registre-se aqui!</Link>
                     </h5>
                 </div>
                 <div className="container-form-login-consultant">
                     <div className="container-title-login-consultant">
-                        <h3>Login</h3>
+                        <h3>Login do Consultor</h3> 
                     </div>
                     <form className="form-login-consultant" onSubmit={handleSubmit(onSubmit)} >
-                        <Controller
-                        name="email"
-                        id="email-login-consultant"
-                        control={control}
-                        rules={{ required: "email is required" }}
-                        render={({ field }) => (
-                            <input {...field} maxLength='60' className="input-emil-login-consultant" placeholder="Email"/>
-                        )}
-                        />
-                        <Controller
-                            name="password"
-                            id="password-login-consultant"
-                            control={control}
-                            rules={{ required: "password is required" }}
-                            render={({ field }) => (
-                                <input {...field} maxLength='15' className="input-password-login-consultant" placeholder="Password"/>
-                            )}
-                        />
+                        <div className="form-field-login-consultant">
+                            <Controller
+                                name="email"
+                                id="email-login-consultant"
+                                control={control}
+                                rules={{ 
+                                    required: "O email é obrigatório.",
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                        message: "Email inválido."
+                                    }
+                                }}
+                                render={({ field }) => (
+                                    <input 
+                                        {...field} 
+                                        maxLength='60' 
+                                        className="input-login-consultant" 
+                                        placeholder="Email"
+                                    />
+                                )}
+                            />
+                            {errors.email && <p className="error-message-login-consultant">{errors.email.message}</p>}
+                        </div>
+
+                        <div className="form-field-login-consultant"> 
+                            <Controller
+                                name="password"
+                                id="password-login-consultant"
+                                control={control}
+                                rules={{ 
+                                    required: "A senha é obrigatória.",
+                                    minLength: { value: 6, message: "A senha deve ter no mínimo 6 caracteres." }
+                                }}
+                                render={({ field }) => (
+                                    <input 
+                                        {...field} 
+                                        maxLength='15' 
+                                        className="input-login-consultant" 
+                                        placeholder="Senha" 
+                                        type="password" 
+                                    />
+                                )}
+                            />
+                            {errors.password && <p className="error-message-login-consultant">{errors.password.message}</p>}
+                        </div>
+
                          <button
-                        type="submit"
-                        className="button-submit-login-consultant"
+                            type="submit"
+                            className="button-submit-login-consultant"
                         >
-                        Entrar
+                            Entrar
                         </button>
                     </form>
                 </div>
                 <div className="container-copyright-login-consultant">
-                    <p>@copyright 2025. Copyright inc ltd</p>
+                    <p>©copyright 2025. Copyright inc ltd</p>
                 </div>
             </div>
         </div>

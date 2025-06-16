@@ -1,26 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react"; 
 import { useForm, Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "../../css/consultant/register.css";
 
 const RegisterConsultant = () => {
-    const { control, handleSubmit } = useForm();
+   
+    const { control, handleSubmit, trigger, setValue, formState: { errors } } = useForm();
     const [step, setStep] = useState(1);
     const [selectedFileName, setSelectedFileName] = useState("");
 
+    
+    const fileInputRef = useRef(null);
+
     const onSubmit = (data) => {
         console.log("Form Data:", data);
+        
+        alert("Formulário enviado com sucesso! Verifique o console para os dados.");
+        
     };
 
-    const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
+    const handleNextStep = async () => {
+        let isValid = false;
+        if (step === 1) {
+            isValid = await trigger(["name", "cpf", "phone", "email"]); 
+        } else if (step === 2) {
+            isValid = await trigger(["profile_data", "about_specialties", "consultants_story"]);
+        } else if (step === 3) {
+            
+            isValid = await trigger(["consultations_carried_out", "payment_plan", "password", "image_consultant"]);
+        }
+        
+        if (isValid) {
+            setStep((prev) => Math.min(prev + 1, 3));
+        } else {
+            const firstErrorField = Object.keys(errors).find(key => errors[key]);
+            if (firstErrorField) {
+                document.getElementById(firstErrorField)?.focus();
+            }
+        }
+    };
+
     const previousStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+    
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            setSelectedFileName(file.name); 
+            setSelectedFileName(file.name);
+            setValue("image_consultant", file, { shouldValidate: true }); 
         } else {
             setSelectedFileName("");
+            setValue("image_consultant", null, { shouldValidate: true });
         }
     };
 
@@ -36,169 +66,216 @@ const RegisterConsultant = () => {
             <div className="content-right-register-consultant">
                 <div className="content-sign-in-register">
                     <h5>
-                        Already have an account? <Link to={'/consultor/login'}>Sign in here!</Link>
+                        Já tem uma conta? <Link to={'/consultor/login'}>Entre aqui!</Link>
                     </h5>
                 </div>
                 <div className="container-form-register-consultant">
                     <div className="container-title-register-consultant">
-                        <h3>Create An Account</h3>
+                        <h3>Crie sua conta de Consultor</h3>
                     </div>
                     <form className="form-register-consultant" onSubmit={handleSubmit(onSubmit)} >
                         {step === 1 && (
                             <div className="container-step1-register-consultant">
                                 <div className="subcontainer-step1-register-consultant-up">
-                                    <div className="content-step1-register-consultant">
+                                    <div className="form-field-consultant">
                                         <Controller
                                             name="name"
                                             id="name-register-consultant"
                                             control={control}
-                                            rules={{ required: "Name is required" }}
+                                            rules={{ required: "O nome é obrigatório." }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='60' className="input-name-register-consultant" placeholder="Name"/>
+                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Nome completo"/>
                                             )}
                                         />
+                                        {errors.name && <p className="error-message-consultant">{errors.name.message}</p>}
+                                    </div>
+                                    <div className="form-field-consultant">
                                         <Controller
                                             name="cpf"
                                             id="cpf-register-consultant"
                                             control={control}
-                                            rules={{ required: "CPF is required" }}
+                                            rules={{
+                                                required: "O CPF é obrigatório.",
+                                                pattern: {
+                                                    value: /^\d{11}$/,
+                                                    message: "CPF inválido. Use apenas números."
+                                                }
+                                            }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='11' className="input-cpf-register-consultant" placeholder="CPF"/>
+                                                <input {...field} maxLength='11' className="input-consultant" placeholder="CPF (apenas números)"/>
                                             )}
                                         />
+                                        {errors.cpf && <p className="error-message-consultant">{errors.cpf.message}</p>}
                                     </div>
-                                    <div className="content-step1-register-consultant">
+                                </div>
+                                <div className="subcontainer-step1-register-consultant-middle">
+                                    <div className="form-field-consultant">
                                         <Controller
                                             name="phone"
                                             id="phone-register-consultant"
                                             control={control}
-                                            rules={{ required: "Phone is required" }}
+                                            rules={{
+                                                required: "O telefone é obrigatório.",
+                                                pattern: {
+                                                    value: /^\d{10,11}$/,
+                                                    message: "Telefone inválido. Use apenas números."
+                                                }
+                                            }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='15' className="input-phone-register-consultant" placeholder="Phone"/>
+                                                <input {...field} maxLength='15' type="number" className="input-consultant" placeholder="Telefone (apenas números)"/>
                                             )}
                                         />
+                                        {errors.phone && <p className="error-message-consultant">{errors.phone.message}</p>}
+                                    </div>
+                                    <div className="form-field-consultant">
                                         <Controller
                                             name="email"
                                             id="email-register-consultant"
                                             control={control}
-                                            rules={{ required: "Email is required" }}
+                                            rules={{
+                                                required: "O email é obrigatório.",
+                                                pattern: {
+                                                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                                    message: "Email inválido."
+                                                }
+                                            }}
                                             render={({ field }) => (
-                                                <input {...field} maxLength='60' className="input-email-register-consultant" placeholder="Email"/>
+                                                <input {...field} maxLength='60' className="input-consultant" placeholder="Email"/>
                                             )}
                                         />
+                                        {errors.email && <p className="error-message-consultant">{errors.email.message}</p>}
                                     </div>
                                 </div>
-                                <div className="subcontainer-step1-register-consultant-down">
-                                   <Controller
-                                    name="image_consultant"
-                                    control={control}
-                                    rules={{ required: "Image is required" }}
-                                    render={({ field }) => (
-                                        <>
-                                            <input
-                                                type="file"
-                                                onChange={(e) => {
-                                                    handleFileChange(e); // Atualiza o estado local
-                                                    field.onChange(e); // Passa o evento para o React Hook Form
-                                                }}
-                                                className="input-image-register-consultant"
-                                                style={{ display: "none" }}
-                                                id="file-input"
-                                            />
-                                            <label htmlFor="file-input" className="custom-file-upload-register-consultant">
-                                                Escolha uma imagem
-                                            </label>
-                                            {selectedFileName && (
-                                                <p className="file-name">{selectedFileName}</p>
-                                            )}
-                                        </>
-                                    )}
-                                />
-
-                                </div>
-
-                                
                             </div>
                         )}
                         {step === 2 && (
-                            <div className="step2-register-consultant">
-                                <div className="container-step2-register-consultant-up">
+                            <div className="container-step2-register-consultant">
+                                <div className="form-field-consultant">
                                     <Controller
                                         name="profile_data"
                                         control={control}
-                                        rules={{ required: "Profile data is required" }}
+                                        rules={{
+                                            required: "Seu perfil profissional é obrigatório.",
+                                            minLength: { value: 50, message: "Mínimo de 50 caracteres." }
+                                        }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='800' id="profile-data-register" className="input-profile-register-consultant" placeholder="Fale sobre você"/>
+                                            <textarea {...field} maxLength='800' className="textarea-consultant" placeholder="Fale sobre seu perfil profissional (min. 50 caracteres)"/>
                                         )}
                                     />
+                                    {errors.profile_data && <p className="error-message-consultant">{errors.profile_data.message}</p>}
+                                </div>
+                                <div className="form-field-consultant">
                                     <Controller
                                         name="about_specialties"
                                         control={control}
-                                        rules={{ required: "Specialties are required" }}
+                                        rules={{
+                                            required: "Suas especialidades são obrigatórias.",
+                                            minLength: { value: 30, message: "Mínimo de 30 caracteres." }
+                                        }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='700' id="about-specialties-register" className="input-specialties-register-consultant" placeholder="Fale sobre suas especialidades"/>
+                                            <textarea {...field} maxLength='700' className="textarea-consultant" placeholder="Descreva suas especialidades (min. 30 caracteres)"/>
                                         )}
-                                    /> 
+                                    />
+                                    {errors.about_specialties && <p className="error-message-consultant">{errors.about_specialties.message}</p>}
                                 </div>
-                                <div className="container-step2-register-consultant-down">  
+                                <div className="form-field-consultant">
                                     <Controller
                                         name="consultants_story"
                                         id="consultants-story-register"
                                         control={control}
-                                        rules={{ required: "Consultant's story is required" }}
+                                        rules={{
+                                            required: "Sua história como consultor é obrigatória.",
+                                            minLength: { value: 50, message: "Mínimo de 50 caracteres." }
+                                        }}
                                         render={({ field }) => (
-                                            <textarea {...field} maxLength='700' className="input-story-register-consultant" placeholder="Fale sobre sua história como consultor"
-                                            />
+                                            <textarea {...field} maxLength='700' className="textarea-consultant" placeholder="Conte sua história como consultor (min. 50 caracteres)"/>
                                         )}
                                     />
+                                    {errors.consultants_story && <p className="error-message-consultant">{errors.consultants_story.message}</p>}
                                 </div>
                             </div>
                         )}
                         {step === 3 && (
-                            <div className="step3-register-consultant">
-                                <Controller
-                                    name="consultations_carried_out"
-                                    id="consultations-carried-out-register"
+                            <div className="container-step3-register-consultant">
+                                <div className="form-field-consultant">
+                                    <Controller
+                                        name="consultations_carried_out"
+                                        id="consultations-carried-out-register"
+                                        control={control}
+                                        rules={{
+                                            required: "Este campo é obrigatório.",
+                                            min: { value: 0, message: "Não pode ser negativo." },
+                                            max: { value: 9999, message: "Máximo de 4 dígitos." }
+                                        }}
+                                        render={({ field }) => (
+                                            <input
+                                                {...field}
+                                                type="number"
+                                                className="input-consultant"
+                                                placeholder="Quantas consultas você já realizou?"
+                                                onWheel={(e) => e.target.blur()}
+                                            />
+                                        )}
+                                    />
+                                    {errors.consultations_carried_out && <p className="error-message-consultant">{errors.consultations_carried_out.message}</p>}
+                                </div>
+                                <div className="form-field-consultant">
+                                    <Controller
+                                    name="payment_plan"
+                                    id="payment-plan-register"
                                     control={control}
-                                    rules={{ required: "Consultations carried out is required" }}
+                                    rules={{ required: "Um plano de pagamento é obrigatório." }}
                                     render={({ field }) => (
-                                        <input {...field} 
-                                        type="number"
-                                        maxLength={'4'}
-                                        className="input-consultations-register-consultant" 
-                                        placeholder="Quantas consultas você já realizou?"
-                                        />
+                                        <select
+                                            {...field}
+                                            id="payment-plan-register"
+                                            className="select-consultant"
+                                        >
+                                            <option value="">
+                                                Selecione um plano de pagamento
+                                            </option>
+                                            <option value="monthly">Mensal</option>
+                                            <option value="biannual">Semestral</option>
+                                            <option value="annual">Anual</option>
+                                        </select>
                                     )}
-                                />
-                                <Controller
-                                name="payment_plan"
-                                id="payment-plan-register"
-                                control={control}
-                                rules={{ required: "Payment plan is required" }}
-                                render={({ field }) => (
-                                    <select
-                                        {...field}
-                                        id="payment-plan-register"
-                                        className="input-payment-register-consultant"
-                                    >
-                                        <option value="" disabled>
-                                            Selecione um plano de pagamento
-                                        </option>
-                                        <option value="plan1">mensal</option>
-                                        <option value="plan2">semestral</option>
-                                        <option value="plan3">anual</option>
-                                    </select>
-                                )}
-                                />
-                                <Controller
-                                    name="password"
-                                    id="password-register-consultant"
-                                    control={control}
-                                    rules={{ required: "Password is required" }}
-                                    render={({ field }) => (
-                                        <input {...field} maxLength='15' className="input-password-register-consultant" placeholder="Password" type="password"/>
+                                    />
+                                    {errors.payment_plan && <p className="error-message-consultant">{errors.payment_plan.message}</p>}
+                                </div>
+                                <div className="form-field-consultant">
+                                    <Controller
+                                        name="password"
+                                        id="password-register-consultant"
+                                        control={control}
+                                        rules={{
+                                            required: "A senha é obrigatória.",
+                                            minLength: { value: 6, message: "A senha deve ter no mínimo 6 caracteres." }
+                                        }}
+                                        render={({ field }) => (
+                                            <input {...field} maxLength='15' className="input-consultant" placeholder="Crie sua senha" type="password"/>
+                                        )}
+                                    />
+                                    {errors.password && <p className="error-message-consultant">{errors.password.message}</p>}
+                                </div>
+                                
+                                <div className="form-field-consultant file-upload-field">
+                                    <input
+                                        type="file"
+                                        ref={fileInputRef} 
+                                        onChange={handleFileChange} 
+                                        className="input-consultant-file"
+                                        id="file-input-consultant"
+                                        
+                                    />
+                                    <label htmlFor="file-input-consultant" className="custom-file-upload-consultant">
+                                        Escolha uma imagem de perfil
+                                    </label>
+                                    {selectedFileName && (
+                                        <span className="file-name-display-consultant">{selectedFileName}</span>
                                     )}
-                                />
+                                    
+                                    {errors.image_consultant && <p className="error-message-consultant">{errors.image_consultant.message}</p>}
+                                </div>
                             </div>
                         )}
                         <div className="navigation-buttons-register-consultant">
@@ -206,32 +283,32 @@ const RegisterConsultant = () => {
                                 <button
                                     type="button"
                                     onClick={previousStep}
-                                    className="button-prev-register-consultant"
+                                    className="button-consultant button-prev-consultant"
                                 >
-                                    Previous
+                                    Voltar
                                 </button>
                             )}
                             {step < 3 ? (
                                 <button
                                     type="button"
-                                    onClick={nextStep}
-                                    className="button-next-register-consultant"
+                                    onClick={handleNextStep}
+                                    className="button-consultant button-next-consultant"
                                 >
-                                    Next
+                                    Próximo
                                 </button>
                             ) : (
                                 <button
                                     type="submit"
-                                    className="button-submit-register-consultant"
+                                    className="button-consultant button-submit-consultant"
                                 >
-                                    Submit
+                                    Registrar
                                 </button>
                             )}
                         </div>
                     </form>
                 </div>
                 <div className="container-copyright-register-consultant">
-                    <p>@copyright 2025. Copyright inc ltd</p>
+                    <p>©copyright 2025. Copyright inc ltd</p>
                 </div>
             </div>
         </div>

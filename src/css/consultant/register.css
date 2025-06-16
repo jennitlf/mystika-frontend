@@ -1,18 +1,89 @@
+
+:root {
+    
+    --color-light-beige: #f0ede6;
+    --color-background-light: #f8f6f1;
+    --color-primary-brown: #6b4c3b;
+    --color-text-dark: #4a3c31;
+    --color-gold: #d4af37;
+    --color-highlight-red: #862121;
+    --color-blue-gray: rgba(139, 170, 185, 0.3);
+
+    
+    --color-consultant-dark-blue: #0D253F;
+    --color-consultant-medium-blue: #1B4965;
+    --color-consultant-light-blue: #62B6CB;
+    --color-consultant-accent-gold: #FFD700;
+    --color-text-light: #F5F5F5;
+    --color-text-dark-consultant: #333333; 
+
+    
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+
+    
+    --color-success-green: #28a745;
+    --color-error-red: #dc3545;
+}
+
 .container-register {
     height: 100vh;
     width: 100vw;
-    background-color: #2c1053;
+    background-color: var(--color-consultant-dark-blue); 
     display: flex;
     flex-direction: row;
+    overflow: hidden; 
 }
 
 .content-left-register-consultant {
-    background-color: #fff;
+    background-color: var(--color-consultant-medium-blue); 
     width: 45%;
     height: 100%;
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+    overflow: hidden;
+}
+
+.content-text-register-consultant {
+    width: 90%; 
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content-text-1-register {
+    margin: 0; 
+    text-align: center; 
+    font-family: var(--font-dm-serif); 
+    font-weight: 700; 
+    color: var(--color-text-light); 
+    width: 100%;
+    font-size: 3.5rem; 
+    line-height: 1.2;
+    opacity: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(100%); 
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 1s ease-out forwards;
 }
 
 .content-right-register-consultant {
@@ -22,350 +93,394 @@
     justify-content: center;
     width: 55%;
     height: 100%;
+    background-color: var(--color-consultant-dark-blue); 
 }
 
-.content-text-register-consultant {
-    width: 100%;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: center;
-}
-
-.content-text-1-register {
-    margin-right: 100px;
-    text-align: end;
-    font-weight: 800;
-    color: #73347e;
-    width: 80%;
-    font-size: 60px;
-    opacity: 0;
-}
-
-.content-sign-in-register{
+.content-sign-in-register {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end; 
     height: 50px;
     width: 85%;
-    margin-bottom: 5px;
+    margin-bottom: 10px; 
+    padding-right: 20px; 
+    box-sizing: border-box;
 }
-.content-sign-in-register h5{
-    color: #fff;
+
+.content-sign-in-register h5 {
+    font-family: var(--font-josefin-sans); 
+    color: var(--color-text-light); 
     margin: 0;
-    font-size: 17px;
+    font-size: 1rem;
 }
-.content-sign-in-register a{
+
+.content-sign-in-register a {
+    font-family: var(--font-josefin-sans); 
     text-decoration: none;
-    color: #73347e;
-    font-weight: 800;
-    font-size: 18px;
+    color: var(--color-consultant-accent-gold); 
+    font-weight: 600; 
+    font-size: 1.1rem;
+    margin-left: 5px; 
+    transition: color 0.3s ease;
 }
-.content-sign-in-register a:hover{
-    color: #d6d1d6;
-   
+
+.content-sign-in-register a:hover {
+    color: var(--color-consultant-light-blue); 
 }
-.container-form-register-consultant{
-    border: solid 1px #fff;
-    height: 850px;
-    width: 86%;
-    margin-bottom: 5px;
+
+.container-form-register-consultant {
+    background-color: var(--color-consultant-medium-blue); 
+    border: none; 
+    border-radius: 1em; 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); 
+    height: auto; 
+    min-height: 700px; 
+    width: 88%; 
+    max-width: 600px; 
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; 
+    padding: 30px; 
+    box-sizing: border-box;
 }
 
-.container-title-register-consultant{
-    width: 95%;
-    height: 75px;
+.container-title-register-consultant {
+    width: 100%; 
+    height: auto;
     display: flex;
     align-items: center;
+    justify-content: center; 
+    margin-bottom: 25px; 
+    padding-bottom: 15px; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
 }
-.form-register-consultant{
-    width: 95%;
-}
-.container-title-register-consultant h3{
+
+.container-title-register-consultant h3 {
     margin: 0;
-    font-size: 40px;
-    color: #fff;
+    font-family: var(--font-dm-serif); 
+    font-size: 2.2rem; 
+    color: var(--color-text-light); 
+    text-align: center;
 }
 
-.container-step1-register-consultant{
+.form-register-consultant {
     width: 100%;
-    height: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-.content-step1-register-consultant{
-    width: 50%;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.subcontainer-step1-register-consultant-up{
-    display: flex;
-    flex-direction: column;
-    height: 180px;
-    width: 100%;
-    
-}
-.subcontainer-step1-register-consultant-down{
-    display: flex;
-    flex-direction: column;
-    height: 80px;
-    width: 100%;
-    align-items: start;
-    justify-content: start;
-}
-.content-step1-register-consultant input{
-    outline: none;
-    width: 40%;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
-    padding-left: 10px;
-    font-size: 18px;
-    margin-bottom: 20px;
+    flex-grow: 1; 
+    justify-content: space-between; 
 }
 
-.custom-file-upload-register-consultant{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40%;
-  height: 50px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  border: none;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.subcontainer-step1-register-consultant-down input[type="file"] {
-  display: none; 
-}
-.file-name-display {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #9e9e9e;
-}
-.content-step1-register-consultant{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-    justify-content: start;
-}
-.input-cpf-register-consultant{
-    margin-left: 20px;
-}
-.input-email-register-consultant{
-    margin-left: 20px;
-}
-.button-prev-register-consultant{
-    width: 40%;
-    height: 50px;
-    background-color: #73347e;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: 20px;
-}
-.button-next-register-consultant{
-    width: 40%;
-    height: 50px;
-    background-color: #73347e;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.button-submit-register-consultant{
-    width: 40%;
-    height: 50px;
-    background-color: #73347e;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.button-submit-register-consultant:hover{
-    background-color: #d3d6d1;
-    color: #73347e;
-}
-.step2-register-consultant{
-    width: 100%;
-    
+
+.form-field-consultant {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
-}
-.container-step2-register-consultant-up{
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
+    max-width: 450px; 
+    margin-bottom: 20px; 
 }
-.step2-register-consultant textarea{
-    width: 300px;
-    height: 250px;
-    border-radius: 5px;
-    border: none;
-    padding-left: 10px;
-    font-size: 18px;
-    margin-bottom: 20px;
+
+.input-consultant,
+.textarea-consultant,
+.select-consultant {
     outline: none;
+    width: 100%; 
+    height: 50px; 
+    border-radius: 0.5em; 
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    padding: 0 15px; 
+    font-family: var(--font-josefin-sans); 
+    font-size: 1rem;
+    color: var(--color-text-dark-consultant); 
+    background-color: var(--color-text-light); 
+    transition: all 0.3s ease;
+    box-sizing: border-box; 
 }
-#about-specialties-register{
- margin-left: 20px;
+
+.input-consultant::placeholder,
+.textarea-consultant::placeholder {
+    color: #999; 
 }
-.step3-register-consultant input{
-    width: 320px;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
-    padding-left: 10px;
-    font-size: 18px;
-    margin-bottom: 20px;
-    outline: none;
+
+.input-consultant:focus,
+.textarea-consultant:focus,
+.select-consultant:focus {
+    border-color: var(--color-consultant-accent-gold); 
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); 
 }
-.step3-register-consultant select {
-    width: 300px;
-    height: 50px;
-    border-radius: 5px;
-    border: none;
-    padding-left: 10px;
-    font-size: 18px;
-    margin-bottom: 20px;
-    outline: none;
+
+.textarea-consultant {
+    min-height: 120px; 
+    resize: vertical; 
+    padding-top: 15px; 
+    line-height: 1.5;
+}
+
+.select-consultant {
     appearance: none; 
-    background-color: #fff; 
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230D253F" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); 
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px; 
+}
+
+.select-consultant option {
+    background-color: var(--color-text-light); 
+    color: var(--color-text-dark-consultant); 
+}
+
+
+.error-message-consultant {
+    color: var(--color-error-red); 
+    font-family: var(--font-josefin-sans);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    margin-left: 5px; 
+}
+
+
+.subcontainer-step1-register-consultant-up,
+.subcontainer-step1-register-consultant-middle {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 20px; 
+}
+
+.subcontainer-step1-register-consultant-up .form-field-consultant,
+.subcontainer-step1-register-consultant-middle .form-field-consultant {
+    width: calc(50% - 10px); 
+    margin-bottom: 0; 
+}
+
+
+.file-upload-field {
+    align-items: center; 
+}
+
+.input-consultant-file {
+    display: none; 
+}
+
+.custom-file-upload-consultant {
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 250px; 
+    height: 45px; 
+    background-color: var(--color-consultant-light-blue); 
+    color: var(--color-consultant-dark-blue); 
+    border-radius: 0.5em;
+    font-family: var(--font-josefin-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: 1px solid var(--color-consultant-light-blue);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
-#payment-plan-register{
-    margin-left: 20px;
+
+.custom-file-upload-consultant:hover {
+    background-color: #4a9ec0; 
+    transform: translateY(-1px);
 }
-.container-copyright-register-consultant{
-    
+
+.file-name-display-consultant {
+    font-family: var(--font-josefin-sans);
+    font-size: 0.9rem;
+    color: var(--color-text-light); 
+    margin-left: 15px; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 150px; 
+}
+
+
+.container-step1-register-consultant,
+.container-step2-register-consultant,
+.container-step3-register-consultant {
+    width: 100%;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+
+.navigation-buttons-register-consultant {
+    width: 100%;
+    max-width: 450px; 
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 30px; 
+    padding-top: 20px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+.button-consultant {
+    height: 50px; 
+    width: calc(50% - 10px); 
+    border-radius: 0.8em; 
+    border: none;
+    font-family: var(--font-josefin-sans);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-light); 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.button-prev-consultant {
+    background-color: var(--color-consultant-medium-blue); 
+    border: 1px solid var(--color-consultant-light-blue);
+}
+
+.button-prev-consultant:hover {
+    background-color: var(--color-consultant-light-blue); 
+    color: var(--color-consultant-dark-blue);
+    transform: translateY(-2px);
+}
+
+.button-next-consultant,
+.button-submit-consultant {
+    background-color: var(--color-consultant-accent-gold); 
+    border: 1px solid var(--color-consultant-accent-gold);
+}
+
+.button-next-consultant:hover,
+.button-submit-consultant:hover {
+    background-color: #c0a000; 
+    border-color: #c0a000;
+    transform: translateY(-2px);
+}
+
+.button-consultant:disabled {
+    background-color: rgba(255, 215, 0, 0.4); 
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.container-copyright-register-consultant {
     height: 50px;
     width: 85%;
-    margin-bottom: 5px;
-    color: rgb(167, 165, 165);
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.container-copyright-register-consultant p {
+    font-family: var(--font-josefin-sans);
+    color: rgba(255, 255, 255, 0.6); 
+    font-size: 0.85rem;
+    margin: 0;
 }
 
-/* Animation */
-@keyframes slide-in {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
 
-.animate-slide-in {
-    animation: slide-in 1s ease-out forwards;
-}
-@media(max-width:958px){
-    .container-register{
-        justify-content: center;
-    }
+@media (max-width: 958px) {
     .content-left-register-consultant {
-        display: none;
+        display: none; 
     }
-    .content-right-register-consultant{
-        width: 90%;
+    .content-right-register-consultant {
+        width: 100%; 
+        padding: 20px; 
+        box-sizing: border-box;
     }
-}
-@media(max-width: 530px){
-    .content-sign-in-register h5 {
-        font-size: 15px;
+    .container-form-register-consultant {
+        width: 95%; 
+        max-width: 500px; 
+        min-height: 650px; 
     }
-    .content-sign-in-register a {
-        font-size: 16px;
-    }
-    .content-step1-register-consultant{
-        flex-direction: column;
-        height: 110px;
-    }
-    .container-title-register-consultant{
-        justify-content: center
+    .content-sign-in-register {
+        width: 100%;
+        justify-content: center; 
+        padding-right: 0;
     }
     .container-title-register-consultant h3 {
-        font-size: 35px;
+        font-size: 2rem; 
     }
-    .subcontainer-step1-register-consultant-down{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        position: relative;
+    .navigation-buttons-register-consultant {
+        max-width: 100%; 
     }
-    .content-step1-register-consultant input{
-        margin: 0 0 15px 0;
-        width: 70%;
-        height: 35px;
-        font-size: 15px;
-    }
-    .custom-file-upload-register-consultant{
-        margin-top: 10px;
-        width: 73%;
-        height: 38px;
-    }
-  
-    .navigation-buttons-register-consultant{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .navigation-buttons-register-consultant button{
-        height: 38px;
-        width: 70%;
-    }
-    .container-copyright-register-consultant{
-        font-size: 15px;
+    .button-consultant {
+        width: 48%; 
     }
 }
 
-@media(max-width:415px){
-    .content-sign-in-register h5 {
-        font-size: 12px;
+@media (max-width: 650px) {
+    .container-form-register-consultant {
+        padding: 20px 15px; 
     }
-    .content-sign-in-register a {
-        font-size: 14px;
+    
+    .subcontainer-step1-register-consultant-up,
+    .subcontainer-step1-register-consultant-middle {
+        flex-direction: column; 
+        gap: 20px; 
+        max-width: 100%; 
     }
-    .container-title-register-consultant h3 {
-        font-size: 30px;
-        text-align: center;
+    .subcontainer-step1-register-consultant-up .form-field-consultant,
+    .subcontainer-step1-register-consultant-middle .form-field-consultant {
+        width: 100%; 
+        margin-bottom: 0; 
     }
-     .container-copyright-register-consultant{
-        font-size: 12px;
+    .form-field-consultant {
+        max-width: 100%; 
+    }
+    .file-upload-field {
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 8px; 
+    }
+    .custom-file-upload-consultant {
+        width: 100%; 
+        max-width: 280px; 
+    }
+    .file-name-display-consultant {
+        margin-left: 5px; 
+    }
+    .input-consultant,
+    .textarea-consultant,
+    .select-consultant {
+        height: 45px;
+        font-size: 0.95rem;
+    }
+    .textarea-consultant {
+        min-height: 100px; 
+    }
+    .navigation-buttons-register-consultant {
+        flex-direction: column; 
+        align-items: center;
+        gap: 15px; 
+    }
+    .button-consultant {
+        width: 100%; 
+        max-width: 280px; 
     }
 }
-@media(max-width:316px){
-    .container-register{
-        display:none;
+
+@media (max-width: 480px) {
+    .container-title-register-consultant h3 {
+        font-size: 1.8rem;
+    }
+    .content-text-1-register {
+        font-size: 2.5rem; 
+    }
+    .content-sign-in-register h5 {
+        font-size: 0.9rem;
+    }
+    .content-sign-in-register a {
+        font-size: 1rem;
+    }
+    .container-copyright-register-consultant p {
+        font-size: 0.8rem;
     }
 }

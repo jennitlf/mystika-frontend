@@ -1,233 +1,310 @@
+
+:root {
+    --color-consultant-dark-blue: #0D253F;
+    --color-consultant-medium-blue: #1B4965;
+    --color-consultant-light-blue: #62B6CB;
+    --color-consultant-accent-gold: #FFD700;
+    --color-text-light: #F5F5F5;
+    --color-text-dark-consultant: #333333; 
+
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+
+    --color-error-red: #dc3545; 
+}
+
 .container-data-user-consultant {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 60px;
-    height: 1075px;
-    background-color: #2c1053;
-    overflow: none;
+    min-height: 100vh; 
+    padding: 80px 20px 20px 20px; 
+    box-sizing: border-box; 
+    background-color: var(--color-consultant-dark-blue); 
+    overflow: auto; 
 }
+
 .card-data-user-consultant {
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    text-align: center;
-    animation: fadeIn 0.5s ease-in-out;
-}
-.box-title-data-user-consultant{
+    background-color: var(--color-consultant-medium-blue); 
+    border-radius: 1.2em; 
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3); 
+    padding: 30px; 
+    width: 90%; 
+    max-width: 900px; 
+    animation: fadeIn 0.6s ease-out; 
     display: flex;
-    align-items: start;
-    justify-content: center;
-    width: 100%;
-    height: 50px;
+    flex-direction: column;
+    gap: 20px; 
 }
+
+.box-title-data-user-consultant {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+    margin-bottom: 10px; 
+}
+
 .title-data-user-consultant {
-    color: #fff;
-    font-weight: 800;
-    font-size: 28px;
-    margin:0;
+    color: var(--color-text-light); 
+    font-family: var(--font-dm-serif); 
+    font-weight: 700; 
+    font-size: 2.2rem; 
+    margin: 0; 
 }
 
 .form-data-user-consultant {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
+    gap: 18px; 
+    width: 100%;
 }
-.box-data-user-consultant{
-    display:flex;
+
+.box-data-user-consultant {
+    display: flex;
     flex-direction: row;
+    justify-content: space-between; 
+    gap: 20px; 
+    width: 100%;
 }
-.field-input-data-user-consultant{
+
+.field-input-data-user-consultant,
+.field-textarea-data-user-consultant,
+.field-input-select-data-user-consultant {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    height: 90px;
-    margin: 5px; 
-    width: 400px;
+    align-items: flex-start; 
+    flex: 1; 
+    min-width: 300px; 
 }
-.field-input-data-user-consultant label {
-    color: #fff;
-    font-size: 18px;
-    margin-bottom: 5px;
+
+.box-label-data-user-consultant {
+    width: 100%; 
+    margin-bottom: 5px; 
 }
-.field-input-data-user-consultant input{
-    outline: none;
-    width: 88%;
-    height: 45px;
-    border-radius: 5px;
-    border: none;
-    margin: 5px 5px 5px 0;
-    padding-left: 10px;
-    font-size: 18px;
-}
-.field-input-data-user-consultant input:hover{
-    height: 70px;
-    width: 90%;
-}
-.field-input-data-user-consultant input:disabled{
-    background-color:  #dbd6d6;
-}
-.field-textarea-data-user-consultant{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    height: 230px;
-    margin: 5px; 
-    width: 400px;
-}
-.field-textarea-data-user-consultant label {
-    color: #fff;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-.field-textarea-data-user-consultant textarea {
-    outline: none;
-    width: 88%;
-    height: 180px;
-    border-radius: 5px;
-    border: none;
-    margin: 5px 5px 5px 0;
-    padding-left: 10px;
-    font-size: 18px;
-}
-.field-textarea-data-user-consultant textarea:hover{
-    height: 200px;
-    width: 90%;
-}
-.field-input-select-data-user-consultant{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    margin: 5px; 
-    width: 400px;
-}
+
+.field-input-data-user-consultant label,
+.field-textarea-data-user-consultant label,
 .field-input-select-data-user-consultant label {
-    color: #fff;
-    font-size: 18px;
-    margin-bottom: 5px;
+    color: var(--color-consultant-light-blue); 
+    font-family: var(--font-josefin-sans); 
+    font-size: 1rem; 
+    font-weight: 600; 
 }
+
+.field-input-data-user-consultant input,
+.field-textarea-data-user-consultant textarea,
 .field-input-select-data-user-consultant select {
+    background-color: var(--color-text-light);
+    height: 48px;
+    width: 100%;
+    border-radius: 0.6em;
+    border: 1px solid var(--color-consultant-light-blue);
+    padding: 0 15px; 
+    font-family: var(--font-josefin-sans);
+    font-size: 1.05rem;
+    color: var(--color-text-dark-consultant);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    transition: all 0.25s ease-in-out;
     outline: none;
-    width: 88%;
-    height: 45px;
-    border-radius: 5px;
-    border: none;
-    margin: 5px 5px 5px 0;
-    padding-left: 10px;
-    font-size: 18px;
-}
-.field-input-select-data-user-consultant select:hover{
-    height: 50px;
-    width: 90%;
+    box-sizing: border-box;
 }
 
-.input-data-user-consultant:focus,
-.textarea-data-user-consultant:focus {
-    border-color: #73347e;
-    box-shadow: 0px 0px 5px rgba(115, 52, 126, 0.5);
-    outline: none;
+
+.field-input-data-user-consultant input:disabled {
+    background-color: #e0e0e0;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.textarea-data-user-consultant {
-    height: 100px;
-    resize: none;
+
+.field-input-data-user-consultant input:focus,
+.field-textarea-data-user-consultant textarea:focus,
+.field-input-select-data-user-consultant select:focus,
+.field-input-data-user-consultant input:not(:disabled):hover,
+.field-textarea-data-user-consultant textarea:hover,
+.field-input-select-data-user-consultant select:hover {
+    border-color: var(--color-consultant-accent-gold);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+
+.field-textarea-data-user-consultant textarea {
+    height: 120px;
+    padding-top: 10px;
+    resize: vertical; 
+    min-height: 80px; 
+    max-height: 250px; 
+}
+
+
+.field-input-select-data-user-consultant select {
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none;         
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%231B4965" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.field-input-select-data-user-consultant select::-ms-expand {
+    display: none;
+}
+
+
+.field-input-data-user-consultant input::placeholder,
+.field-input-select-data-user-consultant select option[value=""][disabled] {
+    color: #999;
 }
 
 .button-submit-data-user-consultant {
-    background-color: #73347e;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px;
+    background-color: var(--color-consultant-accent-gold);
+    color: var(--color-consultant-dark-blue);
+    font-family: var(--font-josefin-sans);
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 0.8em; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    align-self: center; 
+    margin-top: 15px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .button-submit-data-user-consultant:hover {
-    background-color: #5a2964;
+    background-color: #e6c200; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.error-data-user-consultant {
+    color: var(--color-error-red); 
+    font-family: var(--font-josefin-sans);
+    font-size: 0.85rem;
+    margin-top: 5px; 
+    text-align: left;
+    width: 100%; 
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-30px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-.error-data-user-consultant{
-    color: rgb(250, 187, 187);
-}
 
-@media(max-width:905px){
+
+@media(max-width: 900px){
     .card-data-user-consultant {
-        padding: 10px;
-        box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+        padding: 25px;
+        width: 95%;
     }
-    .box-data-user-consultant{
-        justify-content: space-between;
+    .title-data-user-consultant {
+        font-size: 2rem;
     }
-    .box-label-data-user-consultant{
-        display: flex;
-        justify-content: start;
-        width: 92%;
-    }
-    .field-input-data-user-consultant{
-        align-items: center;
-        width: 300px;
-    }
-    .field-textarea-data-user-consultant{
-        width: 300px;
-    }
-    .field-input-select-data-user-consultant{
-        width: 300px;
-    }
-}
-@media(max-width:600px){
-    .container-data-user-consultant {
-        padding-top: 60px;
-        height: auto;
-    }
-    .card-data-user-consultant {
-        width: 90%;
-        padding: 10px;
-    }
-    .box-data-user-consultant{
+    .box-data-user-consultant {
         flex-direction: column;
-        align-items: center;
+        gap: 15px;
     }
     .field-input-data-user-consultant,
     .field-textarea-data-user-consultant,
-    .field-input-select-data-user-consultant{
-        width: 100%;
-        margin: 5px 0;
+    .field-input-select-data-user-consultant {
+        min-width: unset; 
+        width: 100%; 
     }
     .field-input-data-user-consultant input,
     .field-textarea-data-user-consultant textarea,
-    .field-input-select-data-user-consultant select,
-    .field-input-select-data-user-consultant option {
-        width: 300px;
+    .field-input-select-data-user-consultant select {
+        width: 100%; 
+        padding: 0 12px; 
+        height: 45px; 
+    }
+    .field-textarea-data-user-consultant textarea {
+        height: 100px; 
+    }
+    .field-input-select-data-user-consultant select {
+        background-position: right 10px center; 
+        padding-right: 30px;
+    }
+    .button-submit-data-user-consultant {
+        font-size: 1rem;
+        padding: 10px 20px;
     }
 }
-@media(max-width:380px){
-    .field-input-data-user-consultant input,
-    .field-textarea-data-user-consultant textarea,
-    .field-input-select-data-user-consultant select,
-    .field-input-select-data-user-consultant option {
-        width: 250px;
-    }
-}
-@media(max-width:320px){
+
+@media(max-width: 600px){
     .container-data-user-consultant {
-        display: none;
+        padding: 60px 10px 10px 10px;
+    }
+    .card-data-user-consultant {
+        border-radius: 1em;
+        padding: 20px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+    }
+    .title-data-user-consultant {
+        font-size: 1.8rem;
+    }
+    .field-input-data-user-consultant label,
+    .field-textarea-data-user-consultant label,
+    .field-input-select-data-user-consultant label {
+        font-size: 0.95rem;
+    }
+    .field-input-data-user-consultant input,
+    .field-textarea-data-user-consultant textarea,
+    .field-input-select-data-user-consultant select {
+        font-size: 0.95rem;
+        height: 42px;
+    }
+    .field-textarea-data-user-consultant textarea {
+        height: 80px;
     }
 }
 
+@media(max-width: 400px){
+    .card-data-user-consultant {
+        padding: 15px;
+    }
+    .title-data-user-consultant {
+        font-size: 1.5rem;
+    }
+    .field-input-data-user-consultant input,
+    .field-textarea-data-user-consultant textarea,
+    .field-input-select-data-user-consultant select {
+        font-size: 0.9rem;
+        height: 40px;
+    }
+    .button-submit-data-user-consultant {
+        font-size: 0.95rem;
+        padding: 8px 15px;
+    }
+}
 
+@media(max-width: 320px){
+    
+    .card-data-user-consultant {
+        width: 100%;
+        padding: 10px;
+        border-radius: 0.8em;
+    }
+    .title-data-user-consultant {
+        font-size: 1.3rem;
+    }
+    .field-input-data-user-consultant input,
+    .field-textarea-data-user-consultant textarea,
+    .field-input-select-data-user-consultant select {
+        font-size: 0.85rem;
+        height: 38px;
+    }
+    .field-textarea-data-user-consultant textarea {
+        height: 70px;
+    }
+}

@@ -6,10 +6,10 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from 'react-toastify';
 
 const Consultant = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // 'id' should be the consultant's ID
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [consultant, setConsultant] = useState(null);
+  const [consultantData, setConsultantData] = useState(null); // Renamed to consultantData to avoid confusion with the component name
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
@@ -27,13 +27,13 @@ const Consultant = () => {
       if (!acc[dateKey]) {
         acc[dateKey] = { 
           date: slot.date,
-          schedule_id: slot.schedule_id,
+          schedule_id: slot.schedule_id, // Ensure schedule_id is correctly mapped
           available_times: [...slot.available_times] 
         };
       } else {
-        acc[dateKey].available_times = Array.from(
-          new Set([...acc[dateKey].available_times, ...slot.available_times])
-        );
+        // Only add unique times if date already exists
+        const newTimes = slot.available_times.filter(time => !acc[dateKey].available_times.includes(time));
+        acc[dateKey].available_times = [...acc[dateKey].available_times, ...newTimes];
       }
       acc[dateKey].available_times.sort((a, b) => a.localeCompare(b));
       return acc;
@@ -42,14 +42,41 @@ const Consultant = () => {
 
   useEffect(() => {
     const fetchConsultant = async () => {
+      // **CRITICAL DEBUGGING POINT:** Verify `id` from `useParams`
+      console.log("ID from useParams:", id); 
+      
+      // Add validation for 'id' to prevent invalid API calls
+      if (!id || typeof id !== 'string' || id === "solicitacoes-de-supote" || !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
+        console.error("Invalid consultant ID from URL parameters:", id);
+        toast.error("ID do consultor inválido na URL.");
+        setLoading(false);
+        navigate('/'); // Redirect to homepage or error page
+        return;
+      }
+
       try {
         const response = await fetch(
           `${API}consultant-specialty?idConsultant=${id}&page=1&limit=9`
         );
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`API Error: ${response.status} - ${errorText}`);
+          throw new Error("Erro ao buscar dados do consultor.");
+        }
         const data = await response.json();
-        setConsultant(data.data);
+        
+        // Ensure data.data is an array and not empty
+        if (Array.isArray(data.data) && data.data.length > 0) {
+          setConsultantData(data.data);
+        } else {
+          console.warn("Consultant data not found or empty:", data);
+          toast.info("Dados do consultor não encontrados.");
+          setConsultantData([]); // Set to empty array to prevent issues
+          navigate('/'); // Maybe redirect if no consultant data
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Erro ao buscar consultor:", error);
+        toast.error("Erro ao carregar perfil do consultor.");
       } finally {
         setLoading(false);
       }
@@ -57,7 +84,7 @@ const Consultant = () => {
 
     fetchConsultant();
 
-  }, [id]);
+  }, [id, navigate]); // Add navigate to dependency array
 
   const handleSpecialtyClick = async (idConsultantSpecialty) => {
     try {
@@ -66,6 +93,11 @@ const Consultant = () => {
       const response = await fetch(
         `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
       );
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`API Error fetching schedule: ${response.status} - ${errorText}`);
+        throw new Error("Erro ao buscar horários de agendamento.");
+      }
       const data = await response.json();
       const grouped = groupScheduleByDate(data);
       const groupedSchedule = Object.values(grouped);
@@ -74,6 +106,7 @@ const Consultant = () => {
       setShowModal(true);
     } catch (error) {
       console.error("Error fetching schedule:", error);
+      toast.error("Erro ao carregar horários disponíveis.");
     }
   };
 
@@ -83,20 +116,49 @@ const Consultant = () => {
     setAvailableTimes(times);
     setSelectedDateTime({ date, time: null });
   };
+
   const handleTimeClick = (time) => {
     setSelectedDateTime((prev) => ({ ...prev, time }));
   };
+
+  // Render loading state
   if (loading) {
-    return <p>Carregando consultores...</p>;
+    return <p>Carregando consultor...</p>;
+  }
+
+  // Render error/not found state if consultantData is null or empty
+  if (!consultantData || consultantData.length === 0) {
+    return (
+      <div className="content-consultant-not-found">
+        <p>Consultor não encontrado ou dados indisponíveis.</p>
+        <button onClick={() => navigate('/')} className="back-home-button">Voltar para a Página Inicial</button>
+      </div>
+    );
+  }
+
+  // Assign the first consultant specialty object for easier access
+  // This assumes consultantData is an array of consultant-specialty objects,
+  // and you want to display information about the consultant from the first entry.
+  const consultantDetails = consultantData[0].consultant; 
+  if (!consultantDetails) {
+    // This case should ideally be covered by the `consultantData.length === 0` check
+    // but added as a fallback for defensive programming.
+    return (
+      <div className="content-consultant-not-found">
+        <p>Detalhes do consultor indisponíveis.</p>
+        <button onClick={() => navigate('/')} className="back-home-button">Voltar para a Página Inicial</button>
+      </div>
+    );
   }
 
   const postConsultation = async () => {
     if (!user) {
+      toast.info("Por favor, faça login para marcar uma consulta.");
       navigate('/usuario/login');
       return;
     }
     if ( !selectedDateTime?.date || !selectedDateTime?.time) {
-      toast.error("Por favor, selecione uma especialidade, data e horário.");
+      toast.error("Por favor, selecione uma data e horário para a consulta.");
       return;
     }
     const selectedSchedule = schedule.find((slot) => slot.date === selectedDateTime.date);
@@ -120,23 +182,26 @@ const Consultant = () => {
       });
       
       if (!response.ok) {
-        throw new Error("Erro ao marcar consulta.");
+        const errorData = await response.json();
+        console.error("Erro do servidor ao marcar consulta:", errorData);
+        throw new Error(errorData.message || "Erro ao marcar consulta.");
       }
       toast.success("Consulta marcada com sucesso!");
       setTimeout(() => {
-        window.location.reload();
-      }, 2000)
+        window.location.reload(); // Consider more sophisticated state management instead of full reload
+      }, 1500) // Shortened timeout
     } catch (error) {
       console.error("Erro ao marcar consulta:", error);
-      toast.error("Erro ao marcar consulta.");
+      toast.error(error.message || "Erro ao marcar consulta.");
     }
   };
+
   return (
     <div className="content-consultant">
       <div className="container-1">
         <div className="image">
           <img
-            src={consultant[0].consultant.image_consultant}
+            src={consultantDetails.image_consultant} // Use consultantDetails here
             alt="foto do consultor"
           />
         </div>
@@ -144,11 +209,13 @@ const Consultant = () => {
           <div className="name-assessment">
             <div className="name-assessment-sub">
               <p className="name-consultant">
-                {consultant[0].consultant.name}
+                {consultantDetails.name} {/* Use consultantDetails here */}
               </p>{" "}
-              <div className="status">Online</div>
+              {/* Assuming status logic goes here, if any */}
+              <div className="status">Online</div> 
             </div>
             <div className="assessment">
+              {/* Static stars, consider making dynamic based on actual rating */}
               <i className="material-icons star">star</i>
               <i className="material-icons star">star</i>
               <i className="material-icons star">star</i>
@@ -158,8 +225,8 @@ const Consultant = () => {
             <div className="content-occurred">
               <p>Consultas Realizadas</p>
               <div className="content-occurred-sub">
-                <i className="material-icons occurred">question_answer</i>
-                <p>{consultant[0].consultant.consultations_carried_out}</p>
+                <i className="material-icons occurred">Youtube</i>
+                <p>{consultantDetails.consultations_carried_out}</p> {/* Use consultantDetails here */}
               </div>
             </div>
           </div>
@@ -168,18 +235,19 @@ const Consultant = () => {
       <div className="container-2">
         <div className="data-profile">
           <h3>Sobre o especialista</h3>
-          <p>{consultant[0].consultant.profile_data}</p>
+          <p>{consultantDetails.profile_data}</p> {/* Use consultantDetails here */}
           <h3>Sobre suas especialidades</h3>
-          <p>{consultant[0].consultant.about_specialties}</p>
+          <p>{consultantDetails.about_specialties}</p> {/* Use consultantDetails here */}
           <h3>História</h3>
-          <p>{consultant[0].consultant.consultants_story}</p>
+          <p>{consultantDetails.consultants_story}</p> {/* Use consultantDetails here */}
         </div>
         <div className="c-specialties">
           <h3>Selecione uma especialidade:</h3>
-          {consultant.map((specialty) => (
+          {/* Map directly over consultantData (the array of consultant-specialty objects) */}
+          {consultantData.map((specialty) => ( 
             <div
-              id={specialty.id}
-              key={specialty.specialty.name_specialty}
+              id={specialty.id} // This 'id' is the consultant_specialty ID
+              key={specialty.id} // Use a unique key for list items, specialty.id is better here
               className="c-specialties-unit"
               onClick={() => handleSpecialtyClick(specialty.id)}
             >
@@ -207,21 +275,21 @@ const Consultant = () => {
                 schedule.map((slot) => (
                   <div
                     key={slot.date}
-                    className="calendar-day"
+                    className={`calendar-day ${selectedDateTime?.date === slot.date ? 'selected-date' : ''}`} // Add selected class
                     onClick={() => handleDateClick(slot.date)}
-                    style={{ opacity: slot.available_times.length ? 1 : 0.3 }}
+                    style={{ opacity: slot.available_times.length ? 1 : 0.6, cursor: slot.available_times.length ? 'pointer' : 'not-allowed' }} // Indicate if no times
                   >
                     {parseLocalDate(slot.date).toLocaleDateString("pt-BR")}
                   </div>
                 ))
               ) : (
-                <p>
+                <p className="no-availability-message">
                   Sem horários disponíveis para essa especialidade. Tente mais
                   tarde!
                 </p>
               )}
             </div>
-            {availableTimes.length > 0 && (
+            {availableTimes.length > 0 && selectedDateTime?.date && ( // Only show times if a date is selected and times exist
               <div className="times">
                 <h4>Horários disponíveis:</h4>
                 <div className="container-times">
@@ -240,7 +308,7 @@ const Consultant = () => {
               </div>
             )}
             <button
-            onClick={postConsultation}
+              onClick={postConsultation}
               className="schedule-button"
               disabled={!selectedDateTime?.date || !selectedDateTime?.time}
             >
