@@ -58,9 +58,9 @@ const MenuOptions = ({ setMenuActive, menuActive }) => {
             </ul>
         </div>
             {user ? (
-                    <div className="container-logout">Sair<span className="material-symbols-outlined logout" onClick={() => logout()} translate="no">logout</span></div>
+                    <div className="container-logout-user">Sair<span className="material-symbols-outlined logout" onClick={() => logout()} translate="no">logout</span></div>
                 ) : (
-                    <div className="container-logout-off"></div>
+                    <div className="container-logout-off-user"></div>
                 )}
             
     </div>

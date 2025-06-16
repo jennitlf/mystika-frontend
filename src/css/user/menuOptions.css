@@ -173,7 +173,7 @@
     transform: translateX(3px);
 }
 
-.container-logout {
+.container-logout-user {
     height: 60px;
     width: calc(100% - 30px);
     cursor: pointer;
@@ -184,14 +184,14 @@
     font-size: 1.4rem;
     font-family: "Josefin Sans", sans-serif;
     font-weight: 500;
-    color: var(--color-highlight-red, #862121);
+    color: var( #862121);
     border-top: 1px solid rgba(139, 170, 185, 0.2);
     margin-top: 20px;
     gap: 10px; 
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.container-logout:hover {
+.container-logout-user:hover {
     color: #b73e3e;
     transform: translateX(5px);
 }
@@ -199,7 +199,7 @@
     font-size: 1.8rem; 
 }
 
-.container-logout-off {
+.container-logout-off-user {
     height: 60px;
     width: calc(100% - 30px);
 }
