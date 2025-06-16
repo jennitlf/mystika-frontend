@@ -15,7 +15,7 @@ const Consultant = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const { token, user } = useContext(AuthContext);
- 
+
   const parseLocalDate = (dateStr) => {
     const [year, month, day] = dateStr.split('-').map(Number);
     return new Date(year, month - 1, day);
@@ -25,10 +25,10 @@ const Consultant = () => {
     return schedule.reduce((acc, slot) => {
       const dateKey = slot.date;
       if (!acc[dateKey]) {
-        acc[dateKey] = { 
+        acc[dateKey] = {
           date: slot.date,
           schedule_id: slot.schedule_id,
-          available_times: [...slot.available_times] 
+          available_times: [...slot.available_times]
         };
       } else {
         const newTimes = slot.available_times.filter(time => !acc[dateKey].available_times.includes(time));
@@ -41,9 +41,9 @@ const Consultant = () => {
 
   useEffect(() => {
     const fetchConsultant = async () => {
-      console.log("ID from useParams:", id); 
-      
-      if (!id || typeof id !== 'string' || id === "solicitacoes-de-supote" || !/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
+      const numericId = parseInt(id);
+
+      if (!id || isNaN(numericId) || id === "solicitacoes-de-supote") {
         console.error("Invalid consultant ID from URL parameters:", id);
         toast.error("ID do consultor inválido na URL.");
         setLoading(false);
@@ -129,7 +129,7 @@ const Consultant = () => {
     );
   }
 
-  const consultantDetails = consultantData[0].consultant; 
+  const consultantDetails = consultantData[0].consultant;
   if (!consultantDetails) {
     return (
       <div className="content-consultant-not-found">
@@ -155,9 +155,9 @@ const Consultant = () => {
       return;
     }
     const data = {
-      id_schedule_consultant: selectedSchedule.schedule_id, 
-      appoinment_time: selectedDateTime.time, 
-      appoinment_date: selectedDateTime.date, 
+      id_schedule_consultant: selectedSchedule.schedule_id,
+      appoinment_time: selectedDateTime.time,
+      appoinment_date: selectedDateTime.date,
     };
     try {
       const response = await fetch(`${API}consultation`, {
@@ -168,7 +168,7 @@ const Consultant = () => {
         },
         body: JSON.stringify(data),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Erro do servidor ao marcar consulta:", errorData);
@@ -199,7 +199,7 @@ const Consultant = () => {
               <p className="name-consultant">
                 {consultantDetails.name}
               </p>{" "}
-              <div className="status">Online</div> 
+              <div className="status">Online</div>
             </div>
             <div className="assessment">
               <i className="material-icons star">star</i>
@@ -229,7 +229,7 @@ const Consultant = () => {
         </div>
         <div className="c-specialties">
           <h3>Selecione uma especialidade:</h3>
-          {consultantData.map((specialty) => ( 
+          {consultantData.map((specialty) => (
             <div
               id={specialty.id}
               key={specialty.id}

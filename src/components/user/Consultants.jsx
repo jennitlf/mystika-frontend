@@ -4,7 +4,7 @@ import "../../css/user/Home.css"
 
 
 
-const Consultant = ({consultants}) => {
+const Consultants = ({consultants}) => {
   if (!consultants) {
     return <div className="loading-consultant-list-filter">Carregando...</div>; 
   }
@@ -33,7 +33,6 @@ const Consultant = ({consultants}) => {
 
       return formattedValue
     }  
-
     return (
       <div className="Content-consultants">
         {consultants
@@ -60,4 +59,4 @@ const Consultant = ({consultants}) => {
     
 }
 
-export default Consultant; 
+export default Consultants; 
