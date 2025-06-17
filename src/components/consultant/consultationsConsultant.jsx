@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { API } from "../../config";
 import "../../css/consultant/consultationsConsultant.css";
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 
 const ConsultationsConsultant = () => {
   const [consultations, setConsultations] = useState([]);
@@ -14,12 +14,10 @@ const ConsultationsConsultant = () => {
   const [specialties, setSpecialties] = useState([]);
   const [loadingSpecialties, setLoadingSpecialties] = useState(true);
 
-  
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
-  const [newStatus, setNewStatus] = useState(""); 
+  const [newStatus, setNewStatus] = useState("");
 
-  
   const formatDisplayDate = (dateString) => {
     if (!dateString) return "";
     try {
@@ -36,7 +34,6 @@ const ConsultationsConsultant = () => {
     }
   };
 
-  
   useEffect(() => {
     const fetchSpecialties = async () => {
       setLoadingSpecialties(true);
@@ -55,8 +52,7 @@ const ConsultationsConsultant = () => {
           throw new Error("Não foi possível buscar suas especialidades.");
         }
         const data = await response.json();
-        
-        setSpecialties(data.data); 
+        setSpecialties(data.data);
       } catch (error) {
         console.error("Erro ao buscar especialidades:", error);
         toast.error("Erro ao carregar especialidades.");
@@ -70,12 +66,10 @@ const ConsultationsConsultant = () => {
     }
   }, [token, user]);
 
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
   const fetchConsultations = useCallback(async () => {
     setLoading(true);
     try {
-      const url = `${API}consultation/byConsultorId`; 
+      const url = `${API}consultation/byConsultorId?consultorId=${user.id}`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -84,17 +78,18 @@ const ConsultationsConsultant = () => {
           "Content-Type": "application/json",
         },
       });
+
       if (!response.ok) {
         throw new Error("Não foi possível buscar suas consultas.");
       }
-      const apiResponse = await response.json(); 
-      console.log("Dados recebidos da API:", apiResponse); 
 
-     
-      let consultationsArray = apiResponse.data; 
-       
-      
-      let filteredData = consultationsArray; 
+      const apiResponse = await response.json();
+      let consultationsArray = apiResponse.data || [];
+      if (!Array.isArray(consultationsArray)) {
+          consultationsArray = [];
+      }
+
+      let filteredData = consultationsArray;
 
       if (searchTerm) {
         filteredData = filteredData.filter(consultation =>
@@ -108,27 +103,25 @@ const ConsultationsConsultant = () => {
         );
       }
       if (filterSpecialty) {
-        
         filteredData = filteredData.filter(consultation =>
-          consultation.schedule_consultant?.consultant_specialty?.specialty?.id === parseInt(filterSpecialty) 
+          consultation.schedule_consultant?.consultant_specialty?.specialty?.id === parseInt(filterSpecialty)
         );
       }
 
       setConsultations(filteredData);
     } catch (error) {
       console.error("Erro ao buscar consultas:", error);
-      toast.error("Erro ao carregar consultas.");
+      toast.error(error || "Erro ao carregar consultas.");
     } finally {
       setLoading(false);
     }
-  });
+  }, [token, user, searchTerm, filterDate, filterSpecialty]);
 
   useEffect(() => {
-    if (token) {
+    if (token && user?.id) {
       fetchConsultations();
     }
-  }, [token, searchTerm, filterDate, filterSpecialty, fetchConsultations]);
-
+  }, [token, user, searchTerm, filterDate, filterSpecialty, fetchConsultations]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -142,11 +135,9 @@ const ConsultationsConsultant = () => {
     setFilterSpecialty(e.target.value);
   };
 
-  
-
   const handleEditClick = (consultation) => {
     setSelectedConsultation(consultation);
-    setNewStatus(consultation.status.toLowerCase()); 
+    setNewStatus(consultation.status.toLowerCase());
     setShowEditModal(true);
   };
 
@@ -187,7 +178,7 @@ const ConsultationsConsultant = () => {
 
     try {
       const response = await fetch(
-        `${API}consultation/consultor/${selectedConsultation.id}`, 
+        `${API}consultation/consultor/${selectedConsultation.id}`,
         {
           method: "PATCH",
           headers: {
@@ -205,7 +196,7 @@ const ConsultationsConsultant = () => {
 
       toast.success("Status da consulta atualizado com sucesso!");
       handleCloseModal();
-      fetchConsultations(); 
+      fetchConsultations();
     } catch (error) {
       console.error("Erro ao atualizar consulta:", error);
       toast.error(error.message || "Erro ao atualizar consulta.");
@@ -264,61 +255,62 @@ const ConsultationsConsultant = () => {
             <div className="message-container">
               <p>Carregando suas consultas...</p>
             </div>
-          ) : consultations.length > 0 ? (
-            <div className="consultations-list">
-              {consultations.map((consultation) => {
-                const statusLower = consultation.status.toLowerCase();
-                const isEditDisabled = statusLower === 'realizada' || statusLower === 'cancelada';
-
-                return (
-                  <div key={consultation.id} className="consultation-card">
-                    <div className="card-header">
-                      <div className="card-specialty">
-                        {consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}
-                      </div>
-                      <div className={`card-status status-${statusLower}`}>
-                        {consultation.status}
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <p className="card-client-name">
-                        Cliente: {consultation.customer && consultation.customer.name ? consultation.customer.name : "N/A"}
-                      </p>
-                      <div className="card-datetime">
-                        <span className="material-symbols-outlined date-icon" translate="no">calendar_month</span>
-                        <span className="date-text">{formatDisplayDate(consultation.appoinment_date)}</span>
-                        <span className="material-symbols-outlined time-icon" translate="no">schedule</span>
-                        <span className="time-text">{consultation.appoinment_time}</span>
-                      </div>
-                    </div>
-                    <div className="card-actions">
-                      <button className="action-button view-button" title="Ver Detalhes">
-                        <span className="material-symbols-outlined" translate="no">visibility</span>
-                      </button>
-                      <button
-                        className="action-button edit-button"
-                        title={isEditDisabled ? "Consulta finalizada ou cancelada" : "Editar Consulta"}
-                        onClick={() => handleEditClick(consultation)}
-                        disabled={isEditDisabled}
-                      >
-                        <span className="material-symbols-outlined" translate="no">edit</span>
-                      </button>
-                      <button className="action-button cancel-button" title="Cancelar Consulta">
-                        <span className="material-symbols-outlined" translate="no">cancel</span>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           ) : (
-            <div className="message-container">
-              <p>Você ainda não possui consultas agendadas!</p>
-            </div>
+            consultations.length > 0 ? (
+              <div className="consultations-list">
+                {consultations.map((consultation) => {
+                  const statusLower = consultation.status.toLowerCase();
+                  const isEditDisabled = statusLower === 'realizada' || statusLower === 'cancelada';
+
+                  return (
+                    <div key={consultation.id} className="consultation-card">
+                      <div className="card-header">
+                        <div className="card-specialty">
+                          {consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}
+                        </div>
+                        <div className={`card-status status-${statusLower}`}>
+                          {consultation.status}
+                        </div>
+                      </div>
+                      <div className="card-body">
+                        <p className="card-client-name">
+                          Cliente: {consultation.customer && consultation.customer.name ? consultation.customer.name : "N/A"}
+                        </p>
+                        <div className="card-datetime">
+                          <span className="material-symbols-outlined date-icon" translate="no">calendar_month</span>
+                          <span className="date-text">{formatDisplayDate(consultation.appoinment_date)}</span>
+                          <span className="material-symbols-outlined time-icon" translate="no">schedule</span>
+                          <span className="time-text">{consultation.appoinment_time}</span>
+                        </div>
+                      </div>
+                      <div className="card-actions">
+                        <button className="action-button view-button" title="Ver Detalhes">
+                          <span className="material-symbols-outlined" translate="no">visibility</span>
+                        </button>
+                        <button
+                          className="action-button edit-button"
+                          title={isEditDisabled ? "Consulta finalizada ou cancelada" : "Editar Consulta"}
+                          onClick={() => handleEditClick(consultation)}
+                          disabled={isEditDisabled}
+                        >
+                          <span className="material-symbols-outlined" translate="no">edit</span>
+                        </button>
+                        <button className="action-button cancel-button" title="Cancelar Consulta">
+                          <span className="material-symbols-outlined" translate="no">cancel</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="message-container">
+                <p>Nenhuma consulta encontrada com os filtros aplicados. {user?.name ? `Olá ${user.name}, você ainda não possui consultas agendadas!` : 'Você ainda não possui consultas agendadas!'}</p>
+              </div>
+            )
           )}
         </div>
 
-        
         {showEditModal && selectedConsultation && (
           <div className="modal-overlay">
             <div className="modal-content-edit">
