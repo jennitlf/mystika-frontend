@@ -1,0 +1,474 @@
+/* mySpecialties.css */
+
+:root {
+    --color-consultant-dark-blue: #0D253F;
+    --color-consultant-medium-blue: #1B4965;
+    --color-consultant-light-blue: #62B6CB;
+    --color-consultant-accent-gold: #FFD700;
+    --color-text-light: #F5F5F5;
+    --color-text-dark-consultant: #333333;
+
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+
+    --color-success-green: #28a745;
+    --color-error-red: #dc3545;
+    --color-warning-orange: #ffc107;
+    --color-info-blue: #17a2b8;
+}
+
+.container-my-specialties {
+    background-color: var(--color-consultant-dark-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.subcontainer-my-specialties {
+    border-radius: 1em;
+    background-color: var(--color-text-light);
+    height: auto;
+    min-height: 700px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header-my-specialties {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-consultant-medium-blue);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.header-my-specialties h2 {
+    color: var(--color-text-light);
+    font-family: var(--font-dm-serif);
+    font-size: 2rem;
+    margin: 0;
+}
+
+.add-specialty-button {
+    background-color: var(--color-consultant-accent-gold);
+    color: var(--color-consultant-dark-blue);
+    padding: 10px 20px;
+    border-radius: 0.5em;
+    border: none;
+    font-family: var(--font-josefin-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-specialty-button:hover {
+    background-color: #e6c200;
+    transform: translateY(-2px);
+}
+
+.add-specialty-button span {
+    font-size: 1.5rem;
+}
+
+.content-my-specialties {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    height: auto;
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.specialties-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.specialty-card {
+    background-color: var(--color-text-light);
+    border-radius: 0.8em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.specialty-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-specialty-name {
+    font-family: var(--font-dm-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-consultant-dark-blue);
+    margin-bottom: 10px;
+}
+
+.card-detail {
+    font-family: var(--font-josefin-sans);
+    font-size: 1.1rem;
+    color: var(--color-text-dark-consultant);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-detail span.material-symbols-outlined {
+    font-size: 1.2rem;
+    color: var(--color-consultant-light-blue);
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin-top: 15px;
+}
+
+.action-button {
+    background-color: transparent;
+    border: 1px solid var(--color-consultant-light-blue);
+    color: var(--color-consultant-medium-blue);
+    padding: 8px;
+    border-radius: 0.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-button span {
+    font-size: 1.2rem;
+}
+
+.action-button:hover {
+    background-color: var(--color-consultant-light-blue);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.action-button.remove-button:hover {
+    background-color: var(--color-error-red);
+    border-color: var(--color-error-red);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content-add {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: fadeInScale 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header-add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.modal-header-add h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s ease;
+    padding: 5px;
+}
+
+.modal-close-button:hover {
+    color: #555;
+}
+
+.modal-body-add .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-body-add label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+    font-family: var(--font-josefin-sans);
+}
+
+.modal-body-add select,
+.modal-body-add input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: var(--font-josefin-sans);
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-body-add select:focus,
+.modal-body-add input:focus {
+    outline: none;
+    border-color: var(--color-consultant-accent-gold);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+.modal-body-add select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%231B4965" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.modal-body-add .input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-body-add .input-group:focus-within {
+    border-color: var(--color-consultant-accent-gold);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+}
+
+.modal-body-add .input-group span {
+    padding: 0 12px;
+    color: var(--color-consultant-medium-blue);
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+}
+
+.modal-body-add .input-group input {
+    border: none;
+    flex-grow: 1;
+    padding: 12px 0;
+    background-color: transparent;
+}
+
+.modal-body-add .input-group input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+.modal-footer-add {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    margin-top: 15px;
+}
+
+.modal-action-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-weight: 600;
+}
+
+.modal-action-button.add-button {
+    background-color: var(--color-success-green);
+    color: white;
+}
+
+.modal-action-button.add-button:hover:not(:disabled) {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.modal-action-button.cancel-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+.modal-action-button.cancel-button:hover:not(:disabled) {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+.modal-action-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.message-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-josefin-sans);
+    font-size: 1.2rem;
+    color: var(--color-text-dark-consultant);
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .modal-content-add {
+        width: 95%;
+        padding: 20px;
+    }
+    .modal-header-add h2 {
+        font-size: 1.5em;
+    }
+    .modal-close-button {
+        font-size: 1.5em;
+    }
+    .modal-action-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    .specialties-list {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .specialty-card {
+        padding: 15px;
+    }
+    .card-specialty-name {
+        font-size: 1.3rem;
+    }
+    .card-detail {
+        font-size: 1rem;
+    }
+    .header-my-specialties h2 {
+        font-size: 1.5rem;
+    }
+    .add-specialty-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .add-specialty-button span {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-my-specialties {
+        padding: 10px;
+    }
+    .subcontainer-my-specialties {
+        border-radius: 0.5em;
+        width: 100%;
+    }
+    .header-my-specialties {
+        padding: 10px 15px;
+        height: auto;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .header-my-specialties h2 {
+        font-size: 1.3rem;
+    }
+    .add-specialty-button {
+        width: 100%;
+        justify-content: center;
+    }
+    .specialties-list {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .specialty-card {
+        padding: 12px;
+    }
+    .card-specialty-name {
+        font-size: 1.2rem;
+    }
+    .card-detail {
+        font-size: 0.95rem;
+    }
+    .action-button {
+        padding: 5px;
+    }
+    .action-button span {
+        font-size: 1rem;
+    }
+}
