@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../css/user/Consultant.css";
 import { API } from "../../config";
@@ -9,12 +9,13 @@ const Consultant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [ buttonLoading, setButtonLoading ] = useState(false)
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [consultantData, setConsultantData] = useState(null);
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [currentConsultantSpecialtyId, setCurrentConsultantSpecialtyId] = useState(null);
   const { token, user } = useContext(AuthContext);
 
   const parseLocalDate = (dateStr) => {
@@ -39,6 +40,31 @@ const Consultant = () => {
       return acc;
     }, {});
   };
+
+  const fetchScheduleForSpecialty = useCallback(async (idConsultantSpecialty) => {
+    try {
+      setAvailableTimes([]);
+      setSelectedDateTime(null);
+      const response = await fetch(
+        `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
+      );
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`API Error fetching schedule: ${response.status} - ${errorText}`);
+        throw new Error("Erro ao buscar horários de agendamento.");
+      }
+      const data = await response.json();
+      const grouped = groupScheduleByDate(data);
+      const groupedSchedule = Object.values(grouped);
+      groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date));
+      setSchedule(groupedSchedule);
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error fetching schedule:", error);
+      toast.error("Erro ao carregar horários disponíveis.");
+      setShowModal(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchConsultant = async () => {
@@ -82,35 +108,16 @@ const Consultant = () => {
 
   }, [id, navigate]);
 
-  const handleSpecialtyClick = async (idConsultantSpecialty) => {
-    try {
-      setAvailableTimes([]);
-      setSelectedDateTime(null);
-      const response = await fetch(
-        `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
-      );
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`API Error fetching schedule: ${response.status} - ${errorText}`);
-        throw new Error("Erro ao buscar horários de agendamento.");
-      }
-      const data = await response.json();
-      const grouped = groupScheduleByDate(data);
-      const groupedSchedule = Object.values(grouped);
-      groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date));
-      setSchedule(groupedSchedule);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error fetching schedule:", error);
-      toast.error("Erro ao carregar horários disponíveis.");
-    }
+  const handleSpecialtyClick = (idConsultantSpecialty) => {
+    setCurrentConsultantSpecialtyId(idConsultantSpecialty);
+    fetchScheduleForSpecialty(idConsultantSpecialty);
   };
 
   const handleDateClick = (date) => {
     const times =
       schedule.find((slot) => slot.date === date)?.available_times || [];
     setAvailableTimes(times);
-    setSelectedDateTime({ date, time: null });
+    setSelectedDateTime((prev) => ({ ...prev, date, time: null }));
   };
 
   const handleTimeClick = (time) => {
@@ -141,19 +148,22 @@ const Consultant = () => {
   }
 
   const postConsultation = async () => {
-    setButtonLoading(true)
+    setButtonLoading(true);
     if (!user) {
       toast.info("Por favor, faça login para marcar uma consulta.");
       navigate('/usuario/login');
+      setButtonLoading(false);
       return;
     }
-    if ( !selectedDateTime?.date || !selectedDateTime?.time) {
+    if (!selectedDateTime?.date || !selectedDateTime?.time) {
       toast.error("Por favor, selecione uma data e horário para a consulta.");
+      setButtonLoading(false);
       return;
     }
     const selectedSchedule = schedule.find((slot) => slot.date === selectedDateTime.date);
     if (!selectedSchedule) {
       toast.error("Horário inválido ou indisponível.");
+      setButtonLoading(false);
       return;
     }
     const data = {
@@ -177,14 +187,19 @@ const Consultant = () => {
         throw new Error(errorData.message || "Erro ao marcar consulta.");
       }
       toast.success("Consulta marcada com sucesso!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500)
-      setButtonLoading(false)
+
+      if (currentConsultantSpecialtyId) {
+        await fetchScheduleForSpecialty(currentConsultantSpecialtyId);
+      }
+      setShowModal(false);
+      setAvailableTimes([]);
+      setSelectedDateTime(null);
+
     } catch (error) {
       console.error("Erro ao marcar consulta:", error);
       toast.error(error.message || "Erro ao marcar consulta.");
-      setButtonLoading(false)
+    } finally {
+      setButtonLoading(false);
     }
   };
 
@@ -300,7 +315,7 @@ const Consultant = () => {
             <button
               onClick={postConsultation}
               className="schedule-button"
-              disabled={!selectedDateTime?.date || !selectedDateTime?.time || buttonLoading} 
+              disabled={!selectedDateTime?.date || !selectedDateTime?.time || buttonLoading}
             >
               {buttonLoading ? "Carregando..." : "Marcar Consulta"}
             </button>
