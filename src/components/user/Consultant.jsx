@@ -230,7 +230,7 @@ const Consultant = () => {
             <div className="content-occurred">
               <p>Consultas Realizadas</p>
               <div className="content-occurred-sub">
-                <i className="material-icons occurred">Youtube</i>
+                <i className="material-icons occurred" translate="no">Youtube</i>
                 <p>{consultantDetails.consultations_carried_out}</p>
               </div>
             </div>
