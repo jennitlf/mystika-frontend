@@ -126,10 +126,13 @@
     align-items: center;
     justify-content: flex-start;
 }
-
-.occurred {
-    margin-right: 8px;
-    font-size: 1.4rem; 
+.content-occurred span{
+    margin: 0;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-right: 8px !important;
+    font-size: 1.4rem;
+    color:#636d29;
 }
 
 .container-2 {
