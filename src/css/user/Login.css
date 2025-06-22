@@ -199,7 +199,7 @@
 @media (max-width: 795px) {
     .container-main-login {
         flex-direction: column;
-        justify-content: flex-start; 
+        justify-content: center; 
         padding-top: 50px; 
     }
     .box-login-1 {
@@ -228,8 +228,8 @@
 }
 
 @media (max-width: 460px) {
-    .box-login-2 {
-        width: 95%;
+    .box-login-2 {height: 100%;
+        width: 100%;
         padding: 25px 15px;
     }
     .title-login {
