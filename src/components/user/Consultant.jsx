@@ -202,7 +202,7 @@ const Consultant = () => {
       setButtonLoading(false);
     }
   };
-
+  console.log("Available times:", availableTimes);
   return (
     <div className="content-consultant">
       <div className="container-1">
