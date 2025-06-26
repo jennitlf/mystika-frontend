@@ -1,28 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; 
+import "react-calendar/dist/Calendar.css";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
 import { API } from "../../config";
-import "../../css/consultant/scheduleConsultant.css"; 
+import "../../css/consultant/scheduleConsultant.css";
 
 const createUTCDateFromYYYYMMDD = (dateString) => {
-    if (typeof dateString !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    if (typeof dateString !== 'string' || !/^\d{4}-\d{2}-\d{2}/.test(dateString)) {
         console.error("createUTCDateFromYYYYMMDD: Entrada inválida. Esperava string YYYY-MM-DD, mas recebeu:", dateString);
         return null;
     }
-    const [year, month, day] = dateString.split("-");
-    
-    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(Date.UTC(year, month - 1, day));
 };
 
 const normalizeDateToUTC = (date) => {
-    if (!(date instanceof Date)) { 
+    if (!(date instanceof Date)) {
         console.error("normalizeDateToUTC: Entrada inválida. Esperava objeto Date, mas recebeu:", date);
         return null;
     }
-    
     return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 };
 
@@ -39,8 +37,8 @@ const ScheduleConsultant = () => {
     const [showModal, setShowModal] = useState(false);
     const [showModalAdd, setShowModalAdd] = useState(false);
     const { control, handleSubmit, reset, watch, trigger, formState: { errors } } = useForm();
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-   
     useEffect(() => {
         const fetchSpecialties = async () => {
             setLoadingSpecialties(true);
@@ -68,7 +66,6 @@ const ScheduleConsultant = () => {
         fetchSpecialties();
     }, [token, user.id]);
 
-    
     const fetchSchedule = async (specialtyId) => {
         if (!specialtyId) {
             setSchedules([]);
@@ -77,7 +74,7 @@ const ScheduleConsultant = () => {
         }
         setLoading(true);
         try {
-            const response = await fetch(`${API}schedule-consultant/${specialtyId}/timeslots`, {
+            const response = await fetch(`${API}schedule-consultant/${specialtyId}/timeslots/${encodeURIComponent(userTimeZone)}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -89,8 +86,12 @@ const ScheduleConsultant = () => {
             }
             const data = await response.json();
             setSchedules(data);
-            
-            const dates = data.map((schedule) => createUTCDateFromYYYYMMDD(schedule.date)).filter(Boolean); 
+
+
+            const dates = data.map((schedule) => {
+                const datePart = schedule.date.split('T')[0];
+                return createUTCDateFromYYYYMMDD(datePart);
+            }).filter(Boolean);
             setHighlightedDates(dates);
 
         } catch (error) {
@@ -101,39 +102,34 @@ const ScheduleConsultant = () => {
         }
     };
 
-    
-    // const selectedDateLocal = selectedDate ? normalizeDateToUTC(selectedDate) : null;
-
-    
     const handleSpecialtyChange = (event) => {
         const specialtyId = event.target.value;
         setSelectedSpecialty(specialtyId);
-        setSchedules([]); 
-        setHighlightedDates([]); 
-        setSelectedDate(null); 
-        setAvailableTimes([]); 
+        setSchedules([]);
+        setHighlightedDates([]);
+        setSelectedDate(null);
+        setAvailableTimes([]);
         if (specialtyId) {
             fetchSchedule(specialtyId);
         }
     };
 
-    
     const handleDateClick = (date) => {
         const normalizedClickedDate = normalizeDateToUTC(date);
-        setSelectedDate(date); 
+        setSelectedDate(date);
         const selectedSchedule = schedules.find((schedule) => {
-            const scheduleDateObj = createUTCDateFromYYYYMMDD(schedule.date);
+            const scheduleDatePart = schedule.date.split('T')[0];
+            const scheduleDateObj = createUTCDateFromYYYYMMDD(scheduleDatePart);
             return scheduleDateObj?.getTime() === normalizedClickedDate?.getTime();
         });
 
         setAvailableTimes(selectedSchedule ? selectedSchedule.available_times : []);
         setShowModal(true);
     };
-
     
     const onSubmit = async (data) => {
         const formattedData = {
-            id_consultant_specialty: Number(data.specialtyId), 
+            id_consultant_specialty: Number(data.specialtyId),
             start_date: data.dateInitial,
             end_date: data.dateFinal,
             hour_initial: data.hourInitial,
@@ -142,7 +138,7 @@ const ScheduleConsultant = () => {
         };
 
         try {
-            const response = await fetch(`${API}schedule-consultant/recurring`, {
+            const response = await fetch(`${API}schedule-consultant/recurring/${encodeURIComponent(userTimeZone)}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -230,7 +226,7 @@ const ScheduleConsultant = () => {
                                     return highlightedDates.some(
                                         (d) => d?.getTime() === normalizedTileDate?.getTime()
                                     )
-                                        ? "highlight-date" 
+                                        ? "highlight-date"
                                         : null;
                                 }
                                 if (view === 'year') {
@@ -453,8 +449,8 @@ const ScheduleConsultant = () => {
                                         <input
                                             {...field}
                                             type="text"
-                                            className="input-schedule" 
-                                            disabled 
+                                            className="input-schedule"
+                                            disabled
                                             readOnly
                                             hidden
                                         />

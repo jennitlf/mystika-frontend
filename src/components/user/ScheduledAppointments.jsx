@@ -14,12 +14,13 @@ const ScheduledAppointments = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const fetchSchedules = useCallback(async () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `${API}consultation/byUserId/paginated?page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
+                `${API}consultation/${encodeURIComponent(userTimeZone)}/byUserId/paginated?page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
                 {
                     method: "GET",
                     headers: {
@@ -55,7 +56,7 @@ const ScheduledAppointments = () => {
             setTotalPages(1);
             setTotalCount(0);
         }
-    }, [token, currentPage]);
+    }, [token, currentPage, userTimeZone]);
 
     useEffect(() => {
         fetchSchedules();
@@ -68,7 +69,7 @@ const ScheduledAppointments = () => {
 
         setCancellingId(consultationId);
         try {
-            const response = await fetch(`${API}consultation/customer/cancel/${consultationId}`, {
+            const response = await fetch(`${API}consultation/${encodeURIComponent(userTimeZone)}/customer/cancel/${consultationId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

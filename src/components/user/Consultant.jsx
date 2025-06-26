@@ -4,6 +4,8 @@ import "../../css/user/Consultant.css";
 import { API } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from 'react-toastify';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const Consultant = () => {
   const { id } = useParams();
@@ -17,36 +19,42 @@ const Consultant = () => {
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const [currentConsultantSpecialtyId, setCurrentConsultantSpecialtyId] = useState(null);
   const { token, user } = useContext(AuthContext);
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const parseLocalDate = (dateStr) => {
-    const [year, month, day] = dateStr.split('-').map(Number);
-    return new Date(year, month - 1, day);
-  };
+  const [calendarDate, setCalendarDate] = useState(new Date());
 
-  const groupScheduleByDate = (schedule) => {
-    return schedule.reduce((acc, slot) => {
-      const dateKey = slot.date;
-      if (!acc[dateKey]) {
-        acc[dateKey] = {
-          date: slot.date,
+  const getYYYYMMDD = (isoString) => isoString.split('T')[0];
+
+  const groupScheduleByDate = useCallback((fetchedSchedule) => {
+    const grouped = {};
+    fetchedSchedule.forEach(slot => {
+      const originalIsoDateString = slot.date;
+      const dateKey = getYYYYMMDD(originalIsoDateString);
+
+      const uniqueKey = `${dateKey}-${slot.schedule_id}`;
+
+      if (!grouped[uniqueKey]) {
+        grouped[uniqueKey] = {
+          originalIsoDateString: originalIsoDateString,
+          displayDate: new Date(originalIsoDateString),
           schedule_id: slot.schedule_id,
           available_times: [...slot.available_times]
         };
       } else {
-        const newTimes = slot.available_times.filter(time => !acc[dateKey].available_times.includes(time));
-        acc[dateKey].available_times = [...acc[dateKey].available_times, ...newTimes];
+        const newTimes = slot.available_times.filter(time => !grouped[uniqueKey].available_times.includes(time));
+        grouped[uniqueKey].available_times = [...grouped[uniqueKey].available_times, ...newTimes];
       }
-      acc[dateKey].available_times.sort((a, b) => a.localeCompare(b));
-      return acc;
-    }, {});
-  };
+      grouped[uniqueKey].available_times.sort((a, b) => a.localeCompare(b));
+    });
+    return Object.values(grouped);
+  }, []);
 
   const fetchScheduleForSpecialty = useCallback(async (idConsultantSpecialty) => {
     try {
       setAvailableTimes([]);
       setSelectedDateTime(null);
       const response = await fetch(
-        `${API}schedule-consultant/${idConsultantSpecialty}/timeslots`
+        `${API}schedule-consultant/${idConsultantSpecialty}/timeslots/${encodeURIComponent(userTimeZone)}`
       );
       if (!response.ok) {
         const errorText = await response.text();
@@ -54,17 +62,33 @@ const Consultant = () => {
         throw new Error("Erro ao buscar horários de agendamento.");
       }
       const data = await response.json();
-      const grouped = groupScheduleByDate(data);
-      const groupedSchedule = Object.values(grouped);
-      groupedSchedule.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      if (!Array.isArray(data)) {
+        console.error("API response is not an array:", data);
+        toast.error("Formato de dados de agendamento inesperado.");
+        setSchedule([]);
+        setShowModal(false);
+        return;
+      }
+
+      const groupedSchedule = groupScheduleByDate(data);
+      
+      groupedSchedule.sort((a, b) => a.displayDate.getTime() - b.displayDate.getTime());
+      
       setSchedule(groupedSchedule);
       setShowModal(true);
+      if (groupedSchedule.length > 0) {
+        setCalendarDate(groupedSchedule[0].displayDate);
+      } else {
+        setCalendarDate(new Date());
+      }
+
     } catch (error) {
       console.error("Error fetching schedule:", error);
       toast.error("Erro ao carregar horários disponíveis.");
       setShowModal(false);
     }
-  }, []);
+  }, [userTimeZone, groupScheduleByDate]);
 
   useEffect(() => {
     const fetchConsultant = async () => {
@@ -113,15 +137,38 @@ const Consultant = () => {
     fetchScheduleForSpecialty(idConsultantSpecialty);
   };
 
-  const handleDateClick = (date) => {
-    const times =
-      schedule.find((slot) => slot.date === date)?.available_times || [];
-    setAvailableTimes(times);
-    setSelectedDateTime((prev) => ({ ...prev, date, time: null }));
+  const handleDateChange = (date) => {
+    const dateKey = getYYYYMMDD(date.toISOString());
+    const slotsForSelectedDate = schedule.filter(slot => getYYYYMMDD(slot.originalIsoDateString) === dateKey);
+    
+    if (slotsForSelectedDate.length > 0) {
+      let allAvailableTimes = [];
+      slotsForSelectedDate.forEach(slot => {
+        allAvailableTimes = [...allAvailableTimes, ...slot.available_times.map(time => ({ time, schedule_id: slot.schedule_id }))];
+      });
+      allAvailableTimes.sort((a, b) => a.time.localeCompare(b.time));
+
+      setAvailableTimes(allAvailableTimes);
+      
+      setSelectedDateTime({ 
+        date: date.toISOString(),
+        time: null,
+        schedule_id: null
+      });
+    } else {
+      setAvailableTimes([]);
+      setSelectedDateTime(null);
+      toast.info("Nenhum horário disponível para esta data.");
+    }
+    setCalendarDate(date);
   };
 
-  const handleTimeClick = (time) => {
-    setSelectedDateTime((prev) => ({ ...prev, time }));
+  const handleTimeClick = (timeSlot) => {
+    setSelectedDateTime((prev) => ({ 
+      ...prev, 
+      time: timeSlot.time,
+      schedule_id: timeSlot.schedule_id
+    }));
   };
 
   if (loading) {
@@ -155,24 +202,36 @@ const Consultant = () => {
       setButtonLoading(false);
       return;
     }
-    if (!selectedDateTime?.date || !selectedDateTime?.time) {
+    if (!selectedDateTime?.date || !selectedDateTime?.time || !selectedDateTime?.schedule_id) {
       toast.error("Por favor, selecione uma data e horário para a consulta.");
       setButtonLoading(false);
       return;
     }
-    const selectedSchedule = schedule.find((slot) => slot.date === selectedDateTime.date);
-    if (!selectedSchedule) {
-      toast.error("Horário inválido ou indisponível.");
-      setButtonLoading(false);
-      return;
-    }
+    
+    const baseDateForTimeSlot = new Date(selectedDateTime.date);
+    const [hours, minutes] = selectedDateTime.time.split(':').map(Number);
+
+    const appointmentDateTimeLocal = new Date(
+      baseDateForTimeSlot.getFullYear(),
+      baseDateForTimeSlot.getMonth(),
+      baseDateForTimeSlot.getDate(),
+      hours,
+      minutes,
+      0,
+      0
+    );
+
+    const appoinment_dateTime_utc = appointmentDateTimeLocal.toISOString();
+
     const data = {
-      id_schedule_consultant: selectedSchedule.schedule_id,
+      id_schedule_consultant: selectedDateTime.schedule_id,
+      appoinment_date_time: appoinment_dateTime_utc.toString(),
       appoinment_time: selectedDateTime.time,
-      appoinment_date: selectedDateTime.date,
+      appoinment_date: getYYYYMMDD(selectedDateTime.date),
     };
+
     try {
-      const response = await fetch(`${API}consultation`, {
+      const response = await fetch(`${API}consultation/${encodeURIComponent(userTimeZone)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +261,7 @@ const Consultant = () => {
       setButtonLoading(false);
     }
   };
-  console.log("Available times:", availableTimes);
+
   return (
     <div className="content-consultant">
       <div className="container-1">
@@ -230,7 +289,7 @@ const Consultant = () => {
             <div className="content-occurred">
               <p>Consultas Realizadas</p>
               <div className="content-occurred-sub">
-                <span class="material-symbols-outlined ocurred">forum</span>
+                <span className="material-symbols-outlined ocurred">forum</span>
                 <p>{consultantDetails.consultations_carried_out}</p>
               </div>
             </div>
@@ -274,18 +333,27 @@ const Consultant = () => {
               </button>
             </div>
             <h3>Selecione uma data</h3>
-            <div className="calendar-schedule-consultant">
+            <div className="calendar-container">
               {schedule && schedule.length > 0 ? (
-                schedule.map((slot) => (
-                  <div
-                    key={slot.date}
-                    className={`calendar-day ${selectedDateTime?.date === slot.date ? 'selected-date' : ''}`}
-                    onClick={() => handleDateClick(slot.date)}
-                    style={{ opacity: slot.available_times.length ? 1 : 0.6, cursor: slot.available_times.length ? 'pointer' : 'not-allowed' }}
-                  >
-                    {parseLocalDate(slot.date).toLocaleDateString("pt-BR")}
-                  </div>
-                ))
+                <Calendar
+                  onChange={handleDateChange}
+                  value={calendarDate}
+                  minDate={new Date()}
+                  tileDisabled={({ date, view }) =>
+                    view === 'month' &&
+                    !schedule.some(slot =>
+                      getYYYYMMDD(slot.originalIsoDateString) === getYYYYMMDD(date.toISOString()) &&
+                      slot.available_times.length > 0
+                    )
+                  }
+                  tileClassName={({ date, view }) =>
+                    view === 'month' &&
+                    selectedDateTime?.date && getYYYYMMDD(selectedDateTime.date) === getYYYYMMDD(date.toISOString())
+                      ? 'selected-date'
+                      : null
+                  }
+                  locale="pt-BR"
+                />
               ) : (
                 <p className="no-availability-message">
                   Sem horários disponíveis para essa especialidade. Tente mais
@@ -298,15 +366,15 @@ const Consultant = () => {
               <div className="times">
                 <h4>Horários disponíveis:</h4>
                 <div className="container-times">
-                  {availableTimes.map((time) => (
+                  {availableTimes.map((timeSlot) => (
                     <button
-                      key={time}
+                      key={`${timeSlot.time}-${timeSlot.schedule_id}`}
                       className={`time-button ${
-                        selectedDateTime?.time === time ? "selected" : ""
+                        selectedDateTime?.time === timeSlot.time ? "selected" : ""
                       }`}
-                      onClick={() => handleTimeClick(time)}
+                      onClick={() => handleTimeClick(timeSlot)}
                     >
-                      {time}
+                      {timeSlot.time}
                     </button>
                   ))}
                 </div>
@@ -315,7 +383,7 @@ const Consultant = () => {
             <button
               onClick={postConsultation}
               className="schedule-button"
-              disabled={!selectedDateTime?.date || !selectedDateTime?.time || buttonLoading}
+              disabled={!selectedDateTime?.date || !selectedDateTime?.time || !selectedDateTime?.schedule_id || buttonLoading}
             >
               {buttonLoading ? "Carregando..." : "Marcar Consulta"}
             </button>

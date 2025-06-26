@@ -148,8 +148,6 @@
 }
 
 .data-profile {
-    width: 600px;
-    max-width: 100%;
     padding: 0 15px; 
     box-sizing: border-box;
 }
@@ -187,6 +185,10 @@
     line-height: 1.6; 
     color: var(--color-text-dark);
     margin-bottom: 20px;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .c-specialties h3 {
@@ -391,7 +393,6 @@
 .time-button:hover:not(.selected) { 
     background-color: #5a3d2e; 
 }
-
 .schedule-button {
     width: 100%;
     padding: 15px;
@@ -406,18 +407,127 @@
     font-weight: 600;
     transition: all 0.3s ease;
 }
-
 .schedule-button:disabled {
     background-color: var(--color-blue-gray); 
     cursor: not-allowed;
     opacity: 0.7;
 }
-
 .schedule-button:enabled:hover {
     background-color: #5a3d2e; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+.react-calendar {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--color-light-beige);
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 0.8em;
+    font-family: var(--font-josefin-sans);
+    line-height: 1.2em;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin: 0 auto;
+}
+.react-calendar__navigation button {
+    color: var(--color-primary-brown);
+    font-family: var(--font-dm-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 0.4em;
+    padding: 8px;
+}
 
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background-color: var(--color-light-blue-gray);
+    color: var(--color-text-dark);
+}
+.react-calendar__navigation button[disabled] {
+    color: var(--color-blue-gray);
+    cursor: not-allowed;
+}
+.react-calendar__navigation__label {
+    text-transform: capitalize;
+}
+.react-calendar__month-view__weekdays__weekday {
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    color: var(--color-primary-brown);
+    text-decoration: none;
+    abbr {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+.react-calendar__tile {
+    font-family: var(--font-josefin-sans);
+    font-weight: 500;
+    color: var(--color-text-dark);
+    padding: 10px 6.6667px;
+    background: none;
+    border-radius: 0.4em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-align: center;
+}
+.react-calendar__tile:enabled:hover {
+    background-color: var(--color-primary-brown);
+    color: var(--color-background-light);
+    border-radius: 0.4em;
+}
+.react-calendar__tile.react-calendar__tile--active,
+.react-calendar__tile.selected-date {
+    background-color: var(--color-gold) !important;
+    color: white !important;
+    border-radius: 0.4em;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--color-blue-gray);
+}
+.react-calendar__tile:disabled {
+    background-color: var(--color-background-light);
+    color: var(--color-blue-gray);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.react-calendar__tile--now {
+    background: var(--color-light-blue-gray);
+    color: var(--color-text-dark);
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+    background: var(--color-primary-brown);
+    color: white;
+}
+.react-calendar__viewContainer button {
+    color: var(--color-primary-brown);
+    font-family: var(--font-josefin-sans);
+    background-color: var(--color-light-beige);
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 0.4em;
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.react-calendar__viewContainer button:enabled:hover,
+.react-calendar__viewContainer button:enabled:focus {
+    background-color: var(--color-primary-brown);
+    color: var(--color-background-light);
+}
+.react-calendar button:focus {
+    outline: none;
+}
+.calendar-schedule-consultant {
+    display: block;
+    margin-bottom: 20px;
+}
+.calendar-day {
+   
+}
 
 @keyframes fadeIn {
     from {

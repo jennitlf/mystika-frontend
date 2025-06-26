@@ -101,6 +101,8 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    overflow-x: auto;
+    max-height: 600px;
 }
 
 .specialties-list {

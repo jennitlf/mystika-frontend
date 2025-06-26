@@ -13,7 +13,7 @@ const ConsultationsConsultant = () => {
   const [filterSpecialty, setFilterSpecialty] = useState("");
   const [specialties, setSpecialties] = useState([]);
   const [loadingSpecialties, setLoadingSpecialties] = useState(true);
-
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
   const [newStatus, setNewStatus] = useState("");
@@ -69,7 +69,7 @@ const ConsultationsConsultant = () => {
   const fetchConsultations = useCallback(async () => {
     setLoading(true);
     try {
-      const url = `${API}consultation/byConsultorId?consultorId=${user.id}`;
+      const url = `${API}consultation/${encodeURIComponent(userTimeZone)}/byConsultorId`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -115,7 +115,7 @@ const ConsultationsConsultant = () => {
     } finally {
       setLoading(false);
     }
-  }, [token, user, searchTerm, filterDate, filterSpecialty]);
+  }, [token, searchTerm, filterDate, filterSpecialty, userTimeZone]);
 
   useEffect(() => {
     if (token && user?.id) {
@@ -178,7 +178,7 @@ const ConsultationsConsultant = () => {
 
     try {
       const response = await fetch(
-        `${API}consultation/consultor/${selectedConsultation.id}`,
+        `${API}consultation/${encodeURIComponent(userTimeZone)}/consultor/${selectedConsultation.id}`,
         {
           method: "PATCH",
           headers: {
@@ -202,7 +202,6 @@ const ConsultationsConsultant = () => {
       toast.error(error.message || "Erro ao atualizar consulta.");
     }
   };
-
   return (
     <div className="container-consultation-consultant">
       <div className="subcontainer-consultation-consultant">
@@ -278,9 +277,9 @@ const ConsultationsConsultant = () => {
                         </p>
                         <div className="card-datetime">
                           <span className="material-symbols-outlined date-icon" translate="no">calendar_month</span>
-                          <span className="date-text">{formatDisplayDate(consultation.appoinment_date)}</span>
+                          <span className="date-text">{formatDisplayDate(consultation.localDateTime.date)}</span>
                           <span className="material-symbols-outlined time-icon" translate="no">schedule</span>
-                          <span className="time-text">{consultation.appoinment_time}</span>
+                          <span className="time-text">{consultation.localDateTime.time}</span>
                         </div>
                       </div>
                       <div className="card-actions">
@@ -294,9 +293,6 @@ const ConsultationsConsultant = () => {
                           disabled={isEditDisabled}
                         >
                           <span className="material-symbols-outlined" translate="no">edit</span>
-                        </button>
-                        <button className="action-button cancel-button" title="Cancelar Consulta">
-                          <span className="material-symbols-outlined" translate="no">cancel</span>
                         </button>
                       </div>
                     </div>
@@ -328,13 +324,13 @@ const ConsultationsConsultant = () => {
                   Especialidade: <strong>{selectedConsultation.schedule_consultant.consultant_specialty.specialty.name_specialty}</strong>
                 </p>
                 <p>
-                  Data: <strong>{formatDisplayDate(selectedConsultation.appoinment_date)}</strong>
+                  Data: <strong>{formatDisplayDate(selectedConsultation.localDateTime.date)}</strong>
                 </p>
                 <p>
-                  Hora: <strong>{selectedConsultation.appoinment_time}</strong>
+                  Hora: <strong>{selectedConsultation.localDateTime.time}</strong>
                 </p>
                 <p>
-                  Status Atual: <strong className={`status-${selectedConsultation.status.toLowerCase()}`}>{selectedConsultation.status}</strong>
+                  Status Atual: <strong className={`card-status status-pendente`}>{selectedConsultation.status}</strong>
                 </p>
 
                 <div className="form-group">
@@ -352,7 +348,7 @@ const ConsultationsConsultant = () => {
                         <option value="cancelada">Cancelada</option>
                       </>
                     )}
-                    {selectedConsultation.status.toLowerCase() === 'agendada' && (
+                    {selectedConsultation.status.toLowerCase() === 'cancelada' && (
                       <>
                         <option value="cancelada">Cancelada</option>
                       </>
