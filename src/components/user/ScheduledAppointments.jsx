@@ -3,6 +3,7 @@ import "../../css/user/ScheduledAppointments.css";
 import { AuthContext } from "../../context/AuthContext.js";
 import { toast } from "react-toastify";
 import { API } from "../../config.js";
+import {formatDisplayDate} from "../../utils/formateDate.js";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -15,7 +16,7 @@ const ScheduledAppointments = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [totalCount, setTotalCount] = useState(0);
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
+   
     const fetchSchedules = useCallback(async () => {
         try {
             setLoading(true);
@@ -61,7 +62,6 @@ const ScheduledAppointments = () => {
     useEffect(() => {
         fetchSchedules();
     }, [fetchSchedules]);
-    console.log(consultations)
     const handleCancelConsultation = async (consultationId) => {
         if (!window.confirm("Você tem certeza que deseja cancelar esta consulta?")) {
             return;
@@ -92,12 +92,6 @@ const ScheduledAppointments = () => {
         }
     };
 
-    const formatDate = (dateString) => {
-        if (!dateString) return "Data não disponível";
-        const [year, month, day] = dateString.split("-");
-        return `${day}-${month}-${year}`;
-    };
-
     const getStatusClass = (status) => {
         switch (status?.toLowerCase()) {
             case 'pendente':
@@ -126,7 +120,7 @@ const ScheduledAppointments = () => {
             </div>
         );
     }
-
+console.log(consultations)
     return (
         <div className="container-scheduledAppointments container-padding-top">
             <div className="content-scheduledAppointments">
@@ -145,7 +139,7 @@ const ScheduledAppointments = () => {
                                     <div key={consultation.id} className="container-schedule-item">
                                         <div className="content-left">
                                             <div className="date-time">
-                                                <p>Data: {formatDate(consultation.appoinment_date)}</p>
+                                                <p>Data: {formatDisplayDate(consultation.appoinment_date)}</p>
                                                 <p>Hora: {consultation.appoinment_time || "Hora não disponível"}</p>
                                             </div>
                                             <p className="specialty-item-scheduleAppoiment">

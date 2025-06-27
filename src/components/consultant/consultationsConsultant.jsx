@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { API } from "../../config";
 import "../../css/consultant/consultationsConsultant.css";
 import { toast } from 'react-toastify';
+import { formatDisplayDate } from "../../utils/formateDate";
 
 const ConsultationsConsultant = () => {
   const [consultations, setConsultations] = useState([]);
@@ -17,22 +18,6 @@ const ConsultationsConsultant = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
   const [newStatus, setNewStatus] = useState("");
-
-  const formatDisplayDate = (dateString) => {
-    if (!dateString) return "";
-    try {
-      const [year, month, day] = dateString.split("-");
-      const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
-      return date.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
-    } catch (e) {
-      console.error("Erro ao formatar data:", dateString, e);
-      return dateString;
-    }
-  };
 
   useEffect(() => {
     const fetchSpecialties = async () => {
@@ -175,7 +160,6 @@ const ConsultationsConsultant = () => {
         return;
       }
     }
-
     try {
       const response = await fetch(
         `${API}consultation/${encodeURIComponent(userTimeZone)}/consultor/${selectedConsultation.id}`,

@@ -80,7 +80,6 @@ const RegisterConsultant = () => {
             }
 
             const result = await response.json();
-            console.log("Registro bem-sucedido:", result);
             navigate('/consultor/login');
         } catch (err) {
             console.error("Erro ao registrar:", err.message);

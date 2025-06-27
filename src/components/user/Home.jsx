@@ -33,7 +33,6 @@ const Home = () => {
         );
         const data = await response.json();
         setConsultants(data.data);
-        console.log("----home", "general-find", data)
         setTotalConsultants(data.meta.total);
         setTotalPage(data.meta.lastPage);
         setPage(parseInt(data.meta.page));
