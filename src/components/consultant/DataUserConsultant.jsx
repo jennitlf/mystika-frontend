@@ -39,7 +39,7 @@ const DataUserConsultant = () => {
     const { id, created_at, updated_at, role, status, password, ...filteredData } = data;
     try {
         const response = await fetch(`${API}consultant/${user.id}`, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",

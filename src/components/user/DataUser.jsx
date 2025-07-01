@@ -58,7 +58,7 @@ const schema = yup.object().shape({
         const updatedData = { ...data, name, phone, status: "ativo" };
         try {
             const response = await fetch(`${API}user/${user.id}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
