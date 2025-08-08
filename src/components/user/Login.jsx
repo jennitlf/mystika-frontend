@@ -33,16 +33,19 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const { access_token } = await response.json(); 
-        login(access_token);
+        const { access_token, expires_in } = await response.json(); 
+        login(access_token, expires_in);
+
         toast.success("Login realizado com sucesso!");
         navigate("/consultores");
       } else {
-        toast.error("Erro no login. Verifique suas credenciais.");
+        const errorData = await response.json();
+        console.error("Erro detalhado da API:", errorData);
+        toast.error(errorData.message || "Erro no login. Verifique suas credenciais.");
       }
     } catch (error) {
       console.error("Erro no login", error);
-      toast.error(error);
+      toast.error("Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.");
     }
   };
 
@@ -67,7 +70,7 @@ const Login = () => {
             {...register("password")}
               type="password"
             />
-            {errors.password && <p className="error-message">{errors.password.password}</p>}
+            {errors.password && <p className="error-message">{errors.password.message}</p>} 
           </div>
           <div className="container-button-submit">
             <button type="submit">Entrar</button>

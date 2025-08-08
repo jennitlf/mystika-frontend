@@ -13,6 +13,9 @@ const MySpecialties = () => {
     const [loading, setLoading] = useState(true);
     const [loadingAvailable, setLoadingAvailable] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [editSpecialty, setEditSpecialty] = useState(false);
+    const [selectedSpecialty, setSelectedSpecialty] = useState(null);
+
 
     const { handleSubmit, control, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -92,6 +95,7 @@ const MySpecialties = () => {
 
     const handleCloseModal = () => {
         setShowAddModal(false);
+        setEditSpecialty(false);
     };
 
     const onSubmit = async (data) => {
@@ -153,6 +157,46 @@ const MySpecialties = () => {
         }
     };
 
+    const handleEditSpecialty = async (data) => {
+        try {
+            if (!data.duration && !data.value_per_duration) {
+                toast.error("Informe ao menos a duração ou o valor por duração.");
+                return;
+            }
+    
+            const payload = {
+                ...(editSpecialty ? { id: selectedSpecialty.id } : {}),
+                id_consultant: user.id,
+                id_specialty: editSpecialty
+                    ? selectedSpecialty.id_specialty
+                    : parseInt(data.id_specialty),
+                ...(data.duration ? { duration: parseInt(data.duration) } : {}),
+                ...(data.value_per_duration ? { value_per_duration: parseFloat(data.value_per_duration.replace(',', '.')) } : {}),
+            };
+    
+            const response = await fetch(`${API}consultant-specialty`, {
+                method: editSpecialty ? "PATCH" : "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Erro ao salvar especialidade.");
+            }
+    
+            toast.success(editSpecialty ? "Especialidade atualizada com sucesso!" : "Especialidade adicionada com sucesso!");
+            handleCloseModal();
+            fetchMySpecialties();
+        } catch (error) {
+            console.error("Erro ao salvar especialidade:", error);
+            toast.error(error.message || "Erro ao salvar especialidade.");
+        }
+    }
+
     return (
         <div className="container-my-specialties">
             <div className="subcontainer-my-specialties">
@@ -182,6 +226,20 @@ const MySpecialties = () => {
                                         Valor por duração: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(specialty.value_per_duration)}
                                     </p>
                                     <div className="card-actions">
+                                        <button
+                                            className="action-button remove-button"
+                                            title="Editar Especialidade"
+                                            onClick={() => {
+                                                setSelectedSpecialty(specialty); // armazena o objeto
+                                                setEditSpecialty(true);
+                                                reset({
+                                                duration: specialty.duration,
+                                                value_per_duration: specialty.value_per_duration?.toString().replace('.', ','),
+                                                });
+                                            }}
+                                        >
+                                        <span className="material-symbols-outlined" translate="no">edit</span>
+                                        </button>
                                         <button
                                             className="action-button remove-button"
                                             title="Remover Especialidade"
@@ -299,6 +357,106 @@ const MySpecialties = () => {
                             </form>
                         </div>
                     </div>
+                )}
+                {editSpecialty && (
+                    <div className="modal-overlay">
+                    <div className="modal-content-add">
+                        <div className="modal-header-add">
+                            <h2>Editar especialidade</h2>
+                            <button className="modal-close-button" onClick={handleCloseModal}>
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        <form onSubmit={handleSubmit(handleEditSpecialty)}>
+                            <div className="modal-body-add">
+                                {!editSpecialty && (
+                                <div className="form-group">
+                                    <label htmlFor="id_specialty">Especialidade</label>
+                                    <Controller
+                                    name="id_specialty"
+                                    control={control}
+                                    rules={{ required: "Selecione uma especialidade" }}
+                                    render={({ field }) => (
+                                        <select {...field} id="id_specialty">
+                                        <option value="">Selecione uma especialidade</option>
+                                        {loadingAvailable ? (
+                                            <option disabled>Carregando especialidades...</option>
+                                        ) : availableSpecialties.length > 0 ? (
+                                            availableSpecialties.map((specialty) => (
+                                            <option key={specialty.id} value={specialty.id}>
+                                                {specialty.name_specialty}
+                                            </option>
+                                            ))
+                                        ) : (
+                                            <option disabled>Nenhuma especialidade disponível</option>
+                                        )}
+                                        </select>
+                                    )}
+                                    />
+                                    {errors.id_specialty && <p className="error-message">{errors.id_specialty.message}</p>}
+                                </div>
+                                )}
+                                <div className="form-group">
+                                <label htmlFor="duration">Duração (minutos)</label>
+                                <Controller
+                                    name="duration"
+                                    control={control}
+                                    rules={{
+                                    min: { value: 1, message: "Duração mínima de 1 minuto" },
+                                    pattern: {
+                                        value: /^[0-9]+$/,
+                                        message: "A duração deve conter apenas números",
+                                    },
+                                    }}
+                                    render={({ field }) => (
+                                    <input
+                                        {...field}
+                                        id="duration"
+                                        type="number"
+                                        placeholder="Ex: 30 (minutos)"
+                                        onInput={(e) => {
+                                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                        }}
+                                    />
+                                    )}
+                                />
+                                {errors.duration && <p className="error-message">{errors.duration.message}</p>}
+                                </div>
+                                <div className="form-group">
+                                <label htmlFor="value_per_duration">Valor por Duração (R$)</label>
+                                <Controller
+                                    name="value_per_duration"
+                                    control={control}
+                                    rules={{
+                                    min: { value: 0.01, message: "Valor deve ser maior que R$0,00" },
+                                    }}
+                                    render={({ field }) => (
+                                    <CurrencyInput
+                                        id="value_per_duration"
+                                        name="value_per_duration"
+                                        placeholder="Ex: R$ 50,00"
+                                        defaultValue={field.value}
+                                        decimalsLimit={2}
+                                        onValueChange={(value) => field.onChange(value)}
+                                        intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                                        className="currency-input"
+                                    />
+                                    )}
+                                />
+                                {errors.value_per_duration && <p className="error-message">{errors.value_per_duration.message}</p>}
+                                </div>
+                            </div>
+                            <div className="modal-footer-add">
+                                <button type="button" className="modal-action-button cancel-button" onClick={handleCloseModal}>
+                                Cancelar
+                                </button>
+                                <button type="submit" className="modal-action-button add-button">
+                                {editSpecialty ? "Salvar Alterações" : "Adicionar"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 )}
             </div>
         </div>

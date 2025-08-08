@@ -142,76 +142,83 @@
 
 .custom-react-calendar {
     width: 100% !important;
-    max-width: 700px; 
-    height: auto;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 1em; 
-    font-family: var(--font-josefin-sans);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    background-color: var(--color-text-light);
-    padding: 15px;
-    box-sizing: border-box;
+    max-width: 700px !important; 
+    height: auto!important;
+    border: 1px solid rgba(0, 0, 0, 0.1)!important;
+    border-radius: 1em!important; 
+    font-family: var(--font-josefin-sans)!important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1)!important;
+    background-color: var(--color-text-light) !important;
+    padding: 15px!important;
+    box-sizing: border-box!important;
 }
 
 .custom-react-calendar .react-calendar__navigation {
-    height: 50px; 
-    margin-bottom: 10px;
+    height: 50px!important; 
+    margin-bottom: 10px!important;
 }
 
 .custom-react-calendar .react-calendar__navigation button {
-    font-size: 1.2rem;
-    color: var(--color-consultant-dark-blue);
-    font-family: var(--font-josefin-sans);
-    font-weight: 600;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    border-radius: 0.5em;
+    font-size: 1.2rem!important;
+    color: var(--color-consultant-dark-blue) !important;
+    font-family: var(--font-josefin-sans)!important;
+    font-weight: 600!important;
+    transition: background-color 0.2s ease, color 0.2s ease!important;
+    border-radius: 0.5em!important;
 }
 
 .custom-react-calendar .react-calendar__navigation button:enabled:hover,
 .custom-react-calendar .react-calendar__navigation button:enabled:focus {
     background-color: rgba(98, 182, 203, 0.2); 
-    color: var(--color-consultant-medium-blue);
+    color: var(--color-consultant-medium-blue)!important;
 }
 
 .custom-react-calendar .react-calendar__navigation__label {
     font-size: 1.4rem; 
-    color: var(--color-consultant-dark-blue);
-    font-family: var(--font-dm-serif);
+    color: var(--color-consultant-dark-blue)!important;
+    font-family: var(--font-dm-serif) !important;
     font-weight: 700;
 }
 
 .custom-react-calendar .react-calendar__month-view__weekdays {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.85rem;
-    color: var(--color-consultant-medium-blue); 
-    font-family: var(--font-josefin-sans);
+    text-align: center !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    font-size: 0.85rem !important;
+    color: var(--color-consultant-medium-blue) !important; 
+    font-family: var(--font-josefin-sans) !important;
 }
 
 .custom-react-calendar .react-calendar__tile {
-    height: 70px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    font-family: var(--font-josefin-sans);
-    color: var(--color-text-dark-consultant);
-    border-radius: 0.5em; 
-    transition: background-color 0.2s ease, border 0.2s ease;
+    height: 70px !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 1rem !important;
+    font-family: var(--font-josefin-sans) !important;
+    color: var(--color-text-dark-consultant) !important;
+    border-radius: 0.5em !important; 
+    transition: background-color 0.2s ease, border 0.2s ease !important;
 }
-
+.react-calendar__viewContainer button{
+    background-color: var(--color-text-light);
+    color: var(--color-consultant-dark-blue) !important;
+}
+.react-calendar__month-view__weekdays__weekday{
+    background-color: var(--color-text-light);
+    color: var(--color-consultant-dark-blue) !important;
+}
 .custom-react-calendar .react-calendar__tile:enabled:hover,
 .custom-react-calendar .react-calendar__tile:enabled:focus {
-    background-color: rgba(98, 182, 203, 0.1); 
-    color: var(--color-consultant-dark-blue);
+    background-color: rgba(98, 182, 203, 0.1) !important; 
+    color: var(--color-consultant-dark-blue) !important;
 }
 
 .custom-react-calendar .react-calendar__tile--now { 
-    background-color: var(--color-consultant-light-blue); 
-    color: var(--color-text-light); 
-    font-weight: 600;
+    background-color: var(--color-consultant-light-blue) !important; 
+    color: var(--color-text-light) !important; 
+    font-weight: 600 !important;
 }
 
 .custom-react-calendar .react-calendar__tile--active { 
@@ -221,19 +228,19 @@
 }
 
 .highlight-date { 
-    background-color: rgba(98, 182, 203, 0.3); 
-    border: 1px solid var(--color-consultant-light-blue);
-    color: var(--color-consultant-dark-blue);
-    font-weight: 600;
+    background-color: rgba(98, 182, 203, 0.3) !important;
+    border: 1px solid var(--color-consultant-light-blue) !important;
+    color: var(--color-consultant-dark-blue) !important;
+    font-weight: 600 !important;
 }
 
 .highlight-date:hover {
-    background-color: rgba(98, 182, 203, 0.5); 
+    background-color: rgba(98, 182, 203, 0.5) !important; 
 }
 
 .highlight-month { 
-    background-color: rgba(98, 182, 203, 0.1); 
-    border: 1px solid rgba(98, 182, 203, 0.3);
+    background-color: rgba(98, 182, 203, 0.1) !important; 
+    border: 1px solid rgba(98, 182, 203, 0.3) !important;
 }
 
 
@@ -297,9 +304,9 @@
 }
 
 .timeslot-schedule-consultant {
-    background-color: var(--color-consultant-light-blue); 
+    background-color: var(--color-consultant-light-blue)!important; 
     color: var(--color-text-light); 
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 0.5em;
     border: 1px solid var(--color-consultant-medium-blue);
     font-family: var(--font-josefin-sans);
@@ -310,8 +317,26 @@
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-
+.timeslot-schedule-consultant button{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    background: transparent;
+    border: none;
+    
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 8px; 
+    transition: color 0.2s ease;
+    padding: 0;
+    margin: 0 0 0 5px;
+}
+.timeslot-schedule-consultant span {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--color-error-red);
+    cursor: pointer;
+}
 .sub-container-add-schedule-consultant {
     display: flex;
     flex-direction: column;

@@ -5,6 +5,8 @@ import "../../css/consultant/consultationsConsultant.css";
 import { toast } from 'react-toastify';
 import { formatDisplayDate } from "../../utils/formateDate";
 
+const ITEMS_PER_PAGE = 5;
+
 const ConsultationsConsultant = () => {
   const [consultations, setConsultations] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,6 +20,10 @@ const ConsultationsConsultant = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedConsultation, setSelectedConsultation] = useState(null);
   const [newStatus, setNewStatus] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     const fetchSpecialties = async () => {
@@ -54,7 +60,7 @@ const ConsultationsConsultant = () => {
   const fetchConsultations = useCallback(async () => {
     setLoading(true);
     try {
-      const url = `${API}consultation/${encodeURIComponent(userTimeZone)}/byConsultorId`;
+      const url = `${API}consultation/${encodeURIComponent(userTimeZone)}/byConsultantId/paginated?page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -63,6 +69,15 @@ const ConsultationsConsultant = () => {
           "Content-Type": "application/json",
         },
       });
+
+      if (response.status === 404) {
+        toast.info("Não há consultas agendadas.");
+        setConsultations([]);
+        setTotalPages(1);
+        setTotalCount(0);
+        setLoading(false);
+        return;
+    }
 
       if (!response.ok) {
         throw new Error("Não foi possível buscar suas consultas.");
@@ -94,30 +109,39 @@ const ConsultationsConsultant = () => {
       }
 
       setConsultations(filteredData);
+      setTotalPages(apiResponse.totalPages || 1);
+      setTotalCount(apiResponse.totalCount || 0);
+
     } catch (error) {
       console.error("Erro ao buscar consultas:", error);
-      toast.error(error || "Erro ao carregar consultas.");
+      toast.error(error.message || "Erro ao carregar consultas.");
+      setConsultations([]);
+      setTotalPages(1);
+      setTotalCount(0);
     } finally {
       setLoading(false);
     }
-  }, [token, searchTerm, filterDate, filterSpecialty, userTimeZone]);
+  }, [token, currentPage, userTimeZone, searchTerm, filterDate, filterSpecialty]); 
 
   useEffect(() => {
     if (token && user?.id) {
       fetchConsultations();
     }
-  }, [token, user, searchTerm, filterDate, filterSpecialty, fetchConsultations]);
+  }, [token, user, fetchConsultations]); 
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1);
   };
 
   const handleDateChange = (e) => {
     setFilterDate(e.target.value);
+    setCurrentPage(1);
   };
 
   const handleSpecialtyChange = (e) => {
     setFilterSpecialty(e.target.value);
+    setCurrentPage(1);
   };
 
   const handleEditClick = (consultation) => {
@@ -160,6 +184,7 @@ const ConsultationsConsultant = () => {
         return;
       }
     }
+
     try {
       const response = await fetch(
         `${API}consultation/${encodeURIComponent(userTimeZone)}/consultor/${selectedConsultation.id}`,
@@ -186,6 +211,13 @@ const ConsultationsConsultant = () => {
       toast.error(error.message || "Erro ao atualizar consulta.");
     }
   };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+        setCurrentPage(newPage);
+    }
+  };
+
   return (
     <div className="container-consultation-consultant">
       <div className="subcontainer-consultation-consultant">
@@ -251,7 +283,7 @@ const ConsultationsConsultant = () => {
                         <div className="card-specialty">
                           {consultation.schedule_consultant.consultant_specialty.specialty.name_specialty}
                         </div>
-                        <div className={`card-status status-${statusLower}`}>
+                        <div className={`card-status-consultant consultant-status-${statusLower}`}>
                           {consultation.status}
                         </div>
                       </div>
@@ -291,6 +323,28 @@ const ConsultationsConsultant = () => {
           )}
         </div>
 
+        {totalPages > 1 && (
+    <div className="pagination-controls-consultant">
+        <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="pagination-button-consultant"
+        >
+            Anterior
+        </button>
+        <span className="pagination-info-consultant">
+            Página {currentPage} de {totalPages}
+        </span>
+        <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="pagination-button-consultant"
+        >
+            Próxima
+        </button>
+    </div>
+)}
+
         {showEditModal && selectedConsultation && (
           <div className="modal-overlay">
             <div className="modal-content-edit">
@@ -314,7 +368,7 @@ const ConsultationsConsultant = () => {
                   Hora: <strong>{selectedConsultation.localDateTime.time}</strong>
                 </p>
                 <p>
-                  Status Atual: <strong className={`card-status status-pendente`}>{selectedConsultation.status}</strong>
+                  Status Atual: <strong className={`card-status-consultant consultant-status-${selectedConsultation.status.toLowerCase()}`}>{selectedConsultation.status}</strong>
                 </p>
 
                 <div className="form-group">
@@ -326,13 +380,13 @@ const ConsultationsConsultant = () => {
                     className="modal-select-status"
                   >
                     <option value="" disabled>Selecione um novo status</option>
-                    {selectedConsultation.status.toLowerCase() === 'pendente' && (
+                    {selectedConsultation.status.toLowerCase() === 'confirmada' && (
                       <>
                         <option value="realizada">Realizada</option>
                         <option value="cancelada">Cancelada</option>
                       </>
                     )}
-                    {selectedConsultation.status.toLowerCase() === 'cancelada' && (
+                    {selectedConsultation.status.toLowerCase() === 'agendada' && (
                       <>
                         <option value="cancelada">Cancelada</option>
                       </>

@@ -199,7 +199,6 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    overflow-x: auto;
     max-height: 600px;
 }
 
@@ -256,7 +255,7 @@
     color: var(--color-consultant-dark-blue);
 }
 
-.card-status {
+.card-status-consultant {
     padding: 6px 12px;
     border-radius: 1.5em;
     font-family: var(--font-josefin-sans);
@@ -267,19 +266,15 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.status-agendada {
+.consultant-status-confirmada {
     background-color: var(--color-info-blue);
 }
-.status-realizada {
+.consultant-status-realizada {
     background-color: var(--color-success-green);
 }
-.status-cancelada {
+.consultant-status-cancelada {
     background-color: var(--color-error-red);
 }
-.status-pendente {
-    background-color: var(--color-warning-orange);
-}
-
 
 .card-body {
     margin-bottom: 15px;
@@ -549,6 +544,62 @@
     color: #dc3545;
     font-weight: bold;
 }
+.pagination-controls-consultant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin-top: 5px;
+    gap: 20px;
+}
+
+.pagination-button-consultant {
+    background-color: var(--color-accent-blue, #8ca9b1); 
+    color: var(--color-background-light, #f8f6f1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-button-consultant:hover:not(:disabled) {
+    background-color: #6e8b94;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.pagination-button-consultant:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.pagination-info-consultant {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 1.1em;
+    color: var(--color-text-dark, #4a3c31);
+    font-weight: 500;
+}
+
+@media(max-width: 620px){
+    .pagination-controls-consultant {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .pagination-button-consultant {
+        width: 150px;
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    .pagination-info-consultant {
+        font-size: 1em;
+    }
+}
 
 @media (max-width: 768px) {
     .modal-content-edit {
@@ -567,7 +618,14 @@
     }
 }
 
+@media(max-height:930px){
+    .container-consultation-consultant{
+        padding-top: 50px;
+        justify-content: end;
+    }
+}
 @media(max-width: 900px){
+    
     .subcontainer-consultation-consultant {
         width: 95%;
     }

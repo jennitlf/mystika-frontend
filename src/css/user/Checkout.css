@@ -1,0 +1,430 @@
+/* Importa as variáveis de cor e fonte do CSS principal, se não estiverem globais */
+:root {
+    --color-light-beige: #f0ede6;
+    --color-background-light: #f8f6f1;
+    --color-primary-brown: #6b4c3b;
+    --color-text-dark: #4a3c31;
+    --color-gold: #d4af37;
+    --color-highlight-red: #862121;
+    --color-blue-gray: rgba(139, 170, 185, 0.3);
+    --color-light-blue-gray: rgba(207, 220, 226, 0.404);
+    --font-dm-serif: "DM Serif Display", serif;
+    --font-josefin-sans: "Josefin Sans", sans-serif;
+}
+
+/* --- Modal Geral do Checkout --- */
+.checkout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+    z-index: 1000; /* Garante que o modal esteja acima de tudo */
+    animation: fadeIn 0.3s ease-out; /* Reutiliza a animação fadeIn */
+}
+
+.checkout-modal-content {
+    position: relative;
+    background: var(--color-light-beige); /* Cor de fundo clara */
+    width: 90%;
+    max-width: 650px; /* Um pouco mais largo que o modal de agendamento se necessário */
+    max-height: 90vh; /* Ajusta a altura máxima */
+    padding: 30px;
+    border-radius: 10px;
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os elementos */
+}
+
+/* --- Botão de Fechar (reutilizado do modal de agendamento) --- */
+.checkout-modal-content .container-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.checkout-modal-content .close-button {
+    background: none;
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkout-modal-content .close-button:hover {
+    background-color: var(--color-highlight-red);
+    color: white;
+    border-color: var(--color-highlight-red);
+}
+
+/* --- Títulos --- */
+.checkout-modal-content h2 {
+    font-family: var(--font-dm-serif);
+    color: var(--color-text-dark);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.checkout-modal-content h3 {
+    font-family: var(--font-dm-serif);
+    color: var(--color-text-dark);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--color-blue-gray);
+    padding-bottom: 8px;
+}
+
+.checkout-modal-content h4 {
+    font-family: var(--font-dm-serif);
+    color: var(--color-text-dark);
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+/* --- Resumo da Consulta --- */
+.consultation-summary {
+    background-color: var(--color-background-light);
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: var(--font-josefin-sans);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+.consultation-summary p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+.consultation-summary p strong {
+    color: var(--color-primary-brown);
+}
+
+/* --- Seleção de Método de Pagamento --- */
+.payment-method-selection {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+.options-payments{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 100%;
+}
+.payment-button {
+    padding: 12px 25px;
+    background-color: var(--color-primary-brown);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    flex: 1; /* Permite que os botões cresçam e ocupem espaço */
+    min-width: 120px; /* Garante um tamanho mínimo */
+    max-width: 180px; /* Limita o tamanho máximo */
+}
+
+.payment-button:hover {
+    background-color: #5a3d2e; /* Tom mais escuro do primary-brown */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-button.selected {
+    background-color: var(--color-gold); /* Cor de destaque quando selecionado */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--color-primary-brown);
+}
+
+/* --- Formulários de Detalhes do Pagador --- */
+.payer-details-form {
+    background-color: var(--color-background-light);
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Styles for all form groups (existing and new Boleto fields) */
+.payer-details-form label {
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    color: var(--color-primary-brown);
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    display: block; /* Ensures label takes full width for better stacking */
+}
+
+.payer-details-form input[type="email"],
+.payer-details-form input[type="text"],
+.payer-details-form input[type="number"], /* Added for street_number */
+.payer-details-form select {
+    padding: 10px 12px;
+    border: 1px solid var(--color-blue-gray);
+    border-radius: 5px;
+    font-family: var(--font-josefin-sans);
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    background-color: white; /* Fundo branco para os inputs */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Make inputs take full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin-bottom: 10px; /* Space between inputs */
+}
+
+.payer-details-form input:focus,
+.payer-details-form select:focus {
+    border-color: var(--color-primary-brown);
+    box-shadow: 0 0 0 2px rgba(107, 76, 59, 0.2); /* Sombra suave ao focar */
+    outline: none;
+}
+
+/* --- Specific styles for Boleto address fields container --- */
+.boleto-address-fields {
+    display: grid;
+    /* This creates a responsive grid. Adjust as needed. */
+    /* For larger screens, 2 columns. For smaller, 1 column. */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px; /* Spacing between grid items */
+    margin-bottom: 15px;
+}
+
+.boleto-address-fields label {
+    margin-bottom: 0; /* Remove extra margin as grid handles spacing */
+}
+
+.boleto-address-fields input {
+    margin-bottom: 0; /* Remove extra margin as grid handles spacing */
+}
+
+
+/* --- Botão de Confirmação de Pagamento (para PIX e Boleto) --- */
+.payer-details-form > button { /* Target only the direct child button of payer-details-form */
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-primary-brown);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 25px;
+    font-size: 1.2rem;
+    font-family: var(--font-josefin-sans);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.payer-details-form > button:disabled {
+    background-color: var(--color-blue-gray);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.payer-details-form > button:enabled:hover {
+    background-color: #5a3d2e;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Estilização específica para o formulário do Mercado Pago (CardPayment) --- */
+#form-mercadopago {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* --- Modal de Informações de Pagamento (PIX/Boleto) --- */
+.payment-info-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.payment-info-modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+}
+
+.payment-info-modal-content h2 {
+    color: var(--color-text-dark); /* Using your defined variable */
+    margin-bottom: 20px;
+    font-family: var(--font-dm-serif); /* Consistent font */
+}
+
+.payment-info-modal-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: var(--color-text-dark); /* Using your defined variable */
+    font-family: var(--font-josefin-sans); /* Consistent font */
+}
+
+.pix-code {
+    background-color: var(--color-background-light); /* Using your defined variable */
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    word-break: break-all;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--color-primary-brown); /* Using your defined variable */
+    border: 1px dashed var(--color-blue-gray); /* Added subtle border */
+}
+
+.qr-code-image {
+    max-width: 80%;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid var(--color-blue-gray); /* Using your defined variable */
+    border-radius: 5px;
+}
+
+.payment-info-modal-content button {
+    background-color: var(--color-primary-brown); /* Using your defined variable */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    font-family: var(--font-josefin-sans); /* Consistent font */
+}
+
+.payment-info-modal-content button:hover {
+    background-color: #5a3d2e; /* Darker shade of primary brown */
+}
+
+.payment-modal-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 25px;
+    border-top: 1px dashed #eee;
+    padding-top: 15px;
+}
+
+.payment-info-modal-content .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #aaa;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.payment-info-modal-content .close-button:hover {
+    color: #333;
+}
+
+/* --- Animação para o Modal --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Media Queries para Responsividade --- */
+@media (max-width: 768px) {
+    .checkout-modal-content {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .checkout-modal-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .checkout-modal-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .payment-method-selection {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .options-payments {
+        flex-direction: column; /* Stack buttons vertically on smaller screens */
+        gap: 10px; /* Space between stacked buttons */
+    }
+
+    .payment-button {
+        max-width: 100%;
+    }
+
+    .payer-details-form button {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    /* Adjust Boleto address grid for smaller screens */
+    .boleto-address-fields {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-modal-content {
+        padding: 15px;
+    }
+
+    .checkout-modal-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .consultation-summary p,
+    .payer-details-form label, /* Updated to target directly */
+    .payer-details-form input, /* Updated to target directly */
+    .payer-details-form select { /* Updated to target directly */
+        font-size: 0.9rem;
+    }
+}

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { DateTime } from "luxon";
 import "../../css/user/Consultant.css";
 import { API } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from 'react-toastify';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import Checkout from "./Checkout";
 
 const Consultant = () => {
   const { id } = useParams();
@@ -15,10 +17,12 @@ const Consultant = () => {
   const [consultantData, setConsultantData] = useState(null);
   const [schedule, setSchedule] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [availableTimes, setAvailableTimes] = useState([]);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const [currentConsultantSpecialtyId, setCurrentConsultantSpecialtyId] = useState(null);
-  const { token, user } = useContext(AuthContext);
+  const [selectedConsultationDetails, setSelectedConsultationDetails] = useState(null);
+  const { user } = useContext(AuthContext);
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -194,73 +198,66 @@ const Consultant = () => {
     );
   }
 
-  const postConsultation = async () => {
+  const handleProceedToCheckout = () => {
     setButtonLoading(true);
+    
     if (!user) {
       toast.info("Por favor, faça login para marcar uma consulta.");
       navigate('/usuario/login');
       setButtonLoading(false);
       return;
     }
+  
     if (!selectedDateTime?.date || !selectedDateTime?.time || !selectedDateTime?.schedule_id) {
       toast.error("Por favor, selecione uma data e horário para a consulta.");
       setButtonLoading(false);
       return;
     }
-    
-    const baseDateForTimeSlot = new Date(selectedDateTime.date);
+  
     const [hours, minutes] = selectedDateTime.time.split(':').map(Number);
-
-    const appointmentDateTimeLocal = new Date(
-      baseDateForTimeSlot.getFullYear(),
-      baseDateForTimeSlot.getMonth(),
-      baseDateForTimeSlot.getDate(),
-      hours,
-      minutes,
-      0,
-      0
+  
+    const appointmentDateTimeLocal = DateTime.fromObject(
+      {
+        year: new Date(selectedDateTime.date).getFullYear(),
+        month: new Date(selectedDateTime.date).getMonth() + 1,
+        day: new Date(selectedDateTime.date).getDate(),
+        hour: hours,
+        minute: minutes,
+      },
+      { zone: userTimeZone }
     );
-
-    const appoinment_dateTime_utc = appointmentDateTimeLocal.toISOString();
-
-    const data = {
+  
+    const appoinment_dateTime_utc = appointmentDateTimeLocal.toUTC().toISO();
+    console.log(appoinment_dateTime_utc)
+  
+    const selectedSpecialty = consultantData.find(s => s.id === currentConsultantSpecialtyId);
+  
+    const consultationDataForCheckout = {
       id_schedule_consultant: selectedDateTime.schedule_id,
-      appoinment_date_time: appoinment_dateTime_utc.toString(),
+      appoinment_date_time: appoinment_dateTime_utc,
       appoinment_time: selectedDateTime.time,
       appoinment_date: getYYYYMMDD(selectedDateTime.date),
+      consultantName: consultantDetails.name,
+      specialtyName: selectedSpecialty.specialty.name_specialty,
+      consultationValue: selectedSpecialty.value_per_duration,
+      duration: selectedSpecialty.duration,
     };
-
-    try {
-      const response = await fetch(`${API}consultation/${encodeURIComponent(userTimeZone)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Erro do servidor ao marcar consulta:", errorData);
-        throw new Error(errorData.message || "Erro ao marcar consulta.");
-      }
-      toast.success("Consulta marcada com sucesso!");
-
-      if (currentConsultantSpecialtyId) {
-        await fetchScheduleForSpecialty(currentConsultantSpecialtyId);
-      }
-      setShowModal(false);
-      setAvailableTimes([]);
-      setSelectedDateTime(null);
-
-    } catch (error) {
-      console.error("Erro ao marcar consulta:", error);
-      toast.error(error.message || "Erro ao marcar consulta.");
-    } finally {
-      setButtonLoading(false);
-    }
+  
+    setSelectedConsultationDetails(consultationDataForCheckout);
+    setShowModal(false);
+    setShowCheckoutModal(true);
+    setButtonLoading(false);
   };
+
+  const handleCloseCheckout = async () => {
+    setShowCheckoutModal(false);
+    if (currentConsultantSpecialtyId) {
+      await fetchScheduleForSpecialty(currentConsultantSpecialtyId);
+    }
+    setAvailableTimes([]);
+    setSelectedDateTime(null);
+  };
+
 
   return (
     <div className="content-consultant">
@@ -381,14 +378,21 @@ const Consultant = () => {
               </div>
             )}
             <button
-              onClick={postConsultation}
+              onClick={handleProceedToCheckout}
               className="schedule-button"
               disabled={!selectedDateTime?.date || !selectedDateTime?.time || !selectedDateTime?.schedule_id || buttonLoading}
             >
-              {buttonLoading ? "Carregando..." : "Marcar Consulta"}
+              {buttonLoading ? "Carregando..." : "Agendar Consulta"}
             </button>
           </div>
         </div>
+      )}
+
+      {showCheckoutModal && selectedConsultationDetails && (
+        <Checkout
+          consultationDetails={selectedConsultationDetails}
+          onClose={handleCloseCheckout}
+        />
       )}
     </div>
   );

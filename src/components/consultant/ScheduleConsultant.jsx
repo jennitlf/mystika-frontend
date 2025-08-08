@@ -36,6 +36,11 @@ const ScheduleConsultant = () => {
     const [availableTimes, setAvailableTimes] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [showModalAdd, setShowModalAdd] = useState(false);
+    const [showModalRemove, setShowModalRemove] = useState(false);
+    const [scheduleToRemove, setScheduleToRemove] = useState(null);
+    const [timeToRemove, setTimeToRemove] = useState("");
+    const [reason, setReason] = useState("");
+    const [reasonError, setReasonError] = useState("");
     const { control, handleSubmit, reset, watch, trigger, formState: { errors } } = useForm();
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -86,14 +91,14 @@ const ScheduleConsultant = () => {
             }
             const data = await response.json();
             setSchedules(data);
-
+            console.log("Consultas recebidas:", data);
 
             const dates = data.map((schedule) => {
                 const datePart = schedule.date.split('T')[0];
                 return createUTCDateFromYYYYMMDD(datePart);
             }).filter(Boolean);
             setHighlightedDates(dates);
-
+            console.log("Datas destacadas:", dates);
         } catch (error) {
             console.error("Erro ao buscar consultas:", error);
             toast.error("Erro ao carregar agenda.");
@@ -124,9 +129,10 @@ const ScheduleConsultant = () => {
         });
 
         setAvailableTimes(selectedSchedule ? selectedSchedule.available_times : []);
+        setScheduleToRemove(selectedSchedule);
         setShowModal(true);
     };
-    
+
     const onSubmit = async (data) => {
         const formattedData = {
             id_consultant_specialty: Number(data.specialtyId),
@@ -170,6 +176,64 @@ const ScheduleConsultant = () => {
         } catch (error) {
             console.error("Erro ao salvar agenda", error);
             toast.error("Erro ao salvar agenda. Verifique sua conexão.");
+        }
+    };
+
+    const handleRemoveTimeClick = (time) => {
+        setTimeToRemove(time);
+        setReason("");
+        setReasonError("");
+        setShowModal(false);
+        setShowModalRemove(true);
+    };
+
+
+    const handleConfirmRemove = async () => {
+        if (!reason.trim()) {
+            setReasonError("O motivo da remoção é obrigatório.");
+            return;
+        }
+        setReasonError("");
+
+        if (!scheduleToRemove || !timeToRemove) {
+            toast.error("Erro: Informações do horário não encontradas.");
+            return;
+        }
+
+        const id_schedule_consultant = scheduleToRemove.schedule_id;
+        const date_exception = scheduleToRemove.date.split('T')[0];
+        const unavailable_time = timeToRemove;
+        const unavailable_date_time = `${date_exception}T${unavailable_time}:00.000`;
+        console.log('horario excessão enviado para o backend', unavailable_date_time)
+        const requestBody = {
+            id_schedule_consultant,
+            date_exception,
+            unavailable_date_time,
+            unavailable_time,
+            reason: reason.trim(),
+        };
+
+        try {
+            const response = await fetch(`${API}schedule-exception/${encodeURIComponent(userTimeZone)}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (response.ok) {
+                toast.success("Horário removido com sucesso!");
+                setShowModalRemove(false);
+                fetchSchedule(selectedSpecialty);
+            } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || "Erro ao remover horário. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao remover horário:", error);
+            toast.error("Erro ao remover horário. Verifique sua conexão.");
         }
     };
 
@@ -257,8 +321,11 @@ const ScheduleConsultant = () => {
                         <div className="container-time-timeslot-schedule-consultant">
                             {availableTimes.length > 0 ? (
                                 availableTimes.map((time, index) => (
-                                    <div key={index} className="timeslot-schedule-consultant">
+                                    <div key={index} className="timeslot-schedule-consultant" >
                                         {time}
+                                        <button onClick={() => handleRemoveTimeClick(time)}>
+                                            <span className="material-symbols-outlined delete-time" title="Remover horário">close</span>
+                                        </button>
                                     </div>
                                 ))
                             ) : (
@@ -268,6 +335,34 @@ const ScheduleConsultant = () => {
                     </div>
                 </div>
             )}
+
+            {showModalRemove && (
+                <div className="modal-schedule-consultant">
+                    <div className="modal-content-schedule-consultant">
+                        <button className="close-modal-schedule-consultant" onClick={() => setShowModalRemove(false)}>
+                            &times;
+                        </button>
+                        <h3>Remover Horário</h3>
+                        <p>Tem certeza que deseja remover o horário **{timeToRemove}** do dia **{selectedDate?.toLocaleDateString('pt-BR')}**?</p>
+                        <div className="form-group-schedule">
+                            <label htmlFor="reason">Motivo da remoção:</label>
+                            <textarea
+                                id="reason"
+                                value={reason}
+                                onChange={(e) => setReason(e.target.value)}
+                                rows="3"
+                                className={`input-schedule ${reasonError ? "input-error" : ""}`}
+                            />
+                            {reasonError && <span className="error-message-schedule">{reasonError}</span>}
+                        </div>
+                        <div className="modal-buttons-schedule-consultant">
+                            <button onClick={() => setShowModalRemove(false)} className="cancel-button-schedule">Cancelar</button>
+                            <button onClick={handleConfirmRemove} className="confirm-button-schedule">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Fim do Novo Modal */}
 
             {showModalAdd && (
                 <div className="modal-container-add-schedule-consultant">

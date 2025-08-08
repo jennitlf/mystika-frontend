@@ -62,7 +62,15 @@ const ScheduledAppointments = () => {
     useEffect(() => {
         fetchSchedules();
     }, [fetchSchedules]);
+
     const handleCancelConsultation = async (consultationId) => {
+        const consultationToCancel = consultations.find(c => c.id === consultationId);
+
+        if (!consultationToCancel || consultationToCancel.status?.toLowerCase() !== 'confirmado') {
+            toast.error("Só é possível cancelar consultas com status 'confirmado'.");
+            return;
+        }
+
         if (!window.confirm("Você tem certeza que deseja cancelar esta consulta?")) {
             return;
         }
@@ -94,12 +102,32 @@ const ScheduledAppointments = () => {
 
     const getStatusClass = (status) => {
         switch (status?.toLowerCase()) {
-            case 'pendente':
+            case 'pendente_pagamento':
                 return 'status-pendente';
             case 'realizada':
                 return 'status-realizada';
             case 'cancelada':
                 return 'status-cancelada';
+            case 'confirmada':
+                return 'status-confirmada';
+            case 'falha_no_pagamento':
+                return 'status-falha_no_pagamento'
+            default:
+                return '';
+        }
+    };
+    const getStatus = (status) => {
+        switch (status?.toLowerCase()) {
+            case 'pendente_pagamento':
+                return 'Pendente de pagamento';
+            case 'realizada':
+                return 'Realizada';
+            case 'cancelada':
+                return 'Cancelada';
+            case 'confirmada': 
+                return 'Confirmada';
+            case 'falha_no_pagamento':
+                return 'Falha no pagamento'
             default:
                 return '';
         }
@@ -134,7 +162,7 @@ console.log(consultations)
                     ) : (
                         <>
                             {consultations.map((consultation) => {
-                                const canCancel = consultation.status?.toLowerCase() === 'pendente';
+                                const canCancel = consultation.status?.toLowerCase() === 'confirmado';
                                 return (
                                     <div key={consultation.id} className="container-schedule-item">
                                         <div className="content-left">
@@ -150,7 +178,7 @@ console.log(consultations)
                                                     {consultation.scheduleConsultant?.consultantSpecialty?.duration || "0"} min
                                                 </div>
                                                 <div className={`status-schedule-item ${getStatusClass(consultation.status)}-schedule-user`}>
-                                                    {consultation.status || "Desconhecido"}
+                                                    {getStatus(consultation.status) || "Desconhecido"}
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +187,7 @@ console.log(consultations)
                                             <p className="value-consultation">
                                                 R${consultation.scheduleConsultant?.consultantSpecialty?.value_per_duration || "0"},00
                                             </p>
-                                            {canCancel && (
+                                            {canCancel && ( // Botão só aparece se canCancel for true
                                                 <button
                                                     className="btn-cancel-consultation-user"
                                                     onClick={() => handleCancelConsultation(consultation.id)}
